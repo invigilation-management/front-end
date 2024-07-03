@@ -1,81 +1,90 @@
 export default {
   sidebarMap: {
-    1: {
+    login: {
       main: [
         {
-          path: '/main/first',
-          icon: 'suncaper-menu-unfold',
-          title: '一级菜单1'
-        },
-        {
-          path: '/main/second',
-          icon: 'suncaper-menu-unfold',
-          title: '一级菜单2',
-          group: 'second',
-          children: [
-            {
-              path: '/main/second/second',
-              icon: 'suncaper-menu-unfold',
-              title: '二级菜单'
-            }
-          ]
+          path: '/login',
+          icon: 'login-icon',
+          title: '登录页'
         }
       ]
     },
     2: {
       main: [
         {
-          path: '/main/first',
+          path: '/admissions/batch-details',
           icon: 'suncaper-menu-unfold',
-          title: '一些学院'
+          title: '批次详情'
         },
         {
-          path: '/main/users/userlist',
+          path: '/admissions/exam-approval',
           icon: 'suncaper-menu-unfold',
-          title: '用户列表'
+          title: '报名审批',
+          children: [
+            {
+              path: '/admissions/exam-approval/agree',
+              icon: 'suncaper-menu-unfold',
+              title: '同意报名',
+              children: [
+                {
+                  path: '/admissions/exam-approval/agree/details',
+                  icon: 'suncaper-menu-unfold',
+                  title: '审批详情'
+                }
+              ]
+            },
+            {
+              path: '/admissions/exam-approval/disagree',
+              icon: 'suncaper-menu-unfold',
+              title: '不同意报名',
+              children: [
+                {
+                  path: '/admissions/exam-approval/disagree/details',
+                  icon: 'suncaper-menu-unfold',
+                  title: '审批详情'
+                }
+              ]
+            }
+          ]
         },
         {
-          path: '/main/third/third',
+          path: '/admissions/exam-management',
           icon: 'suncaper-menu-unfold',
-          title: '监考管理'
-        }
-      ]
-    },
-    3: {
-      main: [
-        {
-          path: '/main/first',
-          icon: 'suncaper-menu-unfold',
-          title: '一些学院'
+          title: '监考管理',
+          children: [
+            {
+              path: '/admissions/exam-management/view-list',
+              icon: 'suncaper-menu-unfold',
+              title: '查看名单'
+            }
+          ]
         },
         {
-          path: '/main/users/userlist',
+          path: '/admissions/exam-schedule',
           icon: 'suncaper-menu-unfold',
-          title: '用户列表'
+          title: '监考安排表',
+          children: [
+            {
+              path: '/admissions/exam-schedule/details',
+              icon: 'suncaper-menu-unfold',
+              title: '监考详细名单'
+            }
+          ]
         },
         {
-          path: '/main/third/third',
+          path: '/admissions/exam-notification',
           icon: 'suncaper-menu-unfold',
-          title: '监考管理'
-        }
-      ]
-    },
-    4: {
-      main: [
-        {
-          path: '/main/first',
-          icon: 'suncaper-menu-unfold',
-          title: '一些学院'
+          title: '监考通知确认单'
         },
         {
-          path: '/main/users/userlist',
+          path: '/admissions/exam-fees',
           icon: 'suncaper-menu-unfold',
-          title: '用户列表'
+          title: '监考费用明细'
         },
         {
-          path: '/main/third/third',
+          path: '/admissions/role-management',
           icon: 'suncaper-menu-unfold',
-          title: '监考管理'
+          title: '部门与角色管理'
         }
       ]
     }

@@ -1,30 +1,30 @@
 <template>
     <!-- 整体背景 -->
     <div class="login-wrap">
-        <!--输入框-->
+        <!-- 输入框 -->
         <div class="form-wrapper">
             <div class="header">
                 想要进来看看吗
             </div>
             <div class="input-wrapper">
                 <div class="border-wrapper">
-                    <input type="text" name="username" placeholder="用户名" class="border-item" autocomplete="off" />
+                    <input type="text" name="username" placeholder="用户名" v-model="username" class="border-item" autocomplete="off" />
                 </div>
                 <div class="border-wrapper">
-                    <input type="password" name="password" placeholder="password" class="border-item" autocomplete="off" />
+                    <input type="password" name="password" placeholder="密码" v-model="password" class="border-item" autocomplete="off" />
                 </div>
             </div>
             <div class="action">
-                <div class="btn" @click="handleLogin"   >login</div>
+                <div class="btn" @click="handleLogin">登录</div>
             </div>
             <div class="additional-actions">
                 <router-link to="/register" class="register-link">注册</router-link>
                 <router-link to="/forgot-password" class="forgot-password-link">忘记密码？</router-link>
             </div>
-
         </div>
     </div>
 </template>
+
 <script>
 export default {
   data () {
@@ -35,14 +35,33 @@ export default {
   },
   methods: {
     handleLogin () {
-      this.$router.push('/main/first')
-      // if (this.username && this.password) {
-      //   // 假设登录成功，跳转到 /main/first
-      //   this.$router.push('/main/first')
-      // } else {
-      //   // 可以根据需要添加提示信息
-      //   alert('请输入用户名和密码')
-      // }
+      // 模拟获取角色，实际应用中可以通过API调用获取
+      // 角色类型: 1 - 研公办主任/综合办主任/副院长, 2 - 研究生招生考务科科长, 3 - 在职在岗教职工
+      const roleType = this.getRoleByUsername(this.username)
+
+      switch (roleType) {
+        case 1:
+          this.$router.push('/office/exam-approval')
+          break
+        case 2:
+          this.$router.push('/admissions/batch-details')
+          break
+        case 3:
+          this.$router.push('/teacher/exam-signup-passed')
+          break
+        default:
+          alert('未知角色')
+          break
+      }
+    },
+    getRoleByUsername (username) {
+      // 模拟根据用户名获取角色，实际应用中应替换为API调用
+      const userRoleMap = {
+        'user1': 1,
+        'user2': 2,
+        'user3': 3
+      }
+      return userRoleMap[username] || 2 // 默认返回0表示未知角色
     }
   }
 }
