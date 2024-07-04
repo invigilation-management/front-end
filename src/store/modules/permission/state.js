@@ -2,7 +2,8 @@ export default {
   whiteList: ['/', 'notFound', 'login', 'forbidden', 'badGateway', 'screen', 'admissions', 'teacher', 'office'],
   permissionMap: {
     1: { // officeDirector
-      main1: ['*']
+      main1: ['*'],
+      main2: ['*']
       //   [
       //   '/office/exam-approval',
       //   '/office/exam-approval/batch-details',

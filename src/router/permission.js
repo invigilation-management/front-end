@@ -36,6 +36,8 @@ export default (store, routes, to, next) => {
       '      }'))
     return false
   }
+  console.log(protectedRoutes, 'protectedRoutes')
+  console.log(moduleName, 'moduleName')
   if (!protectedRoutes.hasOwnProperty(moduleName)) {
     next(new Error('路由保护验证错误：protectedRoutes对象中没有找到对应的key'))
     return false

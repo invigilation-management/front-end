@@ -33,7 +33,7 @@ const admissionsHeadPage = [
   {
     path: '/admissions',
     name: 'main2',
-    component: () => import(/* webpackChunkName: "Admissions" */ '../pages/admissions/BatchDetails.vue'),
+    component: () => import(/* webpackChunkName: "Admissions" */ '../pages/admissions/Main.vue'),
     children: [
       {
         path: '',
@@ -87,7 +87,7 @@ const officeDirectorPage = [
   {
     path: '/office',
     name: 'main1',
-    component: () => import(/* webpackChunkName: "Office" */ '../pages/office/BatchDetails.vue'),
+    component: () => import(/* webpackChunkName: "Office" */ '../pages/office/Main.vue'),
     children: [
       {
         path: 'batch-details',
