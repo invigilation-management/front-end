@@ -12,6 +12,50 @@ export default {
     1: {
       main: [
         {
+          path: '/office/batch-details',
+          icon: 'suncaper-menu-unfold',
+          title: '批次详情'
+        },
+        {
+          path: '/office/agree-details',
+          icon: 'suncaper-menu-unfold',
+          title: '同意报名详情'
+        },
+        {
+          path: '/office/disagree-details',
+          icon: 'suncaper-menu-unfold',
+          title: '不同意报名详情'
+        },
+        {
+          path: '/office/exam-list-details',
+          icon: 'suncaper-menu-unfold',
+          title: '监考详细名单'
+        },
+        {
+          path: '/office/failure',
+          icon: 'suncaper-menu-unfold',
+          title: '失败'
+        },
+        {
+          path: '/office/fill-info',
+          icon: 'suncaper-menu-unfold',
+          title: '填写信息'
+        },
+        {
+          path: '/office/success',
+          icon: 'suncaper-menu-unfold',
+          title: '成功'
+        },
+        {
+          path: '/office/waiting-result',
+          icon: 'suncaper-menu-unfold',
+          title: '等待结果'
+        }
+      ]
+    },
+    2: {
+      main: [
+        {
           path: '/admissions/batch-details',
           icon: 'suncaper-menu-unfold',
           title: '批次详情'
@@ -91,6 +135,45 @@ export default {
           path: '/admissions/role-management',
           icon: 'suncaper-menu-unfold',
           title: '部门与角色管理'
+        }
+      ]
+    },
+    3: {
+      main: [
+        {
+          path: '/teacher/exam-signup-passed',
+          icon: 'suncaper-menu-unfold',
+          title: '监考报名（已通过）'
+        },
+        {
+          path: '/teacher/batch-details',
+          icon: 'suncaper-menu-unfold',
+          title: '批次详情'
+        },
+        {
+          path: '/teacher/fill-form',
+          icon: 'suncaper-menu-unfold',
+          title: '报名填写'
+        },
+        {
+          path: '/teacher/waiting-result',
+          icon: 'suncaper-menu-unfold',
+          title: '报名等待结果'
+        },
+        {
+          path: '/teacher/failure',
+          icon: 'suncaper-menu-unfold',
+          title: '报名失败'
+        },
+        {
+          path: '/teacher/success',
+          icon: 'suncaper-menu-unfold',
+          title: '报名成功'
+        },
+        {
+          path: '/teacher/view-confirm',
+          icon: 'suncaper-menu-unfold',
+          title: '监考记录'
         }
       ]
     }
