@@ -1,10 +1,10 @@
 <template>
-<div>1111batchDetail</div>
+<div></div>
 </template>
 
 <script>
 export default {
-  name: 'BatchDetails'
+  name: 'Main'
 }
 </script>
 

@@ -35,16 +35,14 @@ export default {
   },
   methods: {
     handleLogin () {
-      // 模拟获取角色，实际应用中可以通过API调用获取
       // 角色类型: 1 - 研公办主任/综合办主任/副院长, 2 - 研究生招生考务科科长, 3 - 在职在岗教职工
       const roleType = this.getRoleByUsername(this.username)
-
       switch (roleType) {
         case 1:
-          this.$router.push('/office/exam-approval')
+          this.$router.push('/office/fill-info')
           break
         case 2:
-          this.$router.push('/admissions/batch-details')
+          this.$router.push({path: '/admissions/batch-details'})
           break
         case 3:
           this.$router.push('/teacher/exam-signup-passed')
@@ -56,12 +54,13 @@ export default {
     },
     getRoleByUsername (username) {
       // 模拟根据用户名获取角色，实际应用中应替换为API调用
-      const userRoleMap = {
-        'user1': 1,
-        'user2': 2,
-        'user3': 3
-      }
-      return userRoleMap[username] || 2 // 默认返回0表示未知角色
+      // const userRoleMap = {
+      //   'user1': 1,
+      //   'user2': 2,
+      //   'user3': 3
+      // }
+      // return userRoleMap[username] || 1 || 2 || 3// 默认返回0表示未知角色
+      return 1
     }
   }
 }

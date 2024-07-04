@@ -9,7 +9,7 @@ export default {
         }
       ]
     },
-    2: {
+    1: {
       main: [
         {
           path: '/admissions/batch-details',
