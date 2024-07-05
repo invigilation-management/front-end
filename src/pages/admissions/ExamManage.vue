@@ -1,10 +1,13 @@
 <template>
-<div>监考详细名单</div>
+<div>
+    监考管理
+    <router-view></router-view>
+</div>
 </template>
 
 <script>
 export default {
-  name: 'BatchDetails'
+  name: 'ExamMange'
 }
 </script>
 
