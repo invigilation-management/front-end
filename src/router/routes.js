@@ -109,44 +109,43 @@ const officeDirectorPage = [
     component: () => import(/* webpackChunkName: "Office" */ '../pages/office/Main.vue'),
     children: [
       {
-        path: 'batch-details',
-        name: 'batchDetailsOffice',
-        component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/BatchDetails.vue')
+        path: 'approval',
+        name: 'Approval',
+        component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/Approval.vue'),
+        children: [
+          {
+            path: 'agree-details',
+            name: 'agreeDetailsOffice',
+            component: () => import(/* webpackChunkName: "AgreeDetailsOffice" */ '../pages/office/AgreeDetails.vue')
+          },
+          {
+            path: 'disagree-details',
+            name: 'disagreeDetailsOffice',
+            component: () => import(/* webpackChunkName: "DisagreeDetailsOffice" */ '../pages/office/DisagreeDetails.vue')
+          },
+          {
+            path: 'waiting-result',
+            name: 'waitingResult',
+            component: () => import(/* webpackChunkName: "WaitingResult" */ '../pages/office/WaitingResult.vue')
+          }
+        ]
       },
       {
-        path: 'fill-info',
-        name: 'fillInfo',
-        component: () => import(/* webpackChunkName: "FillInfo" */ '../pages/office/FillInfo.vue')
-      },
-      {
-        path: 'waiting-result',
-        name: 'waitingResult',
-        component: () => import(/* webpackChunkName: "WaitingResult" */ '../pages/office/WaitingResult.vue')
-      },
-      {
-        path: 'failure',
-        name: 'failure',
-        component: () => import(/* webpackChunkName: "Failure" */ '../pages/office/Failure.vue')
-      },
-      {
-        path: 'success',
-        name: 'success',
-        component: () => import(/* webpackChunkName: "Success" */ '../pages/office/Success.vue')
-      },
-      {
-        path: 'agree-details',
-        name: 'agreeDetailsOffice',
-        component: () => import(/* webpackChunkName: "AgreeDetailsOffice" */ '../pages/office/AgreeDetails.vue')
-      },
-      {
-        path: 'disagree-details',
-        name: 'disagreeDetailsOffice',
-        component: () => import(/* webpackChunkName: "DisagreeDetailsOffice" */ '../pages/office/DisagreeDetails.vue')
-      },
-      {
-        path: 'exam-list/details',
-        name: 'examListDetails',
-        component: () => import(/* webpackChunkName: "ExamListDetails" */ '../pages/office/ExamListDetails.vue')
+        path: 'examlist',
+        name: 'Examlist',
+        component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/ExamList.vue'),
+        children: [
+          {
+            path: 'details',
+            name: 'examListDetails',
+            component: () => import(/* webpackChunkName: "ExamListDetails" */ '../pages/office/ExamListDetails.vue')
+          },
+          {
+            path: 'batch-details',
+            name: 'batchDetailsOffice',
+            component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/BatchDetails.vue')
+          }
+        ]
       }
     ]
   }
