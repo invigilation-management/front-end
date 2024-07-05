@@ -56,49 +56,38 @@ export default {
     2: {
       main: [
         {
-          path: '/admissions/batch-details',
+          path: '/admissions/exam-approval',
           icon: 'suncaper-menu-unfold',
-          title: '批次详情'
-        },
-        {
-          path: '/admissions/exam-approval/agree/details',
-          icon: 'suncaper-menu-unfold',
-          title: '报名审批1'
+          title: '报名审批'
           // children: [
           //   {
-          //     path: '/admissions/exam-approval/agree',
+          //     path: 'agree',
           //     icon: 'suncaper-menu-unfold',
-          //     title: '同意报名',
-          //     children: [
-          //       {
-          //         path: '/admissions/exam-approval/agree/details',
-          //         icon: 'suncaper-menu-unfold',
-          //         title: '审批详情'
-          //       }
-          //     ]
+          //     title: '同意报名'
+          //     // children: [
+          //     //   {
+          //     //     path: '/admissions/exam-approval/agree/details',
+          //     //     icon: 'suncaper-menu-unfold',
+          //     //     title: '审批详情'
+          //     //   }
+          //     // ]
           //   },
           //   {
-          //     path: '/admissions/exam-approval/disagree',
+          //     path: 'disagree',
           //     icon: 'suncaper-menu-unfold',
-          //     title: '不同意报名',
-          //     children: [
-          //       {
-          //         path: '/admissions/exam-approval/disagree/details',
-          //         icon: 'suncaper-menu-unfold',
-          //         title: '审批详情'
-          //       }
-          //     ]
+          //     title: '不同意报名'
+          //     // children: [
+          //     //   {
+          //     //     path: '/admissions/exam-approval/disagree/details',
+          //     //     icon: 'suncaper-menu-unfold',
+          //     //     title: '审批详情'
+          //     //   }
+          //     // ]
           //   }
           // ]
         },
         {
-          path: '/admissions/exam-approval/disagree/details',
-          icon: 'suncaper-menu-unfold',
-          title: '报名审批2'
-
-        },
-        {
-          path: '/admissions/exam-management/view-list',
+          path: '/admissions/exam-management',
           icon: 'suncaper-menu-unfold',
           title: '监考管理'
           // children: [
@@ -110,12 +99,12 @@ export default {
           // ]
         },
         {
-          path: '/admissions/exam-schedule/details',
+          path: '/admissions/exam-schedule',
           icon: 'suncaper-menu-unfold',
           title: '监考安排表'
           // children: [
           //   {
-          //     path: '/admissions/exam-schedule/details',
+          //     path: 'details',
           //     icon: 'suncaper-menu-unfold',
           //     title: '监考详细名单'
           //   }

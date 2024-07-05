@@ -37,7 +37,7 @@ const admissionsHeadPage = [
     children: [
       {
         path: '',
-        redirect: 'batch-details',
+        redirect: 'exam-approval',
         name: 'admissionsRedirect'
       },
       {
@@ -46,24 +46,43 @@ const admissionsHeadPage = [
         component: () => import(/* webpackChunkName: "BatchDetails" */ '../pages/admissions/BatchDetails.vue')
       },
       {
-        path: 'exam-approval/agree/details',
-        name: 'agreeDetails',
-        component: () => import(/* webpackChunkName: "AgreeDetails" */ '../pages/admissions/AgreeDetails.vue')
+        path: 'exam-approval',
+        name: 'examApproval',
+        component: () => import(/* webpackChunkName: "BatchDetails" */ '../pages/admissions/Approval.vue'),
+        children: [
+          {
+            path: 'agree',
+            name: 'agreeDetails',
+            component: () => import(/* webpackChunkName: "AgreeDetails" */ '../pages/admissions/AgreeDetails.vue')
+          },
+          {
+            path: 'disagree',
+            name: 'disagreeDetails',
+            component: () => import(/* webpackChunkName: "DisagreeDetails" */ '../pages/admissions/DisagreeDetails.vue')
+          },
+          {
+            path: 'waiting',
+            name: 'waiting',
+            component: () => import(/* webpackChunkName: "DisagreeDetails" */ '../pages/admissions/Waiting.vue')
+          }
+        ]
       },
       {
-        path: 'exam-approval/disagree/details',
-        name: 'disagreeDetails',
-        component: () => import(/* webpackChunkName: "DisagreeDetails" */ '../pages/admissions/DisagreeDetails.vue')
+        path: 'exam-management',
+        name: 'examManagement',
+        component: () => import(/* webpackChunkName: "ViewList" */ '../pages/admissions/ExamManage.vue')
       },
       {
-        path: 'exam-management/view-list',
-        name: 'viewList',
-        component: () => import(/* webpackChunkName: "ViewList" */ '../pages/admissions/ViewList.vue')
-      },
-      {
-        path: 'exam-schedule/details',
-        name: 'examScheduleDetails',
-        component: () => import(/* webpackChunkName: "ExamScheduleDetails" */ '../pages/admissions/ExamScheduleDetails.vue')
+        path: 'exam-schedule',
+        name: 'examSchedule',
+        component: () => import(/* webpackChunkName: "ViewList" */ '../pages/admissions/ViewList.vue'),
+        children: [
+          {
+            path: 'details',
+            name: 'examScheduleDetails',
+            component: () => import(/* webpackChunkName: "ExamScheduleDetails" */ '../pages/admissions/ExamScheduleDetails.vue')
+          }
+        ]
       },
       {
         path: 'exam-notification',
