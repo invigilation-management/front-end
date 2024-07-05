@@ -37,7 +37,7 @@ const admissionsHeadPage = [
     children: [
       {
         path: '',
-        redirect: 'batch-details',
+        redirect: 'exam-approval',
         name: 'admissionsRedirect'
       },
       {
@@ -46,24 +46,43 @@ const admissionsHeadPage = [
         component: () => import(/* webpackChunkName: "BatchDetails" */ '../pages/admissions/BatchDetails.vue')
       },
       {
-        path: 'exam-approval/agree/details',
-        name: 'agreeDetails',
-        component: () => import(/* webpackChunkName: "AgreeDetails" */ '../pages/admissions/AgreeDetails.vue')
+        path: 'exam-approval',
+        name: 'examApproval',
+        component: () => import(/* webpackChunkName: "BatchDetails" */ '../pages/admissions/Approval.vue'),
+        children: [
+          {
+            path: 'agree',
+            name: 'agreeDetails',
+            component: () => import(/* webpackChunkName: "AgreeDetails" */ '../pages/admissions/AgreeDetails.vue')
+          },
+          {
+            path: 'disagree',
+            name: 'disagreeDetails',
+            component: () => import(/* webpackChunkName: "DisagreeDetails" */ '../pages/admissions/DisagreeDetails.vue')
+          },
+          {
+            path: 'waiting',
+            name: 'waiting',
+            component: () => import(/* webpackChunkName: "DisagreeDetails" */ '../pages/admissions/Waiting.vue')
+          }
+        ]
       },
       {
-        path: 'exam-approval/disagree/details',
-        name: 'disagreeDetails',
-        component: () => import(/* webpackChunkName: "DisagreeDetails" */ '../pages/admissions/DisagreeDetails.vue')
+        path: 'exam-management',
+        name: 'examManagement',
+        component: () => import(/* webpackChunkName: "ViewList" */ '../pages/admissions/ExamManage.vue')
       },
       {
-        path: 'exam-management/view-list',
-        name: 'viewList',
-        component: () => import(/* webpackChunkName: "ViewList" */ '../pages/admissions/ViewList.vue')
-      },
-      {
-        path: 'exam-schedule/details',
-        name: 'examScheduleDetails',
-        component: () => import(/* webpackChunkName: "ExamScheduleDetails" */ '../pages/admissions/ExamScheduleDetails.vue')
+        path: 'exam-schedule',
+        name: 'examSchedule',
+        component: () => import(/* webpackChunkName: "ViewList" */ '../pages/admissions/ViewList.vue'),
+        children: [
+          {
+            path: 'details',
+            name: 'examScheduleDetails',
+            component: () => import(/* webpackChunkName: "ExamScheduleDetails" */ '../pages/admissions/ExamScheduleDetails.vue')
+          }
+        ]
       },
       {
         path: 'exam-notification',
@@ -90,44 +109,43 @@ const officeDirectorPage = [
     component: () => import(/* webpackChunkName: "Office" */ '../pages/office/Main.vue'),
     children: [
       {
-        path: 'batch-details',
-        name: 'batchDetailsOffice',
-        component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/BatchDetails.vue')
+        path: 'approval',
+        name: 'Approval',
+        component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/Approval.vue'),
+        children: [
+          {
+            path: 'agree-details',
+            name: 'agreeDetailsOffice',
+            component: () => import(/* webpackChunkName: "AgreeDetailsOffice" */ '../pages/office/AgreeDetails.vue')
+          },
+          {
+            path: 'disagree-details',
+            name: 'disagreeDetailsOffice',
+            component: () => import(/* webpackChunkName: "DisagreeDetailsOffice" */ '../pages/office/DisagreeDetails.vue')
+          },
+          {
+            path: 'waiting-result',
+            name: 'waitingResult',
+            component: () => import(/* webpackChunkName: "WaitingResult" */ '../pages/office/WaitingResult.vue')
+          }
+        ]
       },
       {
-        path: 'fill-info',
-        name: 'fillInfo',
-        component: () => import(/* webpackChunkName: "FillInfo" */ '../pages/office/FillInfo.vue')
-      },
-      {
-        path: 'waiting-result',
-        name: 'waitingResult',
-        component: () => import(/* webpackChunkName: "WaitingResult" */ '../pages/office/WaitingResult.vue')
-      },
-      {
-        path: 'failure',
-        name: 'failure',
-        component: () => import(/* webpackChunkName: "Failure" */ '../pages/office/Failure.vue')
-      },
-      {
-        path: 'success',
-        name: 'success',
-        component: () => import(/* webpackChunkName: "Success" */ '../pages/office/Success.vue')
-      },
-      {
-        path: 'agree-details',
-        name: 'agreeDetailsOffice',
-        component: () => import(/* webpackChunkName: "AgreeDetailsOffice" */ '../pages/office/AgreeDetails.vue')
-      },
-      {
-        path: 'disagree-details',
-        name: 'disagreeDetailsOffice',
-        component: () => import(/* webpackChunkName: "DisagreeDetailsOffice" */ '../pages/office/DisagreeDetails.vue')
-      },
-      {
-        path: 'exam-list/details',
-        name: 'examListDetails',
-        component: () => import(/* webpackChunkName: "ExamListDetails" */ '../pages/office/ExamListDetails.vue')
+        path: 'examlist',
+        name: 'Examlist',
+        component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/ExamList.vue'),
+        children: [
+          {
+            path: 'details',
+            name: 'examListDetails',
+            component: () => import(/* webpackChunkName: "ExamListDetails" */ '../pages/office/ExamListDetails.vue')
+          },
+          {
+            path: 'batch-details',
+            name: 'batchDetailsOffice',
+            component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/BatchDetails.vue')
+          }
+        ]
       }
     ]
   }

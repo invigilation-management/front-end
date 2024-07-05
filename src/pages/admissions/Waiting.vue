@@ -1,10 +1,10 @@
 <template>
-<div>监考详细名单</div>
+<div>待我审批</div>
 </template>
 
 <script>
 export default {
-  name: 'BatchDetails'
+  name: 'Waiting'
 }
 </script>
 
