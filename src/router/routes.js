@@ -5,7 +5,7 @@ Vue.use(Router)
 
 const loginPage = [
   {
-    path: '/login',
+    path: '/',
     name: 'login',
     component: () => import(/* webpackChunkName: "Login" */ '../pages/login/Login.vue')
   },
