@@ -39,7 +39,7 @@ export default {
       const roleType = this.getRoleByUsername(this.username)
       switch (roleType) {
         case 1:
-          this.$router.push('/office/fill-info')
+          this.$router.push('/office/approval')
           break
         case 2:
           this.$router.push({path: '/admissions/batch-details'})
@@ -60,7 +60,7 @@ export default {
       //   'user3': 3
       // }
       // return userRoleMap[username] || 1 || 2 || 3// 默认返回0表示未知角色
-      return 1
+      return 3
     }
   }
 }

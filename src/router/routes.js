@@ -5,7 +5,7 @@ Vue.use(Router)
 
 const loginPage = [
   {
-    path: '/login',
+    path: '/',
     name: 'login',
     component: () => import(/* webpackChunkName: "Login" */ '../pages/login/Login.vue')
   },
@@ -159,18 +159,30 @@ const teacherPage = [
     children: [
       {
         path: 'exam-signup-passed',
+        name: 'SignUp',
+        component: () => import(/* webpackChunkName: "ExamSignupPassed" */ '../pages/teacher/ExamSignupPassed.vue'),
+        children: [
+          {
+            path: 'batch-details',
+            name: 'batchDetailsTeacher',
+            component: () => import(/* webpackChunkName: "BatchDetailsTeacher" */ '../pages/teacher/BatchDetails.vue')
+          },
+          {
+            path: 'fill-form',
+            name: 'fillForm',
+            component: () => import(/* webpackChunkName: "FillForm" */ '../pages/teacher/FillForm.vue')
+          }
+        ]
+      },
+      {
+        path: 'recording',
+        name: 'Recording',
+        component: () => import(/* webpackChunkName: "ViewConfirm" */ '../pages/teacher/Recording.vue')
+      },
+      {
+        path: 'exam-signup-passed',
         name: 'examSignupPassed',
         component: () => import(/* webpackChunkName: "ExamSignupPassed" */ '../pages/teacher/ExamSignupPassed.vue')
-      },
-      {
-        path: 'batch-details',
-        name: 'batchDetailsTeacher',
-        component: () => import(/* webpackChunkName: "BatchDetailsTeacher" */ '../pages/teacher/BatchDetails.vue')
-      },
-      {
-        path: 'fill-form',
-        name: 'fillForm',
-        component: () => import(/* webpackChunkName: "FillForm" */ '../pages/teacher/FillForm.vue')
       },
       {
         path: 'waiting-result',

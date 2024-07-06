@@ -8,10 +8,10 @@
         <el-card class="card">
             <el-row>
                 <el-col span="2"><el-button class="line1-1" type="primary">导入监考信息</el-button></el-col>
-                <el-col span="2" offset="1"><el-button class="line1-2" type="primary" plain>数据导出</el-button></el-col>
-                <el-col span="4" offset="10"><el-input class="line1-3" v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
-                <el-col span="2" offset="1"><el-button class="line1-4" type="primary">查询</el-button></el-col>
-                <el-col span="2" offset="0"><el-button class="line1-5" type="primary" plain>重置</el-button></el-col>
+                <el-col span="15" offset=""><el-button class="line1-2" type="primary" plain>数据导出</el-button></el-col>
+                <el-col span="4" offset="0"><el-input class="line1-3" v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
+                <el-col span="1" offset=""><el-button class="line1-4" type="primary">查询</el-button></el-col>
+                <el-col span="1" offset="0"><el-button class="line1-5" type="primary" plain>重置</el-button></el-col>
             </el-row>
             <el-table
                 :header-row-style="{ backgroundColor: '#F3F3F3' }"
@@ -34,55 +34,60 @@
                 <el-table-column
                     prop="name"
                     label="姓名"
-                    width="119">
+                    width="129">
                 </el-table-column>
                 <el-table-column
                     prop="address"
                     label="性别"
-                    width="80"
+                    width="90"
                     show-overflow-tooltip>
                 </el-table-column>
                 <el-table-column
                     prop="name"
                     label="工号"
-                    width="140">
+                    width="150">
                 </el-table-column>
                 <el-table-column
                     prop="name"
                     label="所在单位"
-                    width="167">
+                    width="177">
                 </el-table-column>
                 <el-table-column
                     prop="name"
                     label="身份证号"
-                    width="207">
+                    width="217">
                 </el-table-column>
                 <el-table-column
                     prop="name"
                     label="移动电话"
-                    width="140">
+                    width="150">
                 </el-table-column>
                 <el-table-column
                     prop="name"
                     label="监考职责"
-                    width="95">
+                    width="105">
                 </el-table-column>
                 <el-table-column
                     prop="name"
                     label="监考场次"
-                    width="98">
+                    width="108">
                 </el-table-column>
                 <el-table-column
                     prop="name"
                     label="考场名称"
-                    width="128">
+                    width="148">
                 </el-table-column>
                 <el-table-column
                     prop="name"
                     label="监考时间"
-                    width="300">
+                    width="310">
                 </el-table-column>
             </el-table>
+            <el-pagination
+                small
+                layout="prev, pager, next"
+                :total="50">
+            </el-pagination>
         </el-card>
 <!--        <router-link to="details">details</router-link>-->
 <!--        <router-view></router-view>-->
@@ -177,7 +182,7 @@ h1 {
     background-color: #FFFFFF;
 }
 .line1-3{
-    width: 224px;
+    width: 280px;
     height: 36px;
     background: #ffffffe6;
     border: 1px solid #DCDCDC;
@@ -189,6 +194,9 @@ h1 {
 .card{
     margin-left: 20px;
     margin-right: 20px;
+}
+.el-col{
+    margin-right: 10px;
 }
 /deep/ .el-table th.el-table__cell{
     background-color: #F3F3F3;

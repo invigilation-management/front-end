@@ -1,79 +1,69 @@
 <template>
     <div>
         <h1>
-            <i class="el-icon-back"></i>|
-            <div class="title_2">监考通知确认单
+            <i class="el-icon"></i>|
+            <div class="title_2">报名记录
             </div>
         </h1>
         <el-card class="card">
             <el-row gutter="20">
-                <el-col span="1"><el-button class="line1-1" type="primary">快速找人</el-button></el-col>
-                <el-col span="1" offset="0"><el-button class="line1-2" type="primary" plain>创建批次</el-button></el-col>
-                <el-col span="8" offset="0"><el-button class="line1-2" type="primary" plain>数据导出</el-button></el-col>
+                <el-col span="12"><el-button class="line1-1" type="primary"></el-button></el-col>
+                <!--                <el-col span="1" offset="0"><el-button class="line1-2" type="primary" plain>创建批次</el-button></el-col>-->
+                <!--                <el-col span="8" offset="0"><el-button class="line1-2" type="primary" plain>数据导出</el-button></el-col>-->
                 <el-col span="2" offset="6" ><el-input class="line1-3" v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
                 <el-col span="1" offset="1"><el-button class="line1-4" type="primary">查询</el-button></el-col>
                 <el-col span="1" offset="" ><el-button class="line1-2" type="primary" plain>重置</el-button></el-col>
             </el-row>
             <el-table
-                :header-row-style="{ backgroundColor: '#F3F3F3' }"
-                ref="multipleTable"
-                :data="tableData"
-                tooltip-effect="dark"
-                style="width: 100%;margin-top: 10px;margin-right:3px"
-                @selection-change="handleSelectionChange">
+                    :header-row-style="{ backgroundColor: '#F3F3F3' }"
+                    ref="multipleTable"
+                    :data="tableData"
+                    tooltip-effect="dark"
+                    style="width: 100%;margin-top: 10px;margin-right:3px"
+                    @selection-change="handleSelectionChange">
                 <el-table-column
-                    type="selection"
-                    width="75">
+                        type="selection"
+                        width="75">
                 </el-table-column>
                 <el-table-column
-                    label="序号"
-                    width="120">
+                        label="序号"
+                        width="155">
                     <template slot-scope="scope">
                         0{{scope.$index+1}}
                     </template>
                 </el-table-column>
                 <el-table-column
-                    prop="name"
-                    label="监考名称"
-                    width="300">
+                        prop="name"
+                        label="报名批次"
+                        width="360">
                 </el-table-column>
                 <el-table-column
-                    prop="status"
-                    label="报名情况"
-                    width="137">
+                        prop="startTime"
+                        label="报名开始时间"
+                        width="315">
                 </el-table-column>
                 <el-table-column
-                    prop="startTime"
-                    label="时间"
-                    width="255">
+                        prop="endTime"
+                        label="报名结束时间"
+                        width="315">
                 </el-table-column>
                 <el-table-column
-                    prop="endTime"
-                    label="报名结束时间"
-                    width="255">
+                        prop="createTime"
+                        label="是否确认"
+                        width="315">
                 </el-table-column>
                 <el-table-column
-                    prop="createTime"
-                    label="创建时间"
-                    width="255">
-                </el-table-column>
-                <el-table-column
-                    prop="status"
-                    label="批次状态"
-                    width="155">
-                </el-table-column>
-                <el-table-column
-                    label="操作"
-                    width="200">
+                        label="操作"
+                        width="225">
                     <template slot-scope="scope">
                         <el-button type="text" size="small">查看名单</el-button>
                     </template>
                 </el-table-column>
             </el-table>
             <el-pagination
-                small
-                layout="prev, pager, next"
-                :total="50">
+                    background
+                    layout="prev, pager, next"
+                    :total="1000">
             </el-pagination>
         </el-card>
     </div>
@@ -81,7 +71,7 @@
 
 <script>
 export default {
-  name: 'ViewList',
+  name: 'ExamFees',
   data () {
     return {
       input: '',
@@ -213,6 +203,7 @@ h1 {
     font-size: 14px;
     color: #FFFFFF;
     text-align: center;
+    visibility: hidden;
 }
 .line1-4{
     width: 74px;
@@ -234,7 +225,7 @@ h1 {
     background-color: #FFFFFF;
 }
 .line1-3 {
-    width: 250px;
+    width: 220px;
     height: 36px;
     background: #ffffffe6;
     border: 1px solid #DCDCDC;
@@ -245,7 +236,7 @@ h1 {
     margin-right: 20px;
 }
 .el-col{
-    margin-right: 35px;
+    margin-right: 10px;
 }
 .el-col{
     scroll-margin-left: 35px;

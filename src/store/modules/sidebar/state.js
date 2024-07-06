@@ -149,35 +149,10 @@ export default {
         {
           path: '/teacher/exam-signup-passed',
           icon: 'suncaper-menu-unfold',
-          title: '监考报名（已通过）'
+          title: '监考报名'
         },
         {
-          path: '/teacher/batch-details',
-          icon: 'suncaper-menu-unfold',
-          title: '批次详情'
-        },
-        {
-          path: '/teacher/fill-form',
-          icon: 'suncaper-menu-unfold',
-          title: '报名填写'
-        },
-        {
-          path: '/teacher/waiting-result',
-          icon: 'suncaper-menu-unfold',
-          title: '报名等待结果'
-        },
-        {
-          path: '/teacher/failure',
-          icon: 'suncaper-menu-unfold',
-          title: '报名失败'
-        },
-        {
-          path: '/teacher/success',
-          icon: 'suncaper-menu-unfold',
-          title: '报名成功'
-        },
-        {
-          path: '/teacher/view-confirm',
+          path: '/teacher/recording',
           icon: 'suncaper-menu-unfold',
           title: '监考记录'
         }
