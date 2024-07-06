@@ -44,3 +44,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+.custom-layout .sidebar {
+    /* 调整侧边栏的样式 */
+    width: 250px;
+}
+</style>

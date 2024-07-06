@@ -1,218 +1,225 @@
 <template>
     <div>
-        <span class="title">报名审批</span>
-        <div class="card">
-            <el-card>
-                <el-row :gutter="10">
-                    <el-tabs v-model="activeName" @tab-click="handleClick">
-                        <el-tab-pane label="待我审批" name="Batch"></el-tab-pane>
-                        <el-tab-pane label="同意报名" name="Agree"></el-tab-pane>
-                        <el-tab-pane label="不同意报名" name="Disagree"></el-tab-pane>
-                    </el-tabs>
-                </el-row>
-                <el-row :gutter="10">
-                    <el-col :span="12">
-                        <el-button size="small" type="primary" icon="el-icon-s-custom">邀约</el-button>
-                        <el-button size="small" type="inform">数据导出</el-button>
-                    </el-col>
-                    <el-col :span="4">
-                        <el-select size="small" v-model="value" placeholder="请选择监考批次">
-                            <el-option
-                                v-for="item in options"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </el-col>
-                    <el-col :span="5">
-                        <el-input size="small" v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
-                    </el-col>
-                    <el-col :span="3">
-                        <div class="buttonright">
-                            <el-button size="small" type="primary">查询</el-button>
-                            <el-button size="small" type="inform">重置</el-button>
-                        </div>
-                    </el-col>
-                </el-row>
-                <el-table
-                    :data="tableData"
-                    style="width: 100%"
-                    @selection-change="handleSelectionChange">
-                    <el-table-column
-                        type="selection"
-                        width="55">
-                    </el-table-column>
-                    <el-table-column
-                        label="序号">
-                        <template slot-scope="scope">
-                            {{scope.$index+1}}
-                        </template>
-                    </el-table-column>
-                    <el-table-column
-                        label="报名人">
-                        <template slot-scope="scope">
-                            <span class="teamName">{{scope.row.date}}</span>
-                        </template>
-                    </el-table-column>
-                    <el-table-column
-                        prop="name"
-                        label="工号">
-                    </el-table-column>
-                    <el-table-column
-                        prop="address"
-                        label="监考批次" width="180">
-                        <template slot-scope="scope">
-                            <el-button
-                                size="mini"
-                                type="text"
-                                @click="handleEdit(scope.$index, scope.row)">2023年A楼2023监考报名</el-button>
-                        </template>
-                    </el-table-column>
-                    <el-table-column
-                        prop="address"
-                        label="意向监考校区">
-                    </el-table-column>
-                    <el-table-column
-                        prop="address"
-                        label="上传材料" width="180">
-                        <template slot-scope="scope">
-                            <el-button
-                                size="mini"
-                                type="text"
-                                @click="handleEdit(scope.$index, scope.row)">预览</el-button>
-                        </template>
-                    </el-table-column>
-                    <el-table-column
-                        prop="address"
-                        label="操作" width="180">
-                        <template slot-scope="scope">
-                            <el-button
-                                size="mini"
-                                type="text"
-                                @click="handleEdit(scope.$index, scope.row)">查看</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
-            </el-card>
-        </div>
+        <h1>
+            <i class="el-icon-back"></i>|
+            <div class="title_1">监考名单/</div>
+            <div class="title_2">监考详细名单</div>
+        </h1>
+        <el-card class="card">
+            <el-row>
+                <el-col span="1"><el-button class="line1-1" type="primary">邀约</el-button></el-col>
+                <el-col span="15" offset=""><el-button class="line1-2" type="primary" plain>数据导出</el-button></el-col>
+                <el-col span="4" offset="0"><el-input class="line1-3" v-model="input" placeholder="请输入监考人名姓名/工号关键词查询"></el-input></el-col>
+                <el-col span="1" offset=""><el-button class="line1-4" type="primary">查询</el-button></el-col>
+                <el-col span="1" offset="0"><el-button class="line1-5" type="primary" plain>重置</el-button></el-col>
+            </el-row>
+            <el-table
+                :header-row-style="{ backgroundColor: '#F3F3F3' }"
+                ref="multipleTable"
+                :data="tableData"
+                tooltip-effect="dark"
+                style="width: 100%;margin-top: 10px"
+                @selection-change="handleSelectionChange">
+                <el-table-column
+                    type="selection"
+                    width="56">
+                </el-table-column>
+                <el-table-column
+                    label="序号"
+                    width="140">
+                    <template slot-scope="scope">
+                        0{{scope.$index+1}}
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    prop="name"
+                    label="姓名"
+                    width="200">
+                </el-table-column>
+<!--                <el-table-column-->
+<!--                    prop="address"-->
+<!--                    label="性别"-->
+<!--                    width="90"-->
+<!--                    show-overflow-tooltip>-->
+<!--                </el-table-column>-->
+                <el-table-column
+                    prop="name"
+                    label="工号"
+                    width="245">
+                </el-table-column>
+                <el-table-column
+                    prop="name"
+                    label="所在单位"
+                    width="237">
+                </el-table-column>
+                <el-table-column
+                    prop="name"
+                    label="身份证号"
+                    width="263">
+                </el-table-column>
+                <el-table-column
+                    prop="name"
+                    label="移动电话"
+                    width="220">
+                </el-table-column>
+                <el-table-column
+                    prop="name"
+                    label="来源"
+                    width="210">
+                </el-table-column>
+                <el-table-column
+                    prop="name"
+                    label="操作"
+                    width="180">
+                </el-table-column>
+<!--                <el-table-column-->
+<!--                    prop="name"-->
+<!--                    label="监考职责"-->
+<!--                    width="105">-->
+<!--                </el-table-column>-->
+<!--                <el-table-column-->
+<!--                    prop="name"-->
+<!--                    label="监考场次"-->
+<!--                    width="108">-->
+<!--                </el-table-column>-->
+<!--                <el-table-column-->
+<!--                    prop="name"-->
+<!--                    label="考场名称"-->
+<!--                    width="148">-->
+<!--                </el-table-column>-->
+<!--                <el-table-column-->
+<!--                    prop="name"-->
+<!--                    label="监考时间"-->
+<!--                    width="310">-->
+<!--                </el-table-column>-->
+            </el-table>
+            <el-pagination
+                small
+                layout="prev, pager, next"
+                :total="50">
+            </el-pagination>
+        </el-card>
+        <!--        <router-link to="details">details</router-link>-->
+        <!--        <router-view></router-view>-->
+        <!--        &lt;!&ndash; 添加你的查看名单内容 &ndash;&gt;-->
+        <!--        上面是加的页面内跳转的内容，我在写vue组件是注释掉，后续调试时可以直接回复，目测没有冲突————侯世岭-->
     </div>
 </template>
 
 <script>
 export default {
-  name: 'BatchDetails',
-  data: function () {
+  name: 'ViewList',
+  data () {
     return {
-      options: [{
-        value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
-      }],
-      value: '',
       input: '',
       tableData: [{
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
         date: '2016-05-02',
         name: '王小虎',
         address: '上海市普陀区金沙江路 1518 弄'
       }, {
         date: '2016-05-04',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
+        address: '上海市普陀区金沙江路 1518 弄'
       }, {
         date: '2016-05-01',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
+        address: '上海市普陀区金沙江路 1518 弄'
       }, {
-        date: '2016-05-03',
+        date: '2016-05-08',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }],
-      activeName: 'Batch'
-    }
-  },
-  methods: {
-    handleClick (tab, event) {
-      console.log(tab, event)
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-06',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-07',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }]
     }
   }
 }
 </script>
 
 <style scoped>
-.title{
-    width: 140px;
-    height: 28px;
-    font-weight: 500;
+.title_1{
+    color: #00000066;
     font-size: 20px;
-    color: #000000e6;
+    font-face: PingFangSC;
+    font-weight: 500;
     line-height: 28px;
-    padding: 20px;
-    display: block;
+    letter-spacing: 0;
+    paragraph-spacing: 0;
+    text-align: left;
 }
-
+.title_2{
+    color: #000000e6;
+    font-size: 20px;
+    font-face: PingFangSC;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: 0;
+    paragraph-spacing: 0;
+    text-align: left;
+}
+h1 {
+    display: flex;          /* 启用 flexbox 布局 */
+    align-items: center;    /* 垂直居中子元素 */
+    flex-direction: row;    /* 子元素横向排列，默认就是 row，也可省略这一行 */
+    gap: 10px;              /* 子元素之间的间隔 */
+}
+.line1-1,  .line1-4{
+    width: 80px;
+    background: #166AFF;
+    border-radius: 3px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #FFFFFF;
+    text-align: center;
+}
+.line1-2,.line1-5{
+    border: 1px solid #166AFF;
+    border-radius: 3px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #166AFF;
+    text-align: center;
+    background-color: #FFFFFF;
+}
+.line1-3{
+    width: 280px;
+    height: 36px;
+    background: #ffffffe6;
+    border: 1px solid #DCDCDC;
+    border-radius: 3px;
+}
+.line1-4{
+    width: 74px;
+}
 .card{
     margin-left: 20px;
     margin-right: 20px;
 }
-/deep/.el-input--small .el-input__inner {
-    font-weight: 400;
-    font-size: 14px;
-    color: #000000e6;
-    text-align: left;
-    line-height: 22px;
+.el-col{
+    margin-right: 10px;
 }
-/deep/.el-button--primary,.el-tag{
-    background: #166AFF;
-    border-radius: 3px;
-}
-/deep/ .el-button--inform {
-    border: 1px solid #166AFF;
-    border-radius: 3px;
-    background: #FFFFFF;
-    color: #166AFF;
-}
-/deep/.has-gutter{
-    background: #757F9A;
+/deep/ .el-table th.el-table__cell{
+    background-color: #F3F3F3;
     font-weight: 400;
     font-size: 14px;
     color: #00000099;
     text-align: left;
     line-height: 22px;
 }
-.el-dropdown-link {
-    cursor: pointer;
-    color: #409EFF;
-    margin-left: 5px;
+/deep/ .el-table__cell{
+    color: #000000e6;
+    text-align: left;
 }
-.el-icon-arrow-down {
-    font-size: 12px;
-}
-/deep/.el-dropdown{
-    font-size: 12px;
-}
-.teamName{
-    color: #166AFF;
-}
-.buttonright{
-    float: right;
-}
-/deep/ .el-table th.el-table__cell{
-    background-color: #F3F3F3;
-}
-.el-row{
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+/deep/.el-table th.el-table__cell>.cell{}
+/* 添加你的样式 */
 </style>
