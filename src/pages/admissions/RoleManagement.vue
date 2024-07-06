@@ -7,20 +7,19 @@
                     <el-col span="6">
                         <el-input v-model="input" placeholder="请输入内容"></el-input>
                     </el-col>
-                    <el-col span="3"><el-button type="primary">查询</el-button></el-col>
-                    <el-col span="3"><el-button type="primary" plain>重置</el-button></el-col>
+                    <el-col span="3"><el-button type="primary" class="blue">查询</el-button></el-col>
+                    <el-col span="3"><el-button type="primary" plain class="white">重置</el-button></el-col>
                     <el-col :span="8" :offset="6">
-                        <el-button type="primary">快速找人</el-button>
-                        <el-button type="primary">添加成员</el-button>
-                        <el-button type="primary">添加部门</el-button>
-                        <el-button type="primary" plain>数据导出</el-button>
+                        <el-button type="primary" class="blue">快速找人</el-button>
+                        <el-button type="primary" class="blue">添加成员</el-button>
+                        <el-button type="primary" class="blue">添加部门</el-button>
+                        <el-button type="primary" plain class="white">数据导出</el-button>
                     </el-col>
                 </el-row>
                 <el-table
                     :data="tableData"
+                    :header-row-style="{ backgroundColor: '#F3F3F3' }"
                     style="width: 100%"
-                    border="true"
-                    :header-row-style="{ backgroundColor: '#FF0000' }"
                     class="blue-header">
                     <el-table-column
                         prop="date"
@@ -117,10 +116,12 @@ export default {
 /*}*/
 /* 添加你的样式 */
 /deep/ .el-table th.el-table__cell{
-    background-color: #0d94f3;
-}
-/deep/ .el-table thead{
-    color: #FFFFFF;
+    background-color: #F3F3F3;
+    font-weight: 400;
+    font-size: 14px;
+    color: #00000099;
+    text-align: left;
+    line-height: 22px;
 }
 .blue-header{
     margin-top: 20px;
@@ -131,5 +132,25 @@ export default {
 .card{
     margin-left: 20px;
     margin-right: 20px;
+}
+.blue{
+    background: #166AFF;
+    border-radius: 3px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #FFFFFF;
+    text-align: center;
+}
+.white{
+    border: 1px solid #166AFF;
+    border-radius: 3px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #166AFF;
+    text-align: center;
+    background-color: #FFFFFF;
+}
+/deep/ .el-table thead{
+    color: #00000099;
 }
 </style>

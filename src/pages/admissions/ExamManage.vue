@@ -184,7 +184,6 @@ export default {
 .title_1 {
     color: #00000066;
     font-size: 20px;
-    font-family: PingFangSC;
     font-weight: 500;
     line-height: 28px;
     text-align: left;
@@ -192,7 +191,6 @@ export default {
 .title_2 {
     color: #000000e6;
     font-size: 20px;
-    font-family: PingFangSC;
     font-weight: 500;
     line-height: 28px;
     text-align: left;
