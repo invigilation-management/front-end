@@ -10,7 +10,7 @@ export default {
       data: {
         id: 1,
         name: 'LBH',
-        userType: 3
+        userType: 2
       }
     }
     if (res.status) {
