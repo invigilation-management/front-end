@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span class="title">报名审批</span>
+        <span class="title"></span>
         <div class="card">
             <el-card>
                 <el-row :gutter="10">
