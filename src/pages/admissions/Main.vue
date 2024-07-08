@@ -20,9 +20,9 @@ export default {
     return {
       logo: {
         src: logo,
-        alt: '上程数据',
-        firstDes: '上程数据',
-        secondDes: '广泛UE模板'
+        alt: '抽象小学期',
+        firstDes: '抽象小学期',
+        secondDes: '之研究生报名系统'
       }
     }
   },
