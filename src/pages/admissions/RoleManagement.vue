@@ -12,7 +12,18 @@
                         <el-button type="primary" plain class="white">重置</el-button>
                     </el-col>
                     <el-col :span="12" :offset="2">
-                        <el-button type="primary" class="blue">快速找人</el-button>
+                        <el-button type="primary" class="blue" @click="dialogVisibleFind= true">快速找人</el-button>
+                        <!--                    以下是对话弹窗部分-->
+                        <!--                    以下是对话弹窗部分-->
+                        <el-dialog title="快速找人" :visible.sync="dialogVisibleFind">
+                            <hr class="card-divider">
+                            <el-input placeholder="请输入姓名/工号关键词查询"></el-input>
+                            <div class="grey">
+                                <br>&nbsp; 姓名: <br><br>&nbsp; 工号: <br><br>&nbsp; 所在部门: <br><br>&nbsp; 担任角色:<br> <br>
+                            </div>
+                        </el-dialog>
+                        <!--                    以上是对话弹窗部分-->
+                        <!--                    以上是对话弹窗部分-->
                         <el-button type="primary" class="blue" @click="dialogVisibleSelect = true">添加成员</el-button>
                         <!--                    以下是对话弹窗部分-->
                         <!--                    以下是对话弹窗部分-->
@@ -24,7 +35,7 @@
                             <el-radio v-model="selectedContent" label="alot">批量导入</el-radio>
 <!--                            以下是添加一个成员时的对话框-->
                             <div v-if="selectedContent === 'alone'">
-                                <el-input autocomplete="off"  class="input1" placeholder="请输入姓名/工号模糊查询"></el-input>
+                                <el-input autocomplete="off"  class="input1" placeholder="请输入姓名/工号模糊查询" ></el-input>
                                 <div class="grey">
                                     <br>&nbsp; 姓名: <br><br>&nbsp; 工号: <br><br>&nbsp; 所在单位: <br><br>
                                 </div>
@@ -51,7 +62,22 @@
                         <!--                    以上是对话弹窗部分-->
                         <!--                    以上是对话弹窗部分-->
                         <!--                    以上是对话弹窗部分-->
-                        <el-button type="primary" class="blue">添加部门</el-button>
+                        <el-button type="primary" class="blue" @click="dialogVisible_Add_Department= true">添加部门</el-button>
+                        <!--                    以下是对话弹窗部分-->
+                        <!--                    以下是对话弹窗部分-->
+                        <el-dialog title="添加部门" :visible.sync="dialogVisible_Add_Department">
+                            <hr class="card-divider">
+                            <br><br><br>
+                            部门名称：<el-input class="input2" v-model="input_department_name" placeholder="请输入部门名称"></el-input>
+                            <br><br>
+                            部门类型：<el-input class="input2" v-model="input_department_type" placeholder="请选择部门类型"></el-input>
+                            <br><br><br>
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                                <el-button type="primary" style="width: 200px;background-color:#166AFF">提交</el-button>
+                            </div>
+                        </el-dialog>
+                        <!--                    以上是对话弹窗部分-->
+                        <!--                    以上是对话弹窗部分-->
                         <el-button type="primary" plain class="white">数据导出</el-button>
                     </el-col>
                 </el-row>
@@ -141,14 +167,21 @@ export default {
         num: '3'
       }],
       dialogVisibleSelect: false,
+      dialogVisibleFind: false,
       selectedContent: 'alone',
-      input_department: ''
+      input_department: '',
+      input_department_name: '',
+      input_department_type: '',
+      dialogVisible_Add_Department: false
     }
   }
 }
 </script>
 
 <style scoped>
+.input2{
+    margin-top: 20px;
+}
 .input1{
     margin-top: 20px;
 }
