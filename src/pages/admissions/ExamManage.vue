@@ -25,13 +25,13 @@
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="批次开始时间" :label-width="formLabelWidth">
-                                <el-input v-model="form.name" autocomplete="off" placeholder="请输入批次开始时间"></el-input>
+                                <el-input v-model="form.date1" autocomplete="off" placeholder="请输入批次开始时间"></el-input>
                             </el-form-item>
                             <el-form-item label="批次结束时间" :label-width="formLabelWidth">
-                                <el-input v-model="form.name" autocomplete="off" placeholder="请输入批次结束时间"></el-input>
+                                <el-input v-model="form.date2" autocomplete="off" placeholder="请输入批次结束时间"></el-input>
                             </el-form-item>
                             <el-form-item label="监考说明" :label-width="formLabelWidth" :label-height="bigformLabelHeight">
-                                <el-input v-model="form.name"  type="textarea" autocomplete="off" placeholder="请输入监考说明..." style="height: 158px;height: auto" rows="10" >
+                                <el-input v-model="form.detail"  type="textarea" autocomplete="off" placeholder="请输入监考说明..." style="height: 158px;height: auto" rows="10" >
                                 </el-input>
                             </el-form-item>
                             <el-form-item label="上传附件" :label-width="formLabelWidth" :label-height="bigformLabelHeight">
@@ -48,7 +48,67 @@
                     <!--                    以上是对话弹窗部分-->
                     <!--                    以上是对话弹窗部分-->
                     <!--                    以上是对话弹窗部分-->
-                    <el-button plain class="white" type="primary">数据导出</el-button>
+                    <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+
+                    <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
+                        <el-table :data="selectedIds.map(index => tableData[index])">
+                            <el-table-column
+                                type="selection"
+                                width="75">
+                            </el-table-column>
+                            <el-table-column
+                                label="序号"
+                                width="120">
+                                <template slot-scope="scope">
+                                    0{{scope.$index+1}}
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                prop="name"
+                                label="监考名称"
+                                width="300">
+                                <template v-slot="scope">
+                                    <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                            scope.row.name
+                                        }}
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                prop="status"
+                                label="报名情况"
+                                width="137">
+                            </el-table-column>
+                            <el-table-column
+                                prop="startTime"
+                                label="报名开始时间"
+                                width="255">
+                            </el-table-column>
+                            <el-table-column
+                                prop="endTime"
+                                label="报名结束时间"
+                                width="255">
+                            </el-table-column>
+                            <el-table-column
+                                prop="createTime"
+                                label="创建时间"
+                                width="255">
+                            </el-table-column>
+                            <el-table-column
+                                prop="status"
+                                label="批次状态"
+                                width="155">
+                            </el-table-column>
+                            <el-table-column
+                                label="操作"
+                                width="200">
+                                <template slot-scope="scope">
+                                    <el-button type="text" size="small">查看名单</el-button>
+                                    <el-button type="text" size="small">更多</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-dialog>
                 </el-col>
                 <el-col :span="6" :offset="5"><el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
                 <el-col :span="4">
@@ -134,6 +194,8 @@ export default {
   data () {
     return {
       input: '',
+      selectedIds: [],
+      dialogTableVisible: false,
       tableData: [
         {
           name: '2023年A卷2023监考报名',
@@ -231,6 +293,7 @@ export default {
       dialogFormVisible: false,
       form: {
         name: '',
+        detail: '',
         region: '',
         date1: '',
         date2: '',
@@ -245,7 +308,7 @@ export default {
   },
   methods: {
     handleSelectionChange (val) {
-      console.log(val)
+      this.selectedIds = val.map(item => this.tableData.indexOf(item))
     },
     handleEdit (row) {
       this.$router.push({

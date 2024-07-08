@@ -190,6 +190,14 @@ export default {
 </script>
 
 <style scoped>
+.title_2 {
+    color: #000000e6;
+    font-size: 20px;
+    font-family: PingFangSC;
+    font-weight: 500;
+    line-height: 28px;
+    text-align: left;
+}
 .input2{
     margin-top: 20px;
 }

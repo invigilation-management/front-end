@@ -6,8 +6,13 @@
 </template>
 
 <script>
+import HistoryCard from '../../components/HistoryCard.vue'
+import SignUpInfo from '../../components/SignUpInfo.vue'
 export default {
-  name: 'DisagreeDetails'
+  name: 'DisagreeDetails',
+  components: {
+    HistoryCard, SignUpInfo
+  }
 }
 </script>
 

@@ -1,9 +1,10 @@
 <template>
     <div>
-        <div class="head"><el-breadcrumb separator="/" >
-            <el-breadcrumb-item :to="{ path: 'approval/agree-details' }"><span class="title1"><i class="el-icon-back"></i> | 首页</span></el-breadcrumb-item>
-            <el-breadcrumb-item><span class="title2">活动管理</span></el-breadcrumb-item>
-        </el-breadcrumb></div>
+        <h1>
+            <i class="el-icon-back"></i>|
+            <span class="title_1">监考报名/</span>
+            <span class="title_2">提交报名</span>
+        </h1>
         <el-row :gutter="30">
             <el-col :span="14">
                 <el-card class="detail">
@@ -24,44 +25,30 @@ import SignUpInfo from '../../components/SignUpInfo.vue'
 import HistoryCard from '../../components/HistoryCard.vue'
 
 export default {
-  name: 'ApprovalDetails',
-  components: {HistoryCard, SignUpInfo}}
+  name: 'ParticipantInfo',
+  components: {HistoryCard, SignUpInfo}
+}
 </script>
 
 <style scoped>
-.head{
-    width: 217px;
-    height: 64px;
-}
-/deep/.el-breadcrumb{
-    padding-top: 18px
-}
-.title1{
+.title_1{
     color: #00000066;
     font-size: 20px;
+    font-face: PingFangSC;
     font-weight: 500;
     line-height: 28px;
     letter-spacing: 0;
     paragraph-spacing: 0;
-    text-align: right;
+    text-align: left;
 }
-.title2{
+.title_2{
     color: #000000e6;
     font-size: 20px;
+    font-face: PingFangSC;
     font-weight: 500;
     line-height: 28px;
     letter-spacing: 0;
     paragraph-spacing: 0;
-    text-align: right;
-}
-.avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
+    text-align: left;
 }
 </style>

@@ -1,23 +1,26 @@
 <!-- HistoryCard.vue -->
 <template>
-<!--    <div class="history-container">-->
-<!--        <div v-for="(record, index) in historyRecords" :key="index" class="history-record">-->
-<!--            <div class="record-content">-->
-<!--                <p class="record-type">{{ record.type }}</p>-->
-<!--                <p class="record-time">{{ record.time }}</p>-->
-<!--            </div>-->
-<!--            <el-button type="text" @click="editRecord(index)">编辑</el-button>-->
-<!--        </div>-->
-<!--    </div>-->
-    <div style="height: 300px;">
-        <el-steps direction="vertical" :active="1">
-                <el-step
-                    v-for="(record, index) in historyRecords"
-                    :key="index"
-                    :title="record.type"
-                    description="">
-                </el-step>
-        </el-steps>
+    <div class="block">
+        <div class="radio">
+            排序：
+            <el-radio-group v-model="historyRecords.reverse">
+                <el-radio :label="true">倒序</el-radio>
+                <el-radio :label="false">正序</el-radio>
+            </el-radio-group>
+        </div>
+        <el-timeline :reverse="historyRecords.reverse">
+            <el-timeline-item v-for="(record, index) in historyRecords.timeline"
+                              :timestamp="record.time"
+                              :key="index"
+                              placement="top"
+                              :color="record.time ? 'blue' : 'default'">
+                <el-card>
+                    <h4>{{record.type}}</h4>
+                    <p>{{record.name}} {{record.id}}</p>
+                    <img src="../assets/images/avatar.png" class="avatar">
+                </el-card>
+            </el-timeline-item>
+        </el-timeline>
     </div>
 </template>
 
@@ -26,39 +29,27 @@ export default {
   name: 'HistoryCard',
   data () {
     return {
-      historyRecords: [
-        { type: '发起人(在职转校级员工)', time: '2023-09-19 19:02:44' },
-        { type: '审批人(学院研究生主任)', time: '2023-09-19 19:02:44' }
-        // 更多记录...
-      ]
-    }
-  },
-  methods: {
-    editRecord (index) {
-      // 实现编辑记录的逻辑
-      console.log('Editing record', index)
+      historyRecords: {
+        reverse: false,
+        now_state: 2,
+        timeline:
+          [{type: '发起人(在职转校级员工)', time: '2023-09-19 19:02:44', name: '小明', id: '10001'},
+            {type: '审批人(学院研工办主任)', time: '2023-09-19 19:04:44', name: '小明', id: '10001'},
+            {type: '审批人(学院分管研究生工作副院长)', time: '', name: '小明', id: '10001'},
+            {type: '审批人(研究生招生考务科科长)', time: '', name: '小明', id: '10001'}]
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-.history-container {
-    display: flex;
-    flex-direction: column;
-}
-.history-record {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
-    padding: 10px;
-}
-.record-content {
-    display: flex;
-    flex-direction: column;
-}
-.record-type, .record-time {
-    margin: 0;
+.avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover; /* 确保图片内容被适当地裁剪而不是被压缩 */
+    overflow: hidden; /* 防止图片溢出容器边界 */
+    display: block; /* 去除图片下方的空隙 */
 }
 </style>
