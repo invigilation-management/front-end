@@ -35,8 +35,11 @@
                                 </el-table-column>
                                 <el-table-column
                                     label="监考名称">
-                                    <template slot-scope="scope">
-                                        <span class="teamName">{{scope.row.date}}</span>
+                                    <template v-slot="scope">
+                                        <el-button
+                                            size="mini"
+                                            type="text"
+                                            @click="handleEdit(scope.$index, scope.row)">查看</el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -133,6 +136,12 @@ export default {
   methods: {
     handleClick (tab, event) {
       console.log(tab, event)
+    },
+    handleEdit (row) {
+      this.$router.push({
+        name: 'DetailList',
+        query: {name: row.name}
+      })
     }
   }
 }
