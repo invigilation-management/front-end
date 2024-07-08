@@ -127,7 +127,7 @@
                     <el-table-column
                         label="操作">
                         <template slot-scope="scope">
-                            <el-button @click="handleClick(scope.row)" type="text" size="small">查看成员</el-button>
+                            <el-button @click="handleMembers(scope.row)" type="text" size="small">查看成员</el-button>
                             <el-button type="text" size="small">更多</el-button>
                         </template>
                     </el-table-column>
@@ -141,6 +141,14 @@
 <script>
 export default {
   name: 'RoleManagement',
+  methods: {
+    handleMembers (row) {
+      this.$router.push({
+        name: 'waiting',
+        query: {name: row.name}
+      })
+    }
+  },
   data () {
     return {
       input: '',

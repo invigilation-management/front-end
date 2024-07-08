@@ -40,6 +40,12 @@ const admissionsHeadPage = [
         redirect: 'exam-approval',
         name: 'admissionsRedirect'
       },
+
+      {
+        path: 'waiting',
+        name: 'waiting',
+        component: () => import(/* webpackChunkName: "DisagreeDetails" */ '../pages/admissions/Management_view_member.vue')
+      },
       {
         path: 'batch-details',
         name: 'batchDetails',
@@ -59,11 +65,6 @@ const admissionsHeadPage = [
             path: 'disagree',
             name: 'disagreeDetails',
             component: () => import(/* webpackChunkName: "DisagreeDetails" */ '../pages/admissions/DisagreeDetails.vue')
-          },
-          {
-            path: 'waiting',
-            name: 'waiting',
-            component: () => import(/* webpackChunkName: "DisagreeDetails" */ '../pages/admissions/Waiting.vue')
           }
         ]
       },
