@@ -2,17 +2,88 @@
     <div>
         <h1>
             <i class="el-icon-back"></i>|
-            <div class="title_2">监考费用明细
-            </div>
+            <span class="title_2">监考费用明细</span>
         </h1>
         <el-card class="card">
-            <el-row gutter="20">
-                <el-col span="1"><el-button class="line1-1" type="primary">快速找人</el-button></el-col>
-                <el-col span="1" offset="0"><el-button class="line1-2" type="primary" plain>创建批次</el-button></el-col>
-                <el-col span="8" offset="0"><el-button class="line1-2" type="primary" plain>数据导出</el-button></el-col>
-                <el-col span="2" offset="6" ><el-input class="line1-3" v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
-                <el-col span="1" offset="1"><el-button class="line1-4" type="primary">查询</el-button></el-col>
-                <el-col span="1" offset="" ><el-button class="line1-2" type="primary" plain>重置</el-button></el-col>
+            <el-row :gutter="10">
+                <el-col :span="9">
+<!--                    <el-button class="blue" type="primary"></el-button>-->
+<!--                    <el-button type="primary" plain class="white">创建批次</el-button>-->
+                    <!-- Table -->
+                    <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+
+                    <el-dialog title="收货地址" :visible.sync="dialogTableVisible">
+                        <el-table :data="tableData">
+                            <el-table-column
+                                type="selection"
+                                width="75">
+                            </el-table-column>
+                            <el-table-column
+                                label="序号"
+                                width="120">
+                                <template slot-scope="scope">
+                                    0{{scope.$index+1}}
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                prop="name"
+                                label="姓名"
+                                width="120">
+<!--                                <template v-slot="scope">-->
+<!--                                <el-button type="text" size="small" @click="handleEdit(scope.row)">{{-->
+<!--                                        scope.row.name-->
+<!--                                    }}-->
+<!--                                </el-button>-->
+<!--                            </template>-->
+                            </el-table-column>
+                            <el-table-column
+                                prop="status"
+                                label="性别"
+                                width="137">
+                            </el-table-column>
+                            <el-table-column
+                                prop="num"
+                                label="工号"
+                                width="180">
+                            </el-table-column>
+                            <el-table-column
+                                prop="partment"
+                                label="所在单位"
+                                width="220">
+                            </el-table-column>
+                            <el-table-column
+                                prop="Id"
+                                label="身份证号"
+                                width="210">
+                            </el-table-column>
+                            <el-table-column
+                                prop="tele"
+                                label="移动电话"
+                                width="155">
+                            </el-table-column>
+                            <el-table-column
+                                label="监考时间"
+                                prop="time"
+                                width="200">
+                            </el-table-column>
+                            <el-table-column
+                                label="监考场次(200/场)"
+                                prop="count"
+                                width="200">
+                            </el-table-column>
+                            <el-table-column
+                                label="总金额"
+                                prop="money"
+                                width="150">
+                            </el-table-column>
+                        </el-table>
+                    </el-dialog>
+                </el-col>
+                <el-col :span="6" :offset="5" ><el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
+                <el-col :span="4">
+                    <el-button class="blue" type="primary">查询</el-button>
+                    <el-button type="primary" plain class="white">重置</el-button>
+                </el-col>
             </el-row>
             <el-table
                 :header-row-style="{ backgroundColor: '#F3F3F3' }"
@@ -34,45 +105,54 @@
                 </el-table-column>
                 <el-table-column
                     prop="name"
-                    label="监考名称"
-                    width="300"><template v-slot="scope">
-                    <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
-                            scope.row.name
-                        }}
-                    </el-button>
-                </template>
+                    label="姓名"
+                    width="120">
+<!--                    <template v-slot="scope">-->
+<!--                    <el-button type="text" size="small" @click="handleEdit(scope.row)">{{-->
+<!--                            scope.row.name-->
+<!--                        }}-->
+<!--                    </el-button>-->
+<!--                </template>-->
                 </el-table-column>
                 <el-table-column
                     prop="status"
-                    label="报名情况"
+                    label="性别"
                     width="137">
                 </el-table-column>
                 <el-table-column
-                    prop="startTime"
-                    label="报名开始时间"
-                    width="255">
+                    prop="num"
+                    label="工号"
+                    width="180">
                 </el-table-column>
                 <el-table-column
-                    prop="endTime"
-                    label="报名结束时间"
-                    width="255">
+                    prop="partment"
+                    label="所在单位"
+                    width="220">
                 </el-table-column>
                 <el-table-column
-                    prop="createTime"
-                    label="创建时间"
-                    width="255">
+                    prop="Id"
+                    label="身份证号"
+                    width="210">
                 </el-table-column>
                 <el-table-column
-                    prop="status"
-                    label="批次状态"
+                    prop="tele"
+                    label="移动电话"
                     width="155">
                 </el-table-column>
                 <el-table-column
-                    label="操作"
+                    label="监考时间"
+                    prop="time"
                     width="200">
-                    <template slot-scope="scope">
-                        <el-button type="text" size="small">查看名单</el-button>
-                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="监考场次(200/场)"
+                    prop="count"
+                    width="200">
+                </el-table-column>
+                <el-table-column
+                    label="总金额"
+                    prop="money"
+                    width="150">
                 </el-table-column>
             </el-table>
             <el-pagination
@@ -90,88 +170,18 @@ export default {
   data () {
     return {
       input: '',
+      dialogTableVisible: false,
       tableData: [
         {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        },
-        {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        },
-        {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        },
-        {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
+          name: '张三',
+          status: '男',
+          num: '1001',
+          partment: '计算机学院',
+          Id: '350524000000000001',
+          tele: '17894562351',
+          time: '2023-09-12 10:30:00',
+          count: '4',
+          money: '800'
         }
 
         // Add more data objects as required
@@ -193,14 +203,6 @@ export default {
 </script>
 
 <style scoped>
-.title_1 {
-    color: #00000066;
-    font-size: 20px;
-    font-family: PingFangSC;
-    font-weight: 500;
-    line-height: 28px;
-    text-align: left;
-}
 .title_2 {
     color: #000000e6;
     font-size: 20px;
@@ -215,9 +217,7 @@ h1 {
     flex-direction: row;    /* 子元素横向排列，默认就是 row，也可省略这一行 */
     gap: 10px;              /* 子元素之间的间隔 */
 }
-.line1-1{
-    width: 104px;
-    height: 36px;
+.blue{
     background: #166AFF;
     border-radius: 3px;
     font-weight: 400;
@@ -225,17 +225,7 @@ h1 {
     color: #FFFFFF;
     text-align: center;
 }
-.line1-4{
-    width: 74px;
-    height: 36px;
-    background: #166AFF;
-    border-radius: 3px;
-    font-weight: 400;
-    font-size: 14px;
-    color: #FFFFFF;
-    text-align: center;
-}
-.line1-2, .line1-5 {
+.white{
     border: 1px solid #166AFF;
     border-radius: 3px;
     font-weight: 400;
@@ -244,28 +234,9 @@ h1 {
     text-align: center;
     background-color: #FFFFFF;
 }
-.line1-3 {
-    width: 250px;
-    height: 36px;
-    background: #ffffffe6;
-    border: 1px solid #DCDCDC;
-    border-radius: 3px;
-}
 .card {
     margin-left: 20px;
     margin-right: 20px;
-}
-.el-col{
-    margin-right: 35px;
-}
-.el-col{
-    scroll-margin-left: 35px;
-}
-.el-row {
-    margin-bottom: 20px;
-}
-.el-row:last-child {
-    margin-bottom: 0;
 }
 /deep/ .el-table th.el-table__cell{
     background-color: #F3F3F3;

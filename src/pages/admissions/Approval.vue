@@ -56,11 +56,11 @@
                                     label="工号">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="address"
+                                    prop="batch"
                                     label="监考名称" width="180">
                                     <template v-slot="scope">
                                         <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
-                                                scope.row.name
+                                                scope.row.batch
                                             }}
                                         </el-button>
                                     </template>
@@ -76,7 +76,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleSubmit(scope.row)">预览</el-button>
+                                            @click="handlePreview(scope.row)">预览</el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -86,10 +86,49 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleAction(scope.$index, scope.row)">审批详情</el-button>
+                                            @click="showApprovalDialog(scope.row)">审批详情</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
+<!--                            <el-dialog :visible.sync="isApprovalDialogVisible" title="审批" width="600px" center style="font-weight: bolder">-->
+<!--                            <el-form :model="approvalForm">-->
+<!--                                <el-table :data="[approvalForm]" stripe style="width: 100%; margin-bottom: 20px;">-->
+<!--                                    <el-table-column prop="num" label="工号" width="180">-->
+<!--                                        <template v-slot="scope">-->
+<!--                                            <span style="font-size: 16px; padding: 10px;">{{ scope.row.num }}</span>-->
+<!--                                        </template>-->
+<!--                                    </el-table-column>-->
+<!--                                    <el-table-column prop="name" label="姓名" width="180">-->
+<!--                                        <template v-slot="scope">-->
+<!--                                            <span style="font-size: 16px; padding: 10px;">{{ scope.row.name }}</span>-->
+<!--                                        </template>-->
+<!--                                    </el-table-column>-->
+<!--                                    <el-table-column width="180" label="操作">-->
+<!--                                        <template> <el-button type="text" style="font-size: 18px">移除</el-button></template>-->
+<!--                                    </el-table-column>-->
+<!--                                </el-table>-->
+<!--                                <hr />-->
+<!--                                <el-form-item label="审批" style="text-align: center;">-->
+<!--                                    <el-radio-group v-model="approvalForm.approval">-->
+<!--                                        <el-radio label="同意" style="font-size: 16px;">同意</el-radio>-->
+<!--                                        <el-radio label="不同意" style="font-size: 16px;">不同意</el-radio>-->
+<!--                                    </el-radio-group>-->
+<!--                                </el-form-item>-->
+<!--                                <el-form-item v-if="approvalForm.approval === '不同意'" style="text-align: center;">-->
+<!--                                    <el-input-->
+<!--                                        v-model="approvalForm.reason"-->
+<!--                                        placeholder="请输入不同意理由"-->
+<!--                                        type="textarea"-->
+<!--                                        style="background-color: #f0f0f0; width: 100%;"></el-input>-->
+<!--                                </el-form-item>-->
+<!--                                <span style="color: red; display: block; text-align: center; font-size: 16px;">请确认，一经提交无法申请</span>-->
+<!--                                <hr />-->
+<!--                                <el-form-item style="text-align: center;">-->
+<!--                                    <el-button type="primary" @click="submitApproval" style="font-size: 16px;">提交</el-button>-->
+<!--                                    <el-button @click="isApprovalDialogVisible = false" style="font-size: 16px;">取消</el-button>-->
+<!--                                </el-form-item>-->
+<!--                            </el-form>-->
+<!--                        </el-dialog>-->
                             <el-pagination
                                 background
                                 layout="total, prev, pager, next"
@@ -123,7 +162,7 @@
                                 </el-col>
                             </el-row>
                             <el-table
-                                :data="tableData"
+                                :data="agreeData"
                                 style="width: 100%"
                                 @selection-change="handleSelectionChange">
                                 <el-table-column
@@ -138,16 +177,17 @@
                                 </el-table-column>
                                 <el-table-column
                                     label="报名人">
+                                    prop="name"
                                     <template slot-scope="scope">
                                         <span class="teamName">{{scope.row.date}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    prop="name"
+                                    prop="num"
                                     label="工号">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="address"
+                                    prop="batch"
                                     label="监考名称" width="180">
                                     <template v-slot="scope">
                                         <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
@@ -157,7 +197,6 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    prop="address"
                                     label="材料" width="180">
                                     <template v-slot="scope">
                                         <el-button
@@ -167,7 +206,6 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    prop="address"
                                     label="操作" width="180">
                                     <template v-slot="scope">
                                         <el-button
@@ -210,7 +248,7 @@
                                 </el-col>
                             </el-row>
                             <el-table
-                                :data="tableData"
+                                :data="disagreeData"
                                 style="width: 100%"
                                 @selection-change="handleSelectionChange">
                                 <el-table-column
@@ -224,17 +262,18 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column
+                                    prop="num"
                                     label="报名人">
                                     <template slot-scope="scope">
                                         <span class="teamName">{{scope.row.date}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    prop="name"
+                                    prop="num"
                                     label="工号">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="address"
+                                    prop="batch"
                                     label="监考名称" width="180">
                                     <template v-slot="scope">
                                         <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
@@ -244,7 +283,6 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    prop="address"
                                     label="上传材料" width="180">
                                     <template v-slot="scope">
                                         <el-button
@@ -254,7 +292,6 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    prop="address"
                                     label="操作" width="180">
                                     <template v-slot="scope">
                                         <el-button
@@ -303,21 +340,32 @@ export default {
       tableData: [{
         date: '2016-05-02',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+        address: '兴庆校区',
+        num: '1001',
+        batch: '2023年A卷2023监考报名'
       }, {
-        date: '2016-05-04',
+        date: '2016-05-02',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
+        address: '兴庆校区',
+        num: '1001',
+        batch: '2023年A卷2023监考报名'
       }, {
-        date: '2016-05-01',
+        date: '2016-05-02',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
+        address: '兴庆校区',
+        num: '1001',
+        batch: '2023年A卷2023监考报名'
       }, {
-        date: '2016-05-03',
+        date: '2016-05-02',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
+        address: '兴庆校区',
+        num: '1001',
+        batch: '2023年A卷2023监考报名'
       }],
-      activeName: 'Batch'
+      agreeData: [],
+      disagreeData: [],
+      activeName: 'Batch',
+      isApprovalDialogVisible: false
     }
   },
   methods: {
@@ -335,6 +383,20 @@ export default {
       //   name: 'batchDetails',
       //   query: {name: row.name}
       // })
+    },
+    handlePreview (row) {
+      // 处理预览逻辑
+    },
+    showApprovalDialog (row) {
+      this.approvalForm = { ...row }
+      this.isApprovalDialogVisible = false
+    },
+    submitApproval () {
+      // 提交审批逻辑
+      this.isApprovalDialogVisible = false
+    },
+    handleSelectionChange (val) {
+      // 处理选择逻辑
     }
   }
 }
