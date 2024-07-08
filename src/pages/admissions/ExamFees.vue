@@ -12,8 +12,8 @@
                     <!-- Table -->
                     <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
 
-                    <el-dialog title="收货地址" :visible.sync="dialogTableVisible">
-                        <el-table :data="tableData">
+                    <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
+                        <el-table :data="selectedIds.map(index => tableData[index])">
                             <el-table-column
                                 type="selection"
                                 width="75">
@@ -171,8 +171,29 @@ export default {
     return {
       input: '',
       dialogTableVisible: false,
+      selectedIds: [],
       tableData: [
         {
+          name: '张三',
+          status: '男',
+          num: '1001',
+          partment: '计算机学院',
+          Id: '350524000000000001',
+          tele: '17894562351',
+          time: '2023-09-12 10:30:00',
+          count: '4',
+          money: '800'
+        }, {
+          name: '张三',
+          status: '男',
+          num: '1001',
+          partment: '计算机学院',
+          Id: '350524000000000001',
+          tele: '17894562351',
+          time: '2023-09-12 10:30:00',
+          count: '4',
+          money: '800'
+        }, {
           name: '张三',
           status: '男',
           num: '1001',
@@ -190,7 +211,7 @@ export default {
   },
   methods: {
     handleSelectionChange (val) {
-      console.log(val)
+      this.selectedIds = val.map(item => this.tableData.indexOf(item))
     },
     handleEdit (row) {
       this.$router.push({

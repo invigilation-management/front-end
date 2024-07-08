@@ -40,6 +40,12 @@ const admissionsHeadPage = [
         redirect: 'exam-approval',
         name: 'admissionsRedirect'
       },
+
+      {
+        path: 'waiting',
+        name: 'waiting',
+        component: () => import(/* webpackChunkName: "DisagreeDetails" */ '../pages/admissions/Management_view_member.vue')
+      },
       {
         path: 'batch-details',
         name: 'batchDetails',
@@ -59,11 +65,6 @@ const admissionsHeadPage = [
             path: 'disagree',
             name: 'disagreeDetails',
             component: () => import(/* webpackChunkName: "DisagreeDetails" */ '../pages/admissions/DisagreeDetails.vue')
-          },
-          {
-            path: 'waiting',
-            name: 'waiting',
-            component: () => import(/* webpackChunkName: "DisagreeDetails" */ '../pages/admissions/Waiting.vue')
           }
         ]
       },
@@ -131,6 +132,16 @@ const officeDirectorPage = [
         ]
       },
       {
+        path: 'ApprovalDetails',
+        name: 'ApprovalDetails',
+        component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/ApprovalDetails.vue')
+      },
+      {
+        path: 'detailList',
+        name: 'DetailList',
+        component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/DetailList.vue')
+      },
+      {
         path: 'examlist',
         name: 'Examlist',
         component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/ExamList.vue'),
@@ -161,6 +172,10 @@ const teacherPage = [
         path: 'fill-form',
         name: 'fillForm',
         component: () => import(/* webpackChunkName: "FillForm" */ '../pages/teacher/FillForm.vue')
+      }, {
+        path: 'sign-up',
+        name: 'SignUp',
+        component: () => import(/* webpackChunkName: "BatchDetailsTeacher" */ '../pages/teacher/SignUp.vue')
       }, {
         path: 'batch-details',
         name: 'BatchDetails',

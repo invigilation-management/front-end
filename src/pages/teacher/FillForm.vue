@@ -7,7 +7,7 @@
         </h1>
         <el-card class="card">
             <el-row :gutter="10">
-                <el-col :span="4"><el-button class="blue" type="primary">监考报名</el-button></el-col>
+                <el-col :span="4"><el-button class="blue" type="primary" @click="goToSignUp">监考报名</el-button></el-col>
                 <el-col :span="6" :offset="10" ><el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
                 <el-col :span="4">
                     <el-button type="primary" class="blue">查询</el-button>
@@ -37,9 +37,8 @@
                     label="报名批次"
                     width="330">
                     <template v-slot="scope">
-                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
-                                scope.row.name
-                            }}
+                        <el-button type="text" size="small" @click="handleEdit(scope.row)">
+                            {{scope.row.name}}
                         </el-button>
                     </template>
                 </el-table-column>
@@ -81,6 +80,8 @@
 </template>
 
 <script>
+import SignUp from './SignUp.vue'
+
 export default {
   name: 'SignUp',
   data () {
@@ -183,6 +184,9 @@ export default {
         name: 'BatchDetails',
         query: {name: row.name}
       })
+    },
+    goToSignUp () {
+      this.$router.push({name: 'SignUp'})
     }
   }
 }
