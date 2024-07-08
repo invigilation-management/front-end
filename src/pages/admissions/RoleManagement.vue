@@ -3,13 +3,15 @@
         <h1 class="title">部门与角色管理</h1>
         <div class="card">
             <el-card>
-                <el-row gutter="10">
-                    <el-col span="6">
+                <el-row :gutter="10">
+                    <el-col :span="6">
                         <el-input v-model="input" placeholder="请输入内容"></el-input>
                     </el-col>
-                    <el-col span="3"><el-button type="primary" class="blue">查询</el-button></el-col>
-                    <el-col span="3"><el-button type="primary" plain class="white">重置</el-button></el-col>
-                    <el-col :span="8" :offset="6">
+                    <el-col :span="4">
+                        <el-button type="primary" class="blue">查询</el-button>
+                        <el-button type="primary" plain class="white">重置</el-button>
+                    </el-col>
+                    <el-col :span="12" :offset="2">
                         <el-button type="primary" class="blue">快速找人</el-button>
                         <el-button type="primary" class="blue" @click="dialogVisibleSelect = true">添加成员</el-button>
                         <!--                    以下是对话弹窗部分-->

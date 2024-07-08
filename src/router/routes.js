@@ -158,47 +158,34 @@ const teacherPage = [
     component: () => import(/* webpackChunkName: "Teacher" */ '../pages/teacher/Main.vue'),
     children: [
       {
-        path: 'exam-signup-passed',
-        name: 'SignUp',
-        component: () => import(/* webpackChunkName: "ExamSignupPassed" */ '../pages/teacher/ExamSignupPassed.vue'),
-        children: [
-          {
-            path: 'fill-form',
-            name: 'fillForm',
-            component: () => import(/* webpackChunkName: "FillForm" */ '../pages/teacher/FillForm.vue')
-          }
-        ]
+        path: 'fill-form',
+        name: 'fillForm',
+        component: () => import(/* webpackChunkName: "FillForm" */ '../pages/teacher/FillForm.vue')
       }, {
         path: 'batch-details',
         name: 'BatchDetails',
         component: () => import(/* webpackChunkName: "BatchDetailsTeacher" */ '../pages/teacher/BatchDetails.vue')
-      },
-      {
+      }, {
         path: 'recording',
         name: 'Recording',
         component: () => import(/* webpackChunkName: "ViewConfirm" */ '../pages/teacher/Recording.vue')
-      },
-      {
+      }, {
         path: 'exam-signup-passed',
         name: 'examSignupPassed',
         component: () => import(/* webpackChunkName: "ExamSignupPassed" */ '../pages/teacher/ExamSignupPassed.vue')
-      },
-      {
+      }, {
         path: 'waiting-result',
         name: 'waitingResultTeacher',
         component: () => import(/* webpackChunkName: "WaitingResultTeacher" */ '../pages/teacher/WaitingResult.vue')
-      },
-      {
+      }, {
         path: 'failure',
         name: 'failureTeacher',
         component: () => import(/* webpackChunkName: "FailureTeacher" */ '../pages/teacher/Failure.vue')
-      },
-      {
+      }, {
         path: 'success',
         name: 'successTeacher',
         component: () => import(/* webpackChunkName: "SuccessTeacher" */ '../pages/teacher/Success.vue')
-      },
-      {
+      }, {
         path: 'view-confirm',
         name: 'viewConfirm',
         component: () => import(/* webpackChunkName: "ViewConfirm" */ '../pages/teacher/ViewConfirm.vue')
