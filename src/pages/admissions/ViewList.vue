@@ -41,28 +41,28 @@
                     width="129">
                 </el-table-column>
                 <el-table-column
-                    prop="address"
+                    prop="status"
                     label="性别"
                     width="90"
                     show-overflow-tooltip>
                 </el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="num"
                     label="工号"
                     width="150">
                 </el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="partment"
                     label="所在单位"
                     width="177">
                 </el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="Id"
                     label="身份证号"
                     width="217">
                 </el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="tele"
                     label="移动电话"
                     width="150">
                 </el-table-column>
@@ -72,17 +72,17 @@
                     width="105">
                 </el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="count"
                     label="监考场次"
                     width="108">
                 </el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="room"
                     label="考场名称"
                     width="148">
                 </el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="time"
                     label="监考时间"
                     width="310">
                 </el-table-column>
@@ -106,34 +106,46 @@ export default {
   data () {
     return {
       input: '',
-      tableData: [{
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+      tableData: [ {
+        name: '张三',
+        status: '男',
+        num: '1001',
+        partment: '计算机学院',
+        Id: '350524000000000001',
+        tele: '17894562351',
+        time: '2023-09-12 10:30:00',
+        count: '2',
+        room: '软件北小楼204'
       }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+        name: '张三',
+        status: '男',
+        num: '1001',
+        partment: '计算机学院',
+        Id: '350524000000000001',
+        tele: '17894562351',
+        time: '2023-09-12 10:30:00',
+        count: '2',
+        room: '软件北小楼204'
       }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+        name: '张三',
+        status: '男',
+        num: '1001',
+        partment: '计算机学院',
+        Id: '350524000000000001',
+        tele: '17894562351',
+        time: '2023-09-12 10:30:00',
+        count: '2',
+        room: '软件北小楼204'
       }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-08',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-06',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-07',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+        name: '张三',
+        status: '男',
+        num: '1001',
+        partment: '计算机学院',
+        Id: '350524000000000001',
+        tele: '17894562351',
+        time: '2023-09-12 10:30:00',
+        count: '2',
+        room: '软件北小楼204'
       }]
     }
   }
