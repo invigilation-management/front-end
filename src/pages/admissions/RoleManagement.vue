@@ -59,39 +59,41 @@
                     style="width: 100%"
                     class="blue-header">
                     <el-table-column
-                        prop="date"
                         label="序号"
                         width="60">
-                    </el-table-column>
-                    <el-table-column
-                        label="部门名称"
-                        width="400">
                         <template slot-scope="scope">
-                            <el-button type="text">{{scope.row.date}}</el-button>
+                            0{{scope.$index+1}}
                         </template>
                     </el-table-column>
                     <el-table-column
-                        prop="date"
+                        label="部门名称"
+                        prop="name"
+                        width="400">
+                        <template slot-scope="scope">
+                            <el-button type="text">{{scope.row.name}}</el-button>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                        prop="code"
                         label="部门代码"
                         width="140">
                     </el-table-column>
                     <el-table-column
-                        prop="date"
+                        prop="type"
                         label="部门类型"
                         width="140">
                     </el-table-column>
                     <el-table-column
-                        prop="date"
+                        prop="num"
                         label="成员人数"
                         width="140">
                     </el-table-column>
                     <el-table-column
-                        prop="name"
+                        prop="date"
                         label="添加时间"
                         width="140">
                     </el-table-column>
                     <el-table-column
-                        prop="address"
                         label="操作">
                         <template slot-scope="scope">
                             <el-button @click="handleClick(scope.row)" type="text" size="small">查看成员</el-button>
@@ -114,19 +116,27 @@ export default {
       tableData: [{
         date: '2016-05-02',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+        code: '10023456',
+        type: '行政部门',
+        num: '3'
       }, {
-        date: '2016-05-04',
+        date: '2016-05-02',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
+        code: '10023456',
+        type: '行政部门',
+        num: '3'
       }, {
-        date: '2016-05-01',
+        date: '2016-05-02',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
+        code: '10023456',
+        type: '行政部门',
+        num: '3'
       }, {
-        date: '2016-05-03',
+        date: '2016-05-02',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
+        code: '10023456',
+        type: '行政部门',
+        num: '3'
       }],
       dialogVisibleSelect: false,
       selectedContent: 'alone',
