@@ -21,11 +21,11 @@
 </template>
 
 <script>
-import HistoryCard from '../../components/HistoryCard.vue'
+// import HistoryCard from '../../components/HistoryCard.vue'
 export default {
   name: 'SignUp',
   components: {
-    HistoryCard
+    // HistoryCard
   }
 }
 </script>

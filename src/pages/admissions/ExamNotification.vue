@@ -10,7 +10,60 @@
                 <el-col :span="9">
                     <el-button class="blue" type="primary">快速找人</el-button>
                     <el-button type="primary" plain class="white">创建批次</el-button>
-                    <el-button type="primary" plain class="white">数据导出</el-button>
+                    <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+                    <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
+                        <el-table :data="selectedIds.map(index => tableData[index])"><el-table-column
+                            label="序号"
+                            width="120">
+                            <template slot-scope="scope">
+                                0{{scope.$index+1}}
+                            </template>
+                        </el-table-column>
+                            <el-table-column
+                                prop="name"
+                                label="监考名称"
+                                width="300">
+                                <template v-slot="scope">
+                                    <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                            scope.row.name
+                                        }}
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                prop="status"
+                                label="报名情况"
+                                width="137">
+                            </el-table-column>
+                            <el-table-column
+                                prop="startTime"
+                                label="时间"
+                                width="255">
+                            </el-table-column>
+                            <el-table-column
+                                prop="endTime"
+                                label="报名结束时间"
+                                width="255">
+                            </el-table-column>
+                            <el-table-column
+                                prop="createTime"
+                                label="创建时间"
+                                width="255">
+                            </el-table-column>
+                            <el-table-column
+                                prop="status"
+                                label="批次状态"
+                                width="155">
+                            </el-table-column>
+                            <el-table-column
+                                label="操作"
+                                width="200">
+                                <template slot-scope="scope">
+                                    <el-button type="text" size="small">查看名单</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-dialog>
                 </el-col>
                 <el-col :span="6" :offset="5" ><el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
                 <el-col :span="4">
@@ -95,6 +148,8 @@ export default {
   data () {
     return {
       input: '',
+      dialogTableVisible: false,
+      selectedIds: [],
       tableData: [
         {
           name: '2023年A卷2023监考报名',
@@ -185,7 +240,7 @@ export default {
   },
   methods: {
     handleSelectionChange (val) {
-      console.log(val)
+      this.selectedIds = val.map(item => this.tableData.indexOf(item))
     },
     handleEdit (row) {
       this.$router.push({

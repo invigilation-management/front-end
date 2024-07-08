@@ -9,7 +9,73 @@
             <el-row :gutter="10">
                 <el-col :span="6">
                     <el-button class="blue" type="primary">导入监考信息</el-button>
-                    <el-button type="primary" plain class="white">数据导出</el-button>
+                    <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+
+                    <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
+                        <el-table :data="selectedIds.map(index => tableData[index])"><el-table-column
+                            type="selection"
+                            width="56">
+                        </el-table-column>
+                            <el-table-column
+                                label="序号"
+                                width="110">
+                                <template slot-scope="scope">
+                                    0{{scope.$index+1}}
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                prop="name"
+                                label="姓名"
+                                width="129">
+                            </el-table-column>
+                            <el-table-column
+                                prop="status"
+                                label="性别"
+                                width="90"
+                                show-overflow-tooltip>
+                            </el-table-column>
+                            <el-table-column
+                                prop="num"
+                                label="工号"
+                                width="150">
+                            </el-table-column>
+                            <el-table-column
+                                prop="partment"
+                                label="所在单位"
+                                width="177">
+                            </el-table-column>
+                            <el-table-column
+                                prop="Id"
+                                label="身份证号"
+                                width="217">
+                            </el-table-column>
+                            <el-table-column
+                                prop="tele"
+                                label="移动电话"
+                                width="150">
+                            </el-table-column>
+                            <el-table-column
+                                prop="name"
+                                label="监考职责"
+                                width="105">
+                            </el-table-column>
+                            <el-table-column
+                                prop="count"
+                                label="监考场次"
+                                width="108">
+                            </el-table-column>
+                            <el-table-column
+                                prop="room"
+                                label="考场名称"
+                                width="148">
+                            </el-table-column>
+                            <el-table-column
+                                prop="time"
+                                label="监考时间"
+                                width="310">
+                            </el-table-column>
+                        </el-table>
+                    </el-dialog>
                 </el-col>
                 <el-col :span="6" :offset="8"><el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
                 <el-col :span="4">
@@ -106,6 +172,8 @@ export default {
   data () {
     return {
       input: '',
+      dialogTableVisible: false,
+      selectedIds: [],
       tableData: [ {
         name: '张三',
         status: '男',
@@ -147,6 +215,17 @@ export default {
         count: '2',
         room: '软件北小楼204'
       }]
+    }
+  },
+  methods: {
+    handleSelectionChange (val) {
+      this.selectedIds = val.map(item => this.tableData.indexOf(item))
+    },
+    handleEdit (row) {
+      this.$router.push({
+        name: 'batchDetails',
+        query: {name: row.name}
+      })
     }
   }
 }
