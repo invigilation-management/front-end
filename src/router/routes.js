@@ -162,6 +162,10 @@ const teacherPage = [
         name: 'fillForm',
         component: () => import(/* webpackChunkName: "FillForm" */ '../pages/teacher/FillForm.vue')
       }, {
+        path: 'sign-up',
+        name: 'SignUp',
+        component: () => import(/* webpackChunkName: "BatchDetailsTeacher" */ '../pages/teacher/SignUp.vue')
+      }, {
         path: 'batch-details',
         name: 'BatchDetails',
         component: () => import(/* webpackChunkName: "BatchDetailsTeacher" */ '../pages/teacher/BatchDetails.vue')

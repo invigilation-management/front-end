@@ -1,6 +1,9 @@
 <template>
     <div>
-        <h1 class="title">部门与角色管理</h1>
+        <h1>
+            <i class="el-icon-back"></i>|
+            <span class="title_2"> 部门与角色管理</span>
+        </h1>
         <div class="card">
             <el-card>
                 <el-row :gutter="10">
@@ -189,15 +192,6 @@ export default {
     background-color: #F3F3F3;
     margin-top: 20px;
     color: black;
-}
-.title{
-    width: 140px;
-    height: 28px;
-    font-weight: 500;
-    font-size: 20px;
-    color: #000000e6;
-    display: block;
-    padding: 10px;
 }
 /deep/.el-col-3
 {
