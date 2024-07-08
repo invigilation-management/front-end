@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="rowahead">
-        <i class="el-icon-back"></i><div class="title_2"><div class="ahead1">报名审批/</div>监考批次详情</div>
+        <i class="el-icon-back"></i><div class="title_2"><div class="ahead1">报名审批/</div>详情</div>
     </div>
     <el-card class="card">
         <div class="title">监考批次情况</div>
