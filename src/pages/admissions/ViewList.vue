@@ -2,16 +2,20 @@
     <div>
         <h1>
             <i class="el-icon-back"></i>|
-            <div class="title_1">监考安排表/</div>
-            <div class="title_2">监考详细名单</div>
+            <span class="title_1">监考安排表/</span>
+            <span class="title_2">监考详细名单</span>
         </h1>
         <el-card class="card">
-            <el-row>
-                <el-col span="2"><el-button class="line1-1" type="primary">导入监考信息</el-button></el-col>
-                <el-col span="15" offset=""><el-button class="line1-2" type="primary" plain>数据导出</el-button></el-col>
-                <el-col span="4" offset="0"><el-input class="line1-3" v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
-                <el-col span="1" offset=""><el-button class="line1-4" type="primary">查询</el-button></el-col>
-                <el-col span="1" offset="0"><el-button class="line1-5" type="primary" plain>重置</el-button></el-col>
+            <el-row :gutter="10">
+                <el-col :span="6">
+                    <el-button class="blue" type="primary">导入监考信息</el-button>
+                    <el-button type="primary" plain class="white">数据导出</el-button>
+                </el-col>
+                <el-col :span="6" :offset="8"><el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
+                <el-col :span="4">
+                    <el-button class="blue" type="primary">查询</el-button>
+                    <el-button type="primary" plain class="white">重置</el-button>
+                </el-col>
             </el-row>
             <el-table
                 :header-row-style="{ backgroundColor: '#F3F3F3' }"
@@ -163,8 +167,7 @@ h1 {
     flex-direction: row;    /* 子元素横向排列，默认就是 row，也可省略这一行 */
     gap: 10px;              /* 子元素之间的间隔 */
 }
-.line1-1,  .line1-4{
-    width: 136px;
+.blue{
     background: #166AFF;
     border-radius: 3px;
     font-weight: 400;
@@ -172,7 +175,7 @@ h1 {
     color: #FFFFFF;
     text-align: center;
 }
-.line1-2,.line1-5{
+.white{
     border: 1px solid #166AFF;
     border-radius: 3px;
     font-weight: 400;
@@ -181,22 +184,9 @@ h1 {
     text-align: center;
     background-color: #FFFFFF;
 }
-.line1-3{
-    width: 280px;
-    height: 36px;
-    background: #ffffffe6;
-    border: 1px solid #DCDCDC;
-    border-radius: 3px;
-}
-.line1-4{
-    width: 74px;
-}
 .card{
     margin-left: 20px;
     margin-right: 20px;
-}
-.el-col{
-    margin-right: 10px;
 }
 /deep/ .el-table th.el-table__cell{
     background-color: #F3F3F3;
