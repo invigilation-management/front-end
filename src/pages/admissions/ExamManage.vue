@@ -76,6 +76,12 @@
                     prop="name"
                     label="监考名称"
                     width="300">
+                    <template v-slot="scope">
+                    <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                            scope.row.name
+                        }}
+                    </el-button>
+                </template>
                 </el-table-column>
                 <el-table-column
                     prop="status"
@@ -238,6 +244,12 @@ export default {
   methods: {
     handleSelectionChange (val) {
       console.log(val)
+    },
+    handleEdit (row) {
+      this.$router.push({
+        name: 'batchDetails',
+        query: {name: row.name}
+      })
     }
   }
 }
