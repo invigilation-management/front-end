@@ -383,9 +383,6 @@ export default {
 .teamName{
     color: #166AFF;
 }
-.buttonright{
-    float: right;
-}
 /deep/ .el-table th.el-table__cell{
     background-color: #F3F3F3;
 }
