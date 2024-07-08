@@ -14,7 +14,45 @@
                 <el-row :gutter="10">
                     <el-row :gutter="10">
                         <el-col :span="17">
-                            <el-button size="small" type="primary" icon="el-icon-search">快速找人</el-button>
+                            <el-button size="small" type="primary" icon="el-icon-user-solid" @click="invitation= true">邀约</el-button>
+                            <!-- 以下是对话弹窗部分-->
+                            <!-- 以下是对话弹窗部分-->
+                            <el-dialog title="邀约" :visible.sync="invitation">
+                                <hr class="card-divider">
+                                <div style="background-color: #E4EEFF;margin: 20px;height: 50px;text-align: center">
+                                    <i class="el-icon-warning-outline"></i>
+                                    通过邀约渠道，不受监考批次时间限制!
+                                </div>
+                                <div style="display: flex">
+                                    <div style="margin-top: 15px;margin-right: 50px">监考批次</div>
+                                    <el-input v-model="input_exam_num" placeholder="请选择监考批次"></el-input>
+                                </div>
+                                <div style="display: flex;margin-top: 20px">
+                                    <div style="text-align: left;margin-right: 50px">选择方式</div>
+                                    <el-radio v-model="invite_way" label="self">自走流程</el-radio>
+                                    <el-radio v-model="invite_way" label="help">帮助报名</el-radio>
+                                </div>
+                                <div>
+                                    <el-input placeholder="请输入姓名/工号/学号模糊查询" style="margin: 10px"></el-input>
+                                </div>
+                                <div style="margin: 20px;background-color: #F3F3F3 ;height: 160px;text-align: left">
+                                    <br><br>&nbsp;&nbsp; &nbsp;姓名：<br><br>
+                                    &nbsp; &nbsp; 工号：<br><br>
+                                    &nbsp; &nbsp; 学院：<br><br>
+                                </div>
+                                <hr class="card-divider">
+                                <div style="display: flex;margin-top: 30px">
+                                    <div v-if="invite_way === 'self'">
+                                        <el-button type="primary" @click="invitation= false" style="width: 125px;margin-left: 230px">提交</el-button>
+                                    </div>
+                                    <div v-if="invite_way === 'help'">
+                                        <el-button type="primary" @click="invitation= false" style="width: 125px;margin-left: 230px">前往补充信息</el-button>
+                                    </div>
+                                    <el-button type="info" @click="invitation= false" style="width: 125px;margin-left: 70px">取消</el-button>
+                                </div>
+                            </el-dialog>
+                            <!-- 以上是对话弹窗部分-->
+                            <!-- 以上是对话弹窗部分-->
                             <el-button size="small" type="inform">数据导出</el-button>
                         </el-col>
                         <el-col :span="4">
@@ -135,7 +173,10 @@ export default {
         name: '王小虎',
         address: '上海市普陀区金沙江路 1516 弄'
       }],
-      activeName: 'Batch'
+      activeName: 'Batch',
+      invitation: false,
+      invite_way: 'self',
+      input_exam_num: ''
     }
   },
   methods: {
