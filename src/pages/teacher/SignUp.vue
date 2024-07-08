@@ -6,12 +6,12 @@
         <span class="title_2">提交报名</span>
     </h1>
     <el-row :gutter="30">
-        <el-col :span="16">
+        <el-col :span="14">
             <el-card class="detail">
-                test
+                <SignUpInfo></SignUpInfo>
             </el-card>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="10">
             <el-card class="timeline">
                 <HistoryCard></HistoryCard>
             </el-card>
@@ -21,11 +21,12 @@
 </template>
 
 <script>
-// import HistoryCard from '../../components/HistoryCard.vue'
+import HistoryCard from '../../components/HistoryCard.vue'
+import SignUpInfo from '../../components/SignUpInfo.vue'
 export default {
   name: 'SignUp',
   components: {
-    // HistoryCard
+    HistoryCard, SignUpInfo
   }
 }
 </script>

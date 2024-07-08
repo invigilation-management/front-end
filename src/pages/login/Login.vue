@@ -45,7 +45,7 @@ export default {
           this.$router.push({path: '/admissions/batch-details'})
           break
         case 3:
-          this.$router.push('/teacher/exam-signup-passed')
+          this.$router.push('/teacher/fill-form')
           break
         default:
           alert('未知角色')
@@ -55,9 +55,9 @@ export default {
     getRoleByUsername (username) {
       // 模拟根据用户名获取角色，实际应用中应替换为API调用
       // const userRoleMap = {
-      //   'user1': 1,
-      //   'user2': 2,
-      //   'user3': 3
+      //   'user1': 1,: office
+      //   'user2': 2,: admission
+      //   'user3': 3,: teachers
       // }
       // return userRoleMap[username] || 1 || 2 || 3// 默认返回0表示未知角色
       return 2
