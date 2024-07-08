@@ -169,7 +169,7 @@
                                 <el-table-column
                                     prop="address"
                                     label="操作" width="180">
-                                    <template slot-scope="scope">
+                                    <template v-slot="scope">
                                         <el-button
                                             size="mini"
                                             type="text"
@@ -256,7 +256,7 @@
                                 <el-table-column
                                     prop="address"
                                     label="操作" width="180">
-                                    <template slot-scope="scope">
+                                    <template v-slot="scope">
                                         <el-button
                                             size="mini"
                                             type="text"
@@ -323,6 +323,12 @@ export default {
   methods: {
     handleClick (tab, event) {
       console.log(tab, event)
+    },
+    handleEdit (row) {
+      this.$router.push({
+        name: 'ApprovalDetails',
+        query: {name: row.name}
+      })
     }
   }
 }
