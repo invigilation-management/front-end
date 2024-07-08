@@ -365,10 +365,14 @@ export default {
       agreeData: [],
       disagreeData: [],
       activeName: 'Batch',
+      selectedIds: [],
       isApprovalDialogVisible: false
     }
   },
   methods: {
+    handleSelelctionChange (val) {
+      this.selectedIds = val.map(item => item.id)
+    },
     handleClick (tab, event) {
       console.log(tab, event)
     },

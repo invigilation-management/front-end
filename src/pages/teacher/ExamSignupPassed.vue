@@ -81,6 +81,8 @@
 </template>
 
 <script>
+import {id} from 'html-webpack-plugin/lib/chunksorter'
+
 export default {
   name: 'SignUp',
   data () {
@@ -175,6 +177,7 @@ export default {
     }
   },
   methods: {
+    id,
     handleSelectionChange (val) {
       console.log(val)
     },

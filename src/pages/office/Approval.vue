@@ -9,7 +9,62 @@
                             <el-row :gutter="10">
                                 <el-col :span="12">
                                     <el-button size="small" type="primary" icon="el-icon-s-custom">邀约</el-button>
-                                    <el-button size="small" type="inform">数据导出</el-button>
+                                    <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+                                        <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
+                                            <el-table :data="tableData">
+                                                <el-table-column
+                                                    label="序号">
+                                                    <template slot-scope="scope">
+                                                        {{scope.$index+1}}
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column
+                                                    label="报名人"
+                                                    prop="name">
+                                                    <template slot-scope="scope">
+                                                        <span class="teamName">{{scope.row.name}}</span>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column
+                                                    prop="num"
+                                                    label="工号">
+                                                </el-table-column>
+                                                <el-table-column
+                                                    prop="batch"
+                                                    label="监考批次" width="180">
+                                                    <template v-slot="scope">
+                                                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                                                scope.row.batch
+                                                            }}
+                                                        </el-button>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column
+                                                    prop="address"
+                                                    label="意向监考校区">
+                                                </el-table-column>
+                                                <el-table-column
+                                                    prop="address"
+                                                    label="上传材料" width="180">
+                                                    <template v-slot="scope">
+                                                        <el-button
+                                                            size="mini"
+                                                            type="text"
+                                                            @click="handleSubmit(scope.row)">预览</el-button>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column
+                                                    prop="address"
+                                                    label="操作" width="180">
+                                                    <template slot-scope="scope">
+                                                        <el-button
+                                                            size="mini"
+                                                            type="text"
+                                                            @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+                                                    </template>
+                                                </el-table-column>
+                                            </el-table>
+                                        </el-dialog>
                                 </el-col>
                                 <el-col :span="4">
                                     <el-select size="small" v-model="value" placeholder="请选择监考批次">
@@ -46,23 +101,24 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    label="报名人">
+                                    label="报名人"
+                                    prop="name">
                                     <template slot-scope="scope">
-                                        <span class="teamName">{{scope.row.date}}</span>
+                                        <span class="teamName">{{scope.row.name}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    prop="name"
+                                    prop="num"
                                     label="工号">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="address"
+                                    prop="batch"
                                     label="监考批次" width="180">
-                                    <template slot-scope="scope">
-                                        <el-button
-                                            size="mini"
-                                            type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">2023年A楼2023监考报名</el-button>
+                                    <template v-slot="scope">
+                                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                                scope.row.batch
+                                            }}
+                                        </el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -123,7 +179,7 @@
                                 </el-col>
                             </el-row>
                             <el-table
-                                :data="tableData"
+                                :data="agreeData"
                                 style="width: 100%"
                                 @selection-change="handleSelectionChange">
                                 <el-table-column
@@ -137,24 +193,29 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    label="报名人">
+                                    label="报名人"
+                                    prop="name">
                                     <template slot-scope="scope">
-                                        <span class="teamName">{{scope.row.date}}</span>
+                                        <span class="teamName">{{scope.row.name}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    prop="name"
+                                    prop="num"
                                     label="工号">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="address"
-                                    label="监考名称" width="180">
-                                    <template slot-scope="scope">
-                                        <el-button
-                                            size="mini"
-                                            type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">2023年A楼2023监考报名</el-button>
+                                    prop="batch"
+                                    label="监考批次" width="180">
+                                    <template v-slot="scope">
+                                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                                scope.row.batch
+                                            }}
+                                        </el-button>
                                     </template>
+                                </el-table-column>
+                                <el-table-column
+                                    prop="address"
+                                    label="意向监考校区">
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
@@ -173,7 +234,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">审批详情</el-button>
+                                            @click="handleEdit(scope.$index, scope.row)">查看</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -210,7 +271,7 @@
                                 </el-col>
                             </el-row>
                             <el-table
-                                :data="tableData"
+                                :data="disagreedata"
                                 style="width: 100%"
                                 @selection-change="handleSelectionChange">
                                 <el-table-column
@@ -224,33 +285,38 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    label="报名人">
+                                    label="报名人"
+                                    prop="name">
                                     <template slot-scope="scope">
-                                        <span class="teamName">{{scope.row.date}}</span>
+                                        <span class="teamName">{{scope.row.name}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    prop="name"
+                                    prop="num"
                                     label="工号">
                                 </el-table-column>
                                 <el-table-column
-                                    prop="address"
-                                    label="监考名称" width="180">
-                                    <template slot-scope="scope">
-                                        <el-button
-                                            size="mini"
-                                            type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">2023年A楼2023监考报名</el-button>
+                                    prop="batch"
+                                    label="监考批次" width="180">
+                                    <template v-slot="scope">
+                                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                                scope.row.batch
+                                            }}
+                                        </el-button>
                                     </template>
+                                </el-table-column>
+                                <el-table-column
+                                    prop="address"
+                                    label="意向监考校区">
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
                                     label="上传材料" width="180">
-                                    <template slot-scope="scope">
+                                    <template v-slot="scope">
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">预览</el-button>
+                                            @click="handleSubmit(scope.row)">预览</el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -260,7 +326,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">审批详情</el-button>
+                                            @click="handleEdit(scope.$index, scope.row)">查看</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -300,22 +366,45 @@ export default {
       }],
       value: '',
       input: '',
+      dialogTableVisible: false,
       tableData: [{
         date: '2016-05-02',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+        address: '兴庆校区',
+        num: '1001',
+        batch: '2023年A楼2023监考报名'
       }, {
-        date: '2016-05-04',
+        date: '2016-05-02',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
+        address: '兴庆校区',
+        num: '1001',
+        batch: '2023年A楼2023监考报名'
       }, {
-        date: '2016-05-01',
+        date: '2016-05-02',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
+        address: '兴庆校区',
+        num: '1001',
+        batch: '2023年A楼2023监考报名'
       }, {
-        date: '2016-05-03',
+        date: '2016-05-02',
         name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
+        address: '兴庆校区',
+        num: '1001',
+        batch: '2023年A楼2023监考报名'
+      }],
+      agreeData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '兴庆校区',
+        num: '1001',
+        batch: '2023年A楼2023监考报名'
+      }],
+      disagreedata: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '兴庆校区',
+        num: '1001',
+        batch: '2023年A楼2023监考报名'
       }],
       activeName: 'Batch'
     }
