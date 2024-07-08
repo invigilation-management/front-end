@@ -25,13 +25,13 @@
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="批次开始时间" :label-width="formLabelWidth">
-                                <el-input v-model="form.name" autocomplete="off" placeholder="请输入批次开始时间"></el-input>
+                                <el-input v-model="form.date1" autocomplete="off" placeholder="请输入批次开始时间"></el-input>
                             </el-form-item>
                             <el-form-item label="批次结束时间" :label-width="formLabelWidth">
-                                <el-input v-model="form.name" autocomplete="off" placeholder="请输入批次结束时间"></el-input>
+                                <el-input v-model="form.date2" autocomplete="off" placeholder="请输入批次结束时间"></el-input>
                             </el-form-item>
                             <el-form-item label="监考说明" :label-width="formLabelWidth" :label-height="bigformLabelHeight">
-                                <el-input v-model="form.name"  type="textarea" autocomplete="off" placeholder="请输入监考说明..." style="height: 158px;height: auto" rows="10" >
+                                <el-input v-model="form.detail"  type="textarea" autocomplete="off" placeholder="请输入监考说明..." style="height: 158px;height: auto" rows="10" >
                                 </el-input>
                             </el-form-item>
                             <el-form-item label="上传附件" :label-width="formLabelWidth" :label-height="bigformLabelHeight">
@@ -293,6 +293,7 @@ export default {
       dialogFormVisible: false,
       form: {
         name: '',
+        detail: '',
         region: '',
         date1: '',
         date2: '',

@@ -42,7 +42,7 @@ export default {
           this.$router.push('/office/approval')
           break
         case 2:
-          this.$router.push({path: '/admissions/batch-details'})
+          this.$router.push({path: '/admissions/exam-approval/agree'})
           break
         case 3:
           this.$router.push('/teacher/fill-form')
