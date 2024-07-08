@@ -9,10 +9,10 @@
 import HistoryCard from '../../components/HistoryCard.vue'
 import SignUpInfo from '../../components/SignUpInfo.vue'
 export default {
-    name: 'DisagreeDetails',
-    components: {
-        HistoryCard, SignUpInfo
-    }
+  name: 'DisagreeDetails',
+  components: {
+    HistoryCard, SignUpInfo
+  }
 }
 </script>
 
