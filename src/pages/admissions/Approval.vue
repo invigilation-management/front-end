@@ -71,12 +71,12 @@
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
-                                    label="上传材料" width="180">
-                                    <template slot-scope="scope">
+                                    label="材料" width="180">
+                                    <template v-slot="scope">
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">预览</el-button>
+                                            @click="handleSubmit(scope.row)">预览</el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -86,7 +86,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">审批</el-button>
+                                            @click="handleAction(scope.$index, scope.row)">审批详情</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -158,22 +158,22 @@
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
-                                    label="上传材料" width="180">
-                                    <template slot-scope="scope">
+                                    label="材料" width="180">
+                                    <template v-slot="scope">
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">预览</el-button>
+                                            @click="handleSubmit(scope.row)">预览</el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
                                     label="操作" width="180">
-                                    <template slot-scope="scope">
+                                    <template v-slot="scope">
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">审批详情</el-button>
+                                            @click="handleAction(scope.$index, scope.row)">审批详情</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -236,31 +236,31 @@
                                 <el-table-column
                                     prop="address"
                                     label="监考名称" width="180">
-                                    <template slot-scope="scope">
+                                    <template v-slot="scope">
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">2023年A楼2023监考报名</el-button>
+                                            @click="handleEdit(scope.row)">2023年A楼2023监考报名</el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
                                     label="上传材料" width="180">
-                                    <template slot-scope="scope">
+                                    <template v-slot="scope">
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">预览</el-button>
+                                            @click="handleSubmit(scope.row)">预览</el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
                                     label="操作" width="180">
-                                    <template slot-scope="scope">
+                                    <template v-slot="scope">
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">审批详情</el-button>
+                                            @click="handleAction(scope.$index, scope.row)">审批详情</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -323,6 +323,18 @@ export default {
   methods: {
     handleClick (tab, event) {
       console.log(tab, event)
+    },
+    handleEdit (row) {
+      this.$router.push({
+        name: 'batchDetails',
+        query: {name: row.name}
+      })
+    },
+    handleSubmit (row) {
+      // this.$router.push({
+      //   name: 'batchDetails',
+      //   query: {name: row.name}
+      // })
     }
   }
 }
