@@ -163,16 +163,15 @@ const teacherPage = [
         component: () => import(/* webpackChunkName: "ExamSignupPassed" */ '../pages/teacher/ExamSignupPassed.vue'),
         children: [
           {
-            path: 'batch-details',
-            name: 'batchDetailsTeacher',
-            component: () => import(/* webpackChunkName: "BatchDetailsTeacher" */ '../pages/teacher/BatchDetails.vue')
-          },
-          {
             path: 'fill-form',
             name: 'fillForm',
             component: () => import(/* webpackChunkName: "FillForm" */ '../pages/teacher/FillForm.vue')
           }
         ]
+      }, {
+        path: 'batch-details',
+        name: 'BatchDetails',
+        component: () => import(/* webpackChunkName: "BatchDetailsTeacher" */ '../pages/teacher/BatchDetails.vue')
       },
       {
         path: 'recording',

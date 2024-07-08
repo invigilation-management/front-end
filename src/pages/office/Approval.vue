@@ -72,11 +72,11 @@
                                 <el-table-column
                                     prop="address"
                                     label="上传材料" width="180">
-                                    <template slot-scope="scope">
+                                    <template v-slot="scope">
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">预览</el-button>
+                                            @click="handleSubmit(scope.row)">预览</el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -159,11 +159,11 @@
                                 <el-table-column
                                     prop="address"
                                     label="上传材料" width="180">
-                                    <template slot-scope="scope">
+                                    <template v-slot="scope">
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">预览</el-button>
+                                            @click="handleSubmit(scope.row)">预览</el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -382,9 +382,6 @@ export default {
 }
 .teamName{
     color: #166AFF;
-}
-.buttonright{
-    float: right;
 }
 /deep/ .el-table th.el-table__cell{
     background-color: #F3F3F3;

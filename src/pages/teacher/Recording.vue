@@ -36,6 +36,12 @@
                         prop="name"
                         label="报名批次"
                         width="360">
+                    <template v-slot="scope">
+                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                scope.row.name
+                            }}
+                        </el-button>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="startTime"
@@ -166,6 +172,12 @@ export default {
   methods: {
     handleSelectionChange (val) {
       console.log(val)
+    },
+    handleEdit (row) {
+      this.$router.push({
+        name: 'BatchDetails',
+        query: {name: row.name}
+      })
     }
   }
 }
