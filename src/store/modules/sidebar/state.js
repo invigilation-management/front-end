@@ -147,7 +147,7 @@ export default {
     3: {
       main: [
         {
-          path: '/teacher/exam-signup-passed',
+          path: '/teacher/fill-form',
           icon: 'suncaper-menu-unfold',
           title: '监考报名'
         },

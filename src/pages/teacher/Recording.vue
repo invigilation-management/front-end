@@ -6,13 +6,12 @@
             </div>
         </h1>
         <el-card class="card">
-            <el-row gutter="20">
-                <el-col span="12"><el-button class="line1-1" type="primary"></el-button></el-col>
-                <!--                <el-col span="1" offset="0"><el-button class="line1-2" type="primary" plain>创建批次</el-button></el-col>-->
-                <!--                <el-col span="8" offset="0"><el-button class="line1-2" type="primary" plain>数据导出</el-button></el-col>-->
-                <el-col span="2" offset="6" ><el-input class="line1-3" v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
-                <el-col span="1" offset="1"><el-button class="line1-4" type="primary">查询</el-button></el-col>
-                <el-col span="1" offset="" ><el-button class="line1-2" type="primary" plain>重置</el-button></el-col>
+            <el-row gutter="10">
+                <el-col span="6" offset="14" ><el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
+                <el-col span="4">
+                    <el-button type="primary" class="blue">查询</el-button>
+                    <el-button type="primary" plain class="white">重置</el-button>
+                </el-col>
             </el-row>
             <el-table
                     :header-row-style="{ backgroundColor: '#F3F3F3' }"
@@ -36,6 +35,12 @@
                         prop="name"
                         label="报名批次"
                         width="360">
+                    <template v-slot="scope">
+                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                scope.row.name
+                            }}
+                        </el-button>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="startTime"
@@ -166,20 +171,18 @@ export default {
   methods: {
     handleSelectionChange (val) {
       console.log(val)
+    },
+    handleEdit (row) {
+      this.$router.push({
+        name: 'BatchDetails',
+        query: {name: row.name}
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-.title_1 {
-    color: #00000066;
-    font-size: 20px;
-    font-family: PingFangSC;
-    font-weight: 500;
-    line-height: 28px;
-    text-align: left;
-}
 .title_2 {
     color: #000000e6;
     font-size: 20px;
@@ -194,20 +197,11 @@ h1 {
     flex-direction: row;    /* 子元素横向排列，默认就是 row，也可省略这一行 */
     gap: 10px;              /* 子元素之间的间隔 */
 }
-.line1-1{
-    width: 104px;
-    height: 36px;
-    background: #166AFF;
-    border-radius: 3px;
-    font-weight: 400;
-    font-size: 14px;
-    color: #FFFFFF;
-    text-align: center;
-    visibility: hidden;
+.card {
+    margin-left: 20px;
+    margin-right: 20px;
 }
-.line1-4{
-    width: 74px;
-    height: 36px;
+.blue{
     background: #166AFF;
     border-radius: 3px;
     font-weight: 400;
@@ -215,7 +209,7 @@ h1 {
     color: #FFFFFF;
     text-align: center;
 }
-.line1-2, .line1-5 {
+.white{
     border: 1px solid #166AFF;
     border-radius: 3px;
     font-weight: 400;
@@ -223,29 +217,6 @@ h1 {
     color: #166AFF;
     text-align: center;
     background-color: #FFFFFF;
-}
-.line1-3 {
-    width: 220px;
-    height: 36px;
-    background: #ffffffe6;
-    border: 1px solid #DCDCDC;
-    border-radius: 3px;
-}
-.card {
-    margin-left: 20px;
-    margin-right: 20px;
-}
-.el-col{
-    margin-right: 10px;
-}
-.el-col{
-    scroll-margin-left: 35px;
-}
-.el-row {
-    margin-bottom: 20px;
-}
-.el-row:last-child {
-    margin-bottom: 0;
 }
 /deep/ .el-table th.el-table__cell{
     background-color: #F3F3F3;
