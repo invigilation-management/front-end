@@ -166,11 +166,6 @@ const officeDirectorPage = [
             path: 'details',
             name: 'examListDetails',
             component: () => import(/* webpackChunkName: "ExamListDetails" */ '../pages/office/ExamListDetails.vue')
-          },
-          {
-            path: 'batch-details',
-            name: 'batchDetailsOffice',
-            component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/BatchDetails.vue')
           }
         ]
       }

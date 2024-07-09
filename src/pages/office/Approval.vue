@@ -364,8 +364,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">审批</el-button>
-<!--                                            @click="handl1111111111111111111(scope.$index, scope.row)">查看</el-button>-->
+                                           @click="handl1111111111111111111(scope.$index, scope.row)">审批</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -505,10 +504,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">审批</el-button>
-<!--=======-->
-<!--                                            @click="handle2222222222222222(scope.$index, scope.row)">查看</el-button>-->
-<!--&gt;>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04-->
+                                            @click="handle2222222222222222(scope.$index, scope.row)">审批</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
