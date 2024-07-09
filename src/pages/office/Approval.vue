@@ -82,7 +82,7 @@
                                                 </el-table-column>
                                                 <el-table-column
                                                     prop="address"
-                                                    label="上传材料" width="180">
+                                                    label="" width="180">
                                                     <template v-slot="scope">
                                                         <el-button
                                                             size="mini"
@@ -167,7 +167,7 @@
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
-                                    label="上传材料" width="180">
+                                    label="" width="180">
                                     <template v-slot="scope">
                                         <el-button
                                             size="mini"
@@ -298,7 +298,7 @@
                                             </el-table-column>
                                             <el-table-column
                                                 prop="batch"
-                                                label="" width="180">
+                                                label="监考批次" width="180">
                                                 <template v-slot="scope">
                                                     <el-button type="text" size="small" @click="handleEdit333333333333(scope.row)">{{
                                                             scope.row.batch
@@ -377,7 +377,7 @@
                                 </el-table-column>
                                 <el-table-column
                                     prop="batch"
-                                    label="" width="180">
+                                    label="监考批次" width="180">
                                     <template v-slot="scope">
                                         <el-button
                                             type="text"
@@ -388,7 +388,7 @@
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
-                                    label="上传材料" width="180">
+                                    label="" width="180">
                                     <template v-slot="scope">
                                         <el-button
                                             size="mini"
@@ -557,7 +557,7 @@
                                 </el-table-column>
                                 <el-table-column
                                     prop="batch"
-                                    label="" width="180">
+                                    label="监考批次" width="180">
                                     <template v-slot="scope">
                                         <el-button type="text" size="small" @click="handleEdit333333333333(scope.row)">{{
                                                 scope.row.batch
@@ -567,7 +567,7 @@
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
-                                    label="上传材料" width="180">
+                                    label="" width="180">
                                     <template v-slot="scope">
                                         <el-button
                                             size="mini"
