@@ -8,9 +8,50 @@
         <el-card class="card">
             <el-row :gutter="10">
                 <el-col :span="6">
-                    <el-button class="blue" type="primary">导入监考信息</el-button>
+                    <el-button class="blue" type="primary" @click="insert_exam_info = true">导入监考信息</el-button>
+                    <!--                    以下是对话弹窗部分-->
+                    <!--                    以下是对话弹窗部分-->
+                    <el-dialog title="导入监考信息" :visible.sync="insert_exam_info">
+                        <el-form :model="form">
+                            <el-form-item label="姓名" :label-width="formLabelWidth">
+                                <el-input v-model="form.name" autocomplete="off" placeholder="请输入姓名"></el-input>
+                            </el-form-item>
+                            <el-form-item label="性别" :label-width="formLabelWidth">
+                                <el-input v-model="form.gender" autocomplete="off" placeholder="请输入性别"></el-input>
+                            </el-form-item>
+                            <el-form-item label="工号" :label-width="formLabelWidth">
+                                <el-input v-model="form.num" autocomplete="off" placeholder="请输入工号"></el-input>
+                            </el-form-item>
+                            <el-form-item label="所在单位" :label-width="formLabelWidth">
+                                <el-input v-model="form.region" autocomplete="off" placeholder="请输入所在单位"></el-input>
+                            </el-form-item>
+                            <el-form-item label="身份证号" :label-width="formLabelWidth" :label-height="bigformLabelHeight">
+                                <el-input v-model="form.idcard" autocomplete="off" placeholder="身份证号"></el-input>
+                            </el-form-item>
+                            <el-form-item label="移动电话" :label-width="formLabelWidth" :label-height="bigformLabelHeight">
+                                <el-input v-model="form.phone" autocomplete="off" placeholder="请输入移动电话"></el-input>
+                            </el-form-item>
+                            <el-form-item label="监考职责" :label-width="formLabelWidth">
+                                <el-input v-model="form.job" autocomplete="off" placeholder="请输入监考职责"></el-input>
+                            </el-form-item>
+                            <el-form-item label="监考场次" :label-width="formLabelWidth">
+                                <el-input v-model="form.exam_num" autocomplete="off" placeholder="请输入监考场次"></el-input>
+                            </el-form-item>
+                            <el-form-item label="考场名称" :label-width="formLabelWidth">
+                                <el-input v-model="form.room" autocomplete="off" placeholder="请输入考场名称"></el-input>
+                            </el-form-item>
+                            <el-form-item label="监考时间" :label-width="formLabelWidth">
+                                <el-input v-model="form.time" autocomplete="off" placeholder="请输入监考时间"></el-input>
+                            </el-form-item>
+                        </el-form>
+                        <div slot="footer" class="dialog-footer" style="text-align: center">
+                            <el-button type="primary" @click="insert_exam_info = false" style="background-color: #166AFF"> 导 入 </el-button>
+                            <el-button @click="insert_exam_info = false">取 消</el-button>
+                        </div>
+                    </el-dialog>
+                    <!--                    以上是对话弹窗部分-->
+                    <!--                    以上是对话弹窗部分-->
                     <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
-
                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                         <el-table :data="selectedIds.map(index => tableData[index])"><el-table-column
                             type="selection"
@@ -173,6 +214,22 @@ export default {
     return {
       input: '',
       dialogTableVisible: false,
+      insert_exam_info: false,
+      form: {
+        name: '',
+        gender: '',
+        num: '',
+        region: '',
+        idcard: '',
+        phone: '',
+        job: '',
+        exam_num: '',
+        room: '',
+        time: '',
+        delivery: false
+      },
+      formLabelWidth: '120px',
+      bigformLabelHeight: '158px',
       selectedIds: [],
       tableData: [ {
         name: '张三',
@@ -215,6 +272,7 @@ export default {
         count: '2',
         room: '软件北小楼204'
       }]
+
     }
   },
   methods: {
