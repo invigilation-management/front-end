@@ -81,7 +81,57 @@
                         </el-dialog>
                         <!--                    以上是对话弹窗部分-->
                         <!--                    以上是对话弹窗部分-->
-                        <el-button type="primary" plain class="white">数据导出</el-button>
+                        <el-button  type="primary" class="blue" @click="dialogTableVisible = true">数据导出</el-button>
+                        <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
+                            <el-table :data="selectedIds.map(index => tableData[index])">
+                                <el-table-column
+                                    type="selection"
+                                    width="55">
+                                </el-table-column>
+                                <el-table-column
+                                    label="序号"
+                                    width="60">
+                                    <template slot-scope="scope">
+                                        0{{scope.$index+1}}
+                                    </template>
+                                </el-table-column>
+                                <el-table-column
+                                    label="部门名称"
+                                    prop="name"
+                                    width="400">
+                                    <template slot-scope="scope">
+                                        <el-button type="text">{{scope.row.name}}</el-button>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column
+                                    prop="code"
+                                    label="部门代码"
+                                    width="140">
+                                </el-table-column>
+                                <el-table-column
+                                    prop="type"
+                                    label="部门类型"
+                                    width="140">
+                                </el-table-column>
+                                <el-table-column
+                                    prop="num"
+                                    label="成员人数"
+                                    width="140">
+                                </el-table-column>
+                                <el-table-column
+                                    prop="date"
+                                    label="添加时间"
+                                    width="140">
+                                </el-table-column>
+                                <el-table-column
+                                    label="操作">
+                                    <template slot-scope="scope">
+                                        <el-button @click="handleMembers(scope.row)" type="text" size="small">查看成员</el-button>
+                                        <el-button type="text" size="small">更多</el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                        </el-dialog>
                     </el-col>
                 </el-row>
                 <el-table
@@ -89,6 +139,10 @@
                     :header-row-style="{ backgroundColor: '#F3F3F3' }"
                     style="width: 100%"
                     class="blue-header">
+                    <el-table-column
+                        type="selection"
+                        width="55">
+                    </el-table-column>
                     <el-table-column
                         label="序号"
                         width="60">
@@ -147,11 +201,16 @@ export default {
         name: 'waiting',
         query: {name: row.name}
       })
+    },
+    handleSelectionChange (val) {
+      this.selectedIds = val.map(item => this.tableData.indexOf(item))
     }
   },
   data () {
     return {
       input: '',
+      dialogTableVisible: false,
+      selectedIds: [],
       tableData: [{
         date: '2016-05-02',
         name: '王小虎',
