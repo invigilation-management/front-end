@@ -4,7 +4,7 @@
         <!-- 输入框 -->
         <div class="form-wrapper">
             <div class="header">
-                想要进来看看吗
+                监考管理系统
             </div>
             <div class="input-wrapper">
                 <div class="border-wrapper">

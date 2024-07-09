@@ -20,9 +20,15 @@ export default {
     return {
       logo: {
         src: logo,
+<<<<<<< HEAD
         alt: '上程数据',
         firstDes: '抽象小学期',
         secondDes: '之研究生监考报名'
+=======
+        alt: '抽象小学期',
+        firstDes: '抽象小学期',
+        secondDes: '之研究生报名系统'
+>>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04
       }
     }
   },

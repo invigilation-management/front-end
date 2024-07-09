@@ -1,225 +1,55 @@
 <template>
     <div>
-        <h1>
-            <i class="el-icon-back"></i>|
-            <div class="title_1">监考名单/</div>
-            <div class="title_2">监考详细名单</div>
-        </h1>
+        <div class="rowahead">
+            <i class="el-icon-back"></i><div class="title_2"><div class="ahead1">报名审批/</div>详情</div>
+        </div>
         <el-card class="card">
-            <el-row>
-                <el-col span="1"><el-button class="line1-1" type="primary">邀约</el-button></el-col>
-                <el-col span="15" offset=""><el-button class="line1-2" type="primary" plain>数据导出</el-button></el-col>
-                <el-col span="4" offset="0"><el-input class="line1-3" v-model="input" placeholder="请输入监考人名姓名/工号关键词查询"></el-input></el-col>
-                <el-col span="1" offset=""><el-button class="line1-4" type="primary">查询</el-button></el-col>
-                <el-col span="1" offset="0"><el-button class="line1-5" type="primary" plain>重置</el-button></el-col>
-            </el-row>
-            <el-table
-                :header-row-style="{ backgroundColor: '#F3F3F3' }"
-                ref="multipleTable"
-                :data="tableData"
-                tooltip-effect="dark"
-                style="width: 100%;margin-top: 10px"
-                @selection-change="handleSelectionChange">
-                <el-table-column
-                    type="selection"
-                    width="56">
-                </el-table-column>
-                <el-table-column
-                    label="序号"
-                    width="140">
-                    <template slot-scope="scope">
-                        0{{scope.$index+1}}
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    prop="name"
-                    label="姓名"
-                    width="200">
-                </el-table-column>
-<!--                <el-table-column-->
-<!--                    prop="address"-->
-<!--                    label="性别"-->
-<!--                    width="90"-->
-<!--                    show-overflow-tooltip>-->
-<!--                </el-table-column>-->
-                <el-table-column
-                    prop="name"
-                    label="工号"
-                    width="245">
-                </el-table-column>
-                <el-table-column
-                    prop="name"
-                    label="所在单位"
-                    width="237">
-                </el-table-column>
-                <el-table-column
-                    prop="name"
-                    label="身份证号"
-                    width="263">
-                </el-table-column>
-                <el-table-column
-                    prop="name"
-                    label="移动电话"
-                    width="220">
-                </el-table-column>
-                <el-table-column
-                    prop="name"
-                    label="来源"
-                    width="210">
-                </el-table-column>
-                <el-table-column
-                    prop="name"
-                    label="操作"
-                    width="180">
-                </el-table-column>
-<!--                <el-table-column-->
-<!--                    prop="name"-->
-<!--                    label="监考职责"-->
-<!--                    width="105">-->
-<!--                </el-table-column>-->
-<!--                <el-table-column-->
-<!--                    prop="name"-->
-<!--                    label="监考场次"-->
-<!--                    width="108">-->
-<!--                </el-table-column>-->
-<!--                <el-table-column-->
-<!--                    prop="name"-->
-<!--                    label="考场名称"-->
-<!--                    width="148">-->
-<!--                </el-table-column>-->
-<!--                <el-table-column-->
-<!--                    prop="name"-->
-<!--                    label="监考时间"-->
-<!--                    width="310">-->
-<!--                </el-table-column>-->
-            </el-table>
-            <el-pagination
-                small
-                layout="prev, pager, next"
-                :total="50">
-            </el-pagination>
+            <div class="title">监考批次情况</div>
+            <hr class="card-divider">
+            <div class="smalltitle">批次名称：</div>
+            <div class="smalltitle">关联年份：</div>
+            <div class="smalltitle">批次开始时间：</div>
+            <div class="smalltitle">批次结束时间：</div>
+            <div class="smalltitle">批次时长：</div>
+            <div class="smalltitle">监考说明：监考说明监考说明监考说明</div>
+            <div class="smalltitle">上传附件：</div>
+            <el-button type="text">附件.docx</el-button>
         </el-card>
-        <!--        <router-link to="details">details</router-link>-->
-        <!--        <router-view></router-view>-->
-        <!--        &lt;!&ndash; 添加你的查看名单内容 &ndash;&gt;-->
-        <!--        上面是加的页面内跳转的内容，我在写vue组件是注释掉，后续调试时可以直接回复，目测没有冲突————侯世岭-->
     </div>
 </template>
 
 <script>
 export default {
-  name: 'ViewList',
-  data () {
-    return {
-      input: '',
-      tableData: [{
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-08',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-06',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-07',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }]
-    }
-  }
+  name: 'BatchDetails'
 }
 </script>
 
 <style scoped>
-.title_1{
-    color: #00000066;
-    font-size: 20px;
-    font-face: PingFangSC;
-    font-weight: 500;
-    line-height: 28px;
-    letter-spacing: 0;
-    paragraph-spacing: 0;
-    text-align: left;
+.rowahead {
+    display: flex;
+    align-items: center; /* 垂直居中对齐 */
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 25px;
+
 }
 .title_2{
-    color: #000000e6;
-    font-size: 20px;
-    font-face: PingFangSC;
-    font-weight: 500;
-    line-height: 28px;
-    letter-spacing: 0;
-    paragraph-spacing: 0;
-    text-align: left;
-}
-h1 {
-    display: flex;          /* 启用 flexbox 布局 */
-    align-items: center;    /* 垂直居中子元素 */
-    flex-direction: row;    /* 子元素横向排列，默认就是 row，也可省略这一行 */
-    gap: 10px;              /* 子元素之间的间隔 */
-}
-.line1-1,  .line1-4{
-    width: 80px;
-    background: #166AFF;
-    border-radius: 3px;
-    font-weight: 400;
-    font-size: 14px;
-    color: #FFFFFF;
-    text-align: center;
-}
-.line1-2,.line1-5{
-    border: 1px solid #166AFF;
-    border-radius: 3px;
-    font-weight: 400;
-    font-size: 14px;
-    color: #166AFF;
-    text-align: center;
-    background-color: #FFFFFF;
-}
-.line1-3{
-    width: 280px;
-    height: 36px;
-    background: #ffffffe6;
-    border: 1px solid #DCDCDC;
-    border-radius: 3px;
-}
-.line1-4{
-    width: 74px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center; /* 垂直居中对齐 */
 }
 .card{
-    margin-left: 20px;
-    margin-right: 20px;
+    margin: 10px;
+    margin-top: 30px;
 }
-.el-col{
-    margin-right: 10px;
-}
-/deep/ .el-table th.el-table__cell{
-    background-color: #F3F3F3;
-    font-weight: 400;
-    font-size: 14px;
-    color: #00000099;
-    text-align: left;
-    line-height: 22px;
-}
-/deep/ .el-table__cell{
+.title{
+    margin-left: 10px;
+    font-weight: 500;
+    font-size: 20px;
     color: #000000e6;
-    text-align: left;
+    line-height: 28px;
 }
-/deep/.el-table th.el-table__cell>.cell{}
-/* 添加你的样式 */
+.smalltitle{
+    margin-top: 20px;
+}
 </style>

@@ -8,8 +8,52 @@
                         <el-tab-pane label="待我审批" name="Batch">
                             <el-row :gutter="10">
                                 <el-col :span="12">
+<<<<<<< HEAD
                                     <el-button size="small" type="primary" @click="handleSign" icon="el-icon-s-custom">邀约</el-button>
                                     <el-button size="small" type="inform" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+=======
+                                    <el-button size="small" type="primary" icon="el-icon-s-custom" @click="invitation = true">邀约
+                                        <!--                    以下是对话弹窗部分-->
+                                        <!--                    以下是对话弹窗部分-->
+                                        <el-dialog title="邀约" :visible.sync="invitation">
+                                            <hr class="card-divider">
+                                            <div style="background-color: #E4EEFF;margin: 20px;height: 50px;text-align: center">
+                                                <i class="el-icon-warning-outline"></i>
+                                                通过邀约渠道，不受监考批次时间限制!
+                                            </div>
+                                            <div style="display: flex">
+                                                <div style="margin-top: 15px;margin-right: 50px">监考批次</div>
+                                                <el-input v-model="input_exam_num" placeholder="请选择监考批次"></el-input>
+                                            </div>
+                                            <div style="display: flex;margin-top: 20px">
+                                                <div style="text-align: left;margin-right: 50px">选择方式</div>
+                                                <el-radio v-model="invite_way" label="self">自走流程</el-radio>
+                                                <el-radio v-model="invite_way" label="help">帮助报名</el-radio>
+                                            </div>
+                                            <div>
+                                                <el-input placeholder="请输入姓名/工号/学号模糊查询" style="margin: 10px"></el-input>
+                                            </div>
+                                            <div style="margin: 20px;background-color: #F3F3F3 ;height: 160px;text-align: left">
+                                                <br><br>&nbsp;&nbsp; &nbsp;姓名：<br><br>
+                                                &nbsp; &nbsp; 工号：<br><br>
+                                                &nbsp; &nbsp; 学院：<br><br>
+                                            </div>
+                                            <hr class="card-divider">
+                                            <div style="display: flex;margin-top: 30px">
+                                                <div v-if="invite_way === 'self'">
+                                                    <el-button type="primary" @click="invitation= false" style="width: 125px;margin-left: 230px">提交</el-button>
+                                                </div>
+                                                <div v-if="invite_way === 'help'">
+                                                    <el-button type="primary" @click="invitation= false" style="width: 125px;margin-left: 230px">前往补充信息</el-button>
+                                                </div>
+                                                <el-button type="info" @click="invitation= false" style="width: 125px;margin-left: 70px">取消</el-button>
+                                            </div>
+                                        </el-dialog>
+                                        <!--                    以上是对话弹窗部分-->
+                                        <!--                    以上是对话弹窗部分-->
+                                    </el-button>
+                                    <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+>>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04
                                         <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                                             <el-table :data="selectedIds.map(index => tableData[index])">
                                                 <el-table-column
@@ -21,9 +65,6 @@
                                                 <el-table-column
                                                     label="报名人"
                                                     prop="name">
-                                                    <template slot-scope="scope">
-                                                        <span class="teamName">{{scope.row.name}}</span>
-                                                    </template>
                                                 </el-table-column>
                                                 <el-table-column
                                                     prop="num"
@@ -33,9 +74,10 @@
                                                     prop="batch"
                                                     label="监考批次" width="180">
                                                     <template v-slot="scope">
-                                                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
-                                                                scope.row.batch
-                                                            }}
+                                                        <el-button
+                                                            type="text"
+                                                            size="small"
+                                                            @click="handleEdit333333333333(scope.row)">{{scope.row.batch}}
                                                         </el-button>
                                                     </template>
                                                 </el-table-column>
@@ -50,17 +92,23 @@
                                                         <el-button
                                                             size="mini"
                                                             type="text"
-                                                            @click="handleSubmit(scope.row)">预览</el-button>
+                                                            @click="handleEdit(scope.row)">预览</el-button>
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column
                                                     prop="address"
                                                     label="操作" width="180">
                                                     <template slot-scope="scope">
+<<<<<<< HEAD
                                                         <el-button
                                                             size="mini"
                                                             type="text"
                                                             @click="handleEdit(scope.$index, scope.row)">审批</el-button>
+=======
+                                                        <el-button size="mini" type="text">
+                                                            查看
+                                                        </el-button>
+>>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04
                                                     </template>
                                                 </el-table-column>
                                             </el-table>
@@ -132,17 +180,63 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleSubmit(scope.row)">预览</el-button>
+                                            @click="handleEdit(scope.row)">预览</el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
                                     label="操作" width="180">
                                     <template slot-scope="scope">
+<<<<<<< HEAD
                                         <el-button
                                             size="mini"
                                             type="text"
                                             @click="handleEdit(scope.$index, scope.row)">审批</el-button>
+=======
+                                        <el-button size="mini" type="text" @click="showdialog(scope.$index)">
+                                            审批
+                                            <!--                                            以下是对话框-->
+                                            <!--                                            以下是对话框-->
+                                            <el-dialog style="text-align: left" title="报名审批" :visible.sync="dialog_Regist_approval">
+                                                <hr class="card-divider">
+                                                <div style="height: 56px;margin: 20px;background-color: #F3F3F3;display: flex;text-align: center">
+                                                    <div style="width: 300px;margin-top: 20px">姓名</div>
+                                                    <div style="width: 300px;margin-top: 20px">工号</div>
+                                                    <div style="width: 300px;margin-top: 20px">操作</div>
+                                                </div>
+                                                <div style="height: 80px;margin: 20px;display: flex;text-align: center">
+                                                    <div style="width: 300px;margin-top: 20px">{{dialogData.name}}</div>
+                                                    <div style="width: 300px;margin-top: 20px">{{dialogData.num}}</div>
+                                                    <div style="width: 300px;margin-top: 20px">
+                                                        <el-button type="text" @click="dialog_Regist_approval= false">移除</el-button>
+                                                    </div>
+                                                </div>
+                                                <hr class="card-divider">
+                                                <div style="height: 70px; display: flex;">
+                                                    <div style="margin: 20px">是否同意报名</div>
+                                                    <el-radio v-model="agreeordis" label="agree" style="margin: 20px">同意</el-radio>
+                                                    <el-radio v-model="agreeordis" label="disagree" style="margin: 20px">不同意</el-radio>
+                                                </div>
+<!--                                                    以下是同意时的显示-->
+                                                    <div v-if="agreeordis === 'agree'" style="color: #FF2F2F;text-align: left">
+                                                        <br><br><div style="margin-top: 20px;text-align: center">提交后不可撤回，请谨慎操作！</div>
+                                                    </div>
+<!--                                                    以下是不同意的显示-->
+                                                    <div v-if="agreeordis === 'disagree'" style="display: flex">
+                                                        <br><br>不同意理由：
+                                                        <el-input v-model="disagree_reason" placeholder="请输入不同意理由…" :rows="5" type="textarea"></el-input>
+                                                    </div>
+<!--                                                    以下是公共部分-->
+                                                <hr class="card-divider">
+                                                <div style="text-align: center">
+                                                    <el-button type="primary" @click="dialog_Regist_approval= false">提交</el-button>
+                                                    <el-button type="info" @click="dialog_Regist_approval= false">取消</el-button>
+                                                </div>
+                                            </el-dialog>
+                                            <!--                                            以上是对话框-->
+                                            <!--                                            以上是对话框-->
+                                        </el-button>
+>>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -250,9 +344,6 @@
                                 <el-table-column
                                     label="报名人"
                                     prop="name">
-                                    <template slot-scope="scope">
-                                        <span class="teamName">{{scope.row.name}}</span>
-                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="num"
@@ -262,15 +353,12 @@
                                     prop="batch"
                                     label="监考批次" width="180">
                                     <template v-slot="scope">
-                                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
-                                                scope.row.batch
-                                            }}
+                                        <el-button
+                                            type="text"
+                                            size="small"
+                                            @click="handleEdit333333333333(scope.$index, scope.row)">{{scope.row.batch }}
                                         </el-button>
                                     </template>
-                                </el-table-column>
-                                <el-table-column
-                                    prop="address"
-                                    label="意向监考校区">
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
@@ -279,7 +367,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleSubmit(scope.row)">预览</el-button>
+                                            @click="handleEdit(scope.row)">预览</el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -289,7 +377,11 @@
                                         <el-button
                                             size="mini"
                                             type="text"
+<<<<<<< HEAD
                                             @click="handleEdit(scope.$index, scope.row)">审批</el-button>
+=======
+                                            @click="handl1111111111111111111(scope.$index, scope.row)">查看</el-button>
+>>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -397,9 +489,6 @@
                                 <el-table-column
                                     label="报名人"
                                     prop="name">
-                                    <template slot-scope="scope">
-                                        <span class="teamName">{{scope.row.name}}</span>
-                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="num"
@@ -417,16 +506,12 @@
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
-                                    label="意向监考校区">
-                                </el-table-column>
-                                <el-table-column
-                                    prop="address"
                                     label="上传材料" width="180">
                                     <template v-slot="scope">
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleSubmit(scope.row)">预览</el-button>
+                                            @click="handleEdit(scope.row)">预览</el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -436,7 +521,11 @@
                                         <el-button
                                             size="mini"
                                             type="text"
+<<<<<<< HEAD
                                             @click="handleEdit(scope.$index, scope.row)">审批</el-button>
+=======
+                                            @click="handle2222222222222222(scope.$index, scope.row)">查看</el-button>
+>>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -456,7 +545,7 @@
 <script>
 export default {
   name: 'Approval',
-  data: function () {
+  data () {
     return {
       options: [{
         value: '选项1',
@@ -476,12 +565,21 @@ export default {
       }],
       value: '',
       input: '',
+<<<<<<< HEAD
       selectedIds: [],
       selectedIds1: [],
       selectedIds2: [],
       dialogTableVisible: false,
       dialogTableVisible1: false,
       dialogTableVisible2: false,
+=======
+      input_exam_num: '',
+      dialogTableVisible: false,
+      invitation: false,
+      invite_way: 'self',
+      disagree_reason: '',
+      agreeordis: 'agree',
+>>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04
       tableData: [{
         date: '2016-05-02',
         name: '王小虎',
@@ -521,7 +619,9 @@ export default {
         num: '1001',
         batch: '2023年A楼2023监考报名'
       }],
-      activeName: 'Batch'
+      dialog_Regist_approval: false,
+      activeName: 'Batch',
+      dialogData: {}
     }
   },
   methods: {
@@ -541,6 +641,28 @@ export default {
         name: 'ApprovalDetails',
         query: {name: row.name}
       })
+    },
+    handl1111111111111111111 (row) {
+      this.$router.push({
+        name: 'AgreeDetails',
+        query: {name: row.name}
+      })
+    },
+    handle2222222222222222 (row) {
+      this.$router.push({
+        name: 'DisagreeDetails',
+        query: {name: row.name}
+      })
+    },
+    handleEdit333333333333 (row) {
+      this.$router.push({
+        name: 'BatchDetails',
+        query: {name: row.name}
+      })
+    },
+    showdialog (index) {
+      this.dialogData = this.tableData[index]
+      this.dialog_Regist_approval = true
     }
   }
 }
@@ -597,9 +719,6 @@ export default {
 }
 /deep/.el-dropdown{
     font-size: 12px;
-}
-.teamName{
-    color: #166AFF;
 }
 /deep/ .el-table th.el-table__cell{
     background-color: #F3F3F3;
