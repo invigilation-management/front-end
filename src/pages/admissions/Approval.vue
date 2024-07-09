@@ -9,7 +9,7 @@
                             <el-row :gutter="10">
                                 <el-col :span="12">
                                     <el-button size="small" type="primary" icon="el-icon-s-custom">邀约</el-button>
-                                    <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+                                    <el-button size="small" type="inform" @click="dialogTableVisible = true">数据导出</el-button>
 
                                         <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                                             <el-table :data="selectedIds.map(index => tableData[index])">
