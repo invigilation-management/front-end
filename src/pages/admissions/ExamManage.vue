@@ -7,7 +7,18 @@
         <el-card class="card">
             <el-row :gutter="10">
                 <el-col :span="9">
-                    <el-button class="blue" type="primary">快速找人</el-button>
+                    <el-button type="primary" class="blue" @click="dialogVisibleFind= true">快速找人</el-button>
+                    <!--                    以下是对话弹窗部分-->
+                    <!--                    以下是对话弹窗部分-->
+                    <el-dialog title="快速找人" :visible.sync="dialogVisibleFind">
+                        <hr class="card-divider">
+                        <el-input placeholder="请输入姓名/工号关键词查询"></el-input>
+                        <div class="grey">
+                            <br>&nbsp; 姓名: <br><br>&nbsp; 工号: <br><br>&nbsp; 所在部门: <br><br>&nbsp; 担任角色:<br> <br>
+                        </div>
+                    </el-dialog>
+                    <!--                    以上是对话弹窗部分-->
+                    <!--                    以上是对话弹窗部分-->
                     <el-button type="primary" plain class="white" @click="dialogFormVisible = true">创建批次</el-button>
                     <!--                    以下是对话弹窗部分-->
                     <!--                    以下是对话弹窗部分-->
@@ -196,6 +207,7 @@ export default {
       input: '',
       selectedIds: [],
       dialogTableVisible: false,
+      dialogVisibleFind: false,
       tableData: [
         {
           name: '2023年A卷2023监考报名',
