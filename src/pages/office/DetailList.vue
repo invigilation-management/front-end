@@ -53,7 +53,63 @@
                             </el-dialog>
                             <!-- 以上是对话弹窗部分-->
                             <!-- 以上是对话弹窗部分-->
-                            <el-button size="small" type="inform">数据导出</el-button>
+                            <el-button size="small" type="inform" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+                            <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
+                                <el-table :data="selectedIds.map(index => tableData[index])">
+                                    <el-table-column
+                                        type="selection"
+                                        width="55">
+                                    </el-table-column>
+                                    <el-table-column
+                                        label="序号">
+                                        <template slot-scope="scope">
+                                            {{scope.$index+1}}
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                        label="姓名">
+                                        <template slot-scope="scope">
+                                            <span class="teamName">{{scope.row.date}}</span>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                        prop="name"
+                                        label="工号">
+                                    </el-table-column>
+                                    <el-table-column
+                                        prop="address"
+                                        label="所在单位" width="180">
+                                        <template slot-scope="scope">
+                                            <el-button
+                                                size="mini"
+                                                type="text"
+                                                @click="handleEdit(scope.$index, scope.row)">2023年A楼2023监考报名</el-button>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                        prop="address"
+                                        label="身份证号">
+                                    </el-table-column>
+                                    <el-table-column
+                                        prop="address"
+                                        label="移动电话">
+                                    </el-table-column>
+                                    <el-table-column
+                                        prop="address"
+                                        label="来源">
+                                    </el-table-column>
+                                    <el-table-column
+                                        prop="address"
+                                        label="操作" width="180">
+                                        <template slot-scope="scope">
+                                            <el-button
+                                                size="mini"
+                                                type="text"
+                                                @click="handleEdit(scope.$index, scope.row)">移除监考</el-button>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </el-dialog>
                         </el-col>
                         <el-col :span="4">
                             <el-input size="small" v-model="input" placeholder="请输入监考名称关键词查询"></el-input>
@@ -176,12 +232,17 @@ export default {
       activeName: 'Batch',
       invitation: false,
       invite_way: 'self',
-      input_exam_num: ''
+      input_exam_num: '',
+      selectedIds: [],
+      dialogTableVisible: false
     }
   },
   methods: {
     handleClick (tab, event) {
       console.log(tab, event)
+    },
+    handleSelectionChange (val) {
+      this.selectedIds = val.map(item => this.tableData.indexOf(item))
     }
   }
 }
