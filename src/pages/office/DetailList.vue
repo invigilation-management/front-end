@@ -118,11 +118,7 @@
                                 <el-button
                                         size="mini"
                                         type="text"
-<<<<<<< HEAD
-                                        @click="handleEdit(scope.$index, scope.row)">审批</el-button>
-=======
                                         @click="handleEdit(scope.$index, scope.row)">移除监考</el-button>
->>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04
                             </template>
                         </el-table-column>
                     </el-table>

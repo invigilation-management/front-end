@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: 'BatchDetails'
+  name: 'BatchDetail'
 }
 </script>
 
