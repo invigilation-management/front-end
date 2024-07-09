@@ -8,10 +8,7 @@
                         <el-tab-pane label="待我审批" name="Batch">
                             <el-row :gutter="10">
                                 <el-col :span="12">
-<<<<<<< HEAD
-                                    <el-button size="small" type="primary" @click="handleSign" icon="el-icon-s-custom">邀约</el-button>
                                     <el-button size="small" type="inform" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
-=======
                                     <el-button size="small" type="primary" icon="el-icon-s-custom" @click="invitation = true">邀约
                                         <!--                    以下是对话弹窗部分-->
                                         <!--                    以下是对话弹窗部分-->
@@ -52,8 +49,6 @@
                                         <!--                    以上是对话弹窗部分-->
                                         <!--                    以上是对话弹窗部分-->
                                     </el-button>
-                                    <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
->>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04
                                         <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                                             <el-table :data="selectedIds.map(index => tableData[index])">
                                                 <el-table-column
@@ -99,16 +94,13 @@
                                                     prop="address"
                                                     label="操作" width="180">
                                                     <template slot-scope="scope">
-<<<<<<< HEAD
                                                         <el-button
                                                             size="mini"
                                                             type="text"
                                                             @click="handleEdit(scope.$index, scope.row)">审批</el-button>
-=======
-                                                        <el-button size="mini" type="text">
+                                             <el-button size="mini" type="text">
                                                             查看
                                                         </el-button>
->>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04
                                                     </template>
                                                 </el-table-column>
                                             </el-table>
@@ -187,56 +179,51 @@
                                     prop="address"
                                     label="操作" width="180">
                                     <template slot-scope="scope">
-<<<<<<< HEAD
-                                        <el-button
-                                            size="mini"
-                                            type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">审批</el-button>
-=======
+
                                         <el-button size="mini" type="text" @click="showdialog(scope.$index)">
                                             审批
                                             <!--                                            以下是对话框-->
                                             <!--                                            以下是对话框-->
-                                            <el-dialog style="text-align: left" title="报名审批" :visible.sync="dialog_Regist_approval">
-                                                <hr class="card-divider">
-                                                <div style="height: 56px;margin: 20px;background-color: #F3F3F3;display: flex;text-align: center">
-                                                    <div style="width: 300px;margin-top: 20px">姓名</div>
-                                                    <div style="width: 300px;margin-top: 20px">工号</div>
-                                                    <div style="width: 300px;margin-top: 20px">操作</div>
-                                                </div>
-                                                <div style="height: 80px;margin: 20px;display: flex;text-align: center">
-                                                    <div style="width: 300px;margin-top: 20px">{{dialogData.name}}</div>
-                                                    <div style="width: 300px;margin-top: 20px">{{dialogData.num}}</div>
-                                                    <div style="width: 300px;margin-top: 20px">
-                                                        <el-button type="text" @click="dialog_Regist_approval= false">移除</el-button>
-                                                    </div>
-                                                </div>
-                                                <hr class="card-divider">
-                                                <div style="height: 70px; display: flex;">
-                                                    <div style="margin: 20px">是否同意报名</div>
-                                                    <el-radio v-model="agreeordis" label="agree" style="margin: 20px">同意</el-radio>
-                                                    <el-radio v-model="agreeordis" label="disagree" style="margin: 20px">不同意</el-radio>
-                                                </div>
-<!--                                                    以下是同意时的显示-->
-                                                    <div v-if="agreeordis === 'agree'" style="color: #FF2F2F;text-align: left">
-                                                        <br><br><div style="margin-top: 20px;text-align: center">提交后不可撤回，请谨慎操作！</div>
-                                                    </div>
-<!--                                                    以下是不同意的显示-->
-                                                    <div v-if="agreeordis === 'disagree'" style="display: flex">
-                                                        <br><br>不同意理由：
-                                                        <el-input v-model="disagree_reason" placeholder="请输入不同意理由…" :rows="5" type="textarea"></el-input>
-                                                    </div>
-<!--                                                    以下是公共部分-->
-                                                <hr class="card-divider">
-                                                <div style="text-align: center">
-                                                    <el-button type="primary" @click="dialog_Regist_approval= false">提交</el-button>
-                                                    <el-button type="info" @click="dialog_Regist_approval= false">取消</el-button>
-                                                </div>
-                                            </el-dialog>
+
                                             <!--                                            以上是对话框-->
                                             <!--                                            以上是对话框-->
                                         </el-button>
->>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04
+                                        <el-dialog style="text-align: left" title="报名审批" :visible.sync="dialog_Regist_approval">
+                                            <hr class="card-divider">
+                                            <div style="height: 56px;margin: 20px;background-color: #F3F3F3;display: flex;text-align: center">
+                                                <div style="width: 300px;margin-top: 20px">姓名</div>
+                                                <div style="width: 300px;margin-top: 20px">工号</div>
+                                                <div style="width: 300px;margin-top: 20px">操作</div>
+                                            </div>
+                                            <div style="height: 80px;margin: 20px;display: flex;text-align: center">
+                                                <div style="width: 300px;margin-top: 20px">{{dialogData.name}}</div>
+                                                <div style="width: 300px;margin-top: 20px">{{dialogData.num}}</div>
+                                                <div style="width: 300px;margin-top: 20px">
+                                                    <el-button type="text" @click="dialog_Regist_approval= false">移除</el-button>
+                                                </div>
+                                            </div>
+                                            <hr class="card-divider">
+                                            <div style="height: 70px; display: flex;">
+                                                <div style="margin: 20px">是否同意报名</div>
+                                                <el-radio v-model="agreeordis" label="agree" style="margin: 20px">同意</el-radio>
+                                                <el-radio v-model="agreeordis" label="disagree" style="margin: 20px">不同意</el-radio>
+                                            </div>
+                                            <!--                                                    以下是同意时的显示-->
+                                            <div v-if="agreeordis === 'agree'" style="color: #FF2F2F;text-align: left">
+                                                <br><br><div style="margin-top: 20px;text-align: center">提交后不可撤回，请谨慎操作！</div>
+                                            </div>
+                                            <!--                                                    以下是不同意的显示-->
+                                            <div v-if="agreeordis === 'disagree'" style="display: flex">
+                                                <br><br>不同意理由：
+                                                <el-input v-model="disagree_reason" placeholder="请输入不同意理由…" :rows="5" type="textarea"></el-input>
+                                            </div>
+                                            <!--                                                    以下是公共部分-->
+                                            <hr class="card-divider">
+                                            <div style="text-align: center">
+                                                <el-button type="primary" @click="dialog_Regist_approval= false">提交</el-button>
+                                                <el-button type="info" @click="dialog_Regist_approval= false">取消</el-button>
+                                            </div>
+                                        </el-dialog>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -377,11 +364,8 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-<<<<<<< HEAD
                                             @click="handleEdit(scope.$index, scope.row)">审批</el-button>
-=======
-                                            @click="handl1111111111111111111(scope.$index, scope.row)">查看</el-button>
->>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04
+<!--                                            @click="handl1111111111111111111(scope.$index, scope.row)">查看</el-button>-->
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -521,11 +505,10 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-<<<<<<< HEAD
                                             @click="handleEdit(scope.$index, scope.row)">审批</el-button>
-=======
-                                            @click="handle2222222222222222(scope.$index, scope.row)">查看</el-button>
->>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04
+<!--=======-->
+<!--                                            @click="handle2222222222222222(scope.$index, scope.row)">查看</el-button>-->
+<!--&gt;>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04-->
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -565,21 +548,17 @@ export default {
       }],
       value: '',
       input: '',
-<<<<<<< HEAD
       selectedIds: [],
       selectedIds1: [],
       selectedIds2: [],
       dialogTableVisible: false,
       dialogTableVisible1: false,
       dialogTableVisible2: false,
-=======
       input_exam_num: '',
-      dialogTableVisible: false,
       invitation: false,
       invite_way: 'self',
       disagree_reason: '',
       agreeordis: 'agree',
->>>>>>> af0c7ec70e33674f7641d11f9514cc2236235e04
       tableData: [{
         date: '2016-05-02',
         name: '王小虎',
