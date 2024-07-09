@@ -600,7 +600,7 @@
 </template>
 
 <script>
-import {handle} from 'nightwatch/lib/runner/cli/errorhandler'
+// import {handle} from 'nightwatch/lib/runner/cli/errorhandler'
 
 export default {
   name: 'Approval',
