@@ -80,7 +80,7 @@
                                 <el-button
                                         size="mini"
                                         type="text"
-                                        @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+                                        @click="handleEdit(scope.$index, scope.row)">审批</el-button>
                             </template>
                         </el-table-column>
                     </el-table>

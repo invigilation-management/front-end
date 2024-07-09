@@ -9,8 +9,7 @@
                             <el-row :gutter="10">
                                 <el-col :span="12">
                                     <el-button size="small" type="primary" icon="el-icon-s-custom">邀约</el-button>
-                                    <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
-
+                                    <el-button size="small" type="inform" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
                                         <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                                             <el-table :data="selectedIds.map(index => tableData[index])">
                                                 <el-table-column
@@ -60,7 +59,7 @@
                                                         <el-button
                                                             size="mini"
                                                             type="text"
-                                                            @click="showApprovalDialog(scope.row)">审批详情</el-button>
+                                                            @click="showApprovalDialog(scope.row)">审批</el-button>
                                                     </template>
                                                 </el-table-column>
                                             </el-table>
@@ -141,7 +140,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="showApprovalDialog(scope.row)">审批详情</el-button>
+                                            @click="showApprovalDialog(scope.row)">审批</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -194,7 +193,7 @@
                             <el-row :gutter="10">
                                 <el-col :span="12">
                                     <el-button size="small" type="primary" icon="el-icon-s-custom">邀约</el-button>
-                                    <el-button size="small" type="inform">数据导出</el-button>
+                                    <el-button size="small" type="inform" >数据导出</el-button>
                                 </el-col>
                                 <el-col :span="4">
                                     <el-select size="small" v-model="value" placeholder="请选择监考批次">
@@ -266,7 +265,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleAction(scope.$index, scope.row)">审批详情</el-button>
+                                            @click="handleAction(scope.$index, scope.row)">审批</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -352,7 +351,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleAction(scope.$index, scope.row)">审批详情</el-button>
+                                            @click="handleAction(scope.$index, scope.row)">审批</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>

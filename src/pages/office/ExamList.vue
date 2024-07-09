@@ -7,7 +7,66 @@
                             <el-row :gutter="10">
                                 <el-col :span="17">
                                     <el-button size="small" type="primary" icon="el-icon-search">快速找人</el-button>
-                                    <el-button size="small" type="inform">数据导出</el-button>
+                                    <el-button size="small" type="inform" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+                                    <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
+                                            <el-table :data="selectedIds.map(index => tableData[index])">
+                                                <el-table-column
+                                                    type="selection"
+                                                    width="55">
+                                                </el-table-column>
+                                                <el-table-column
+                                                    label="序号">
+                                                    <template slot-scope="scope">
+                                                        {{scope.$index+1}}
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column
+                                                    label="监考名称">
+                                                    <template v-slot="scope">
+                                                        <el-button
+                                                            size="mini"
+                                                            type="text"
+                                                            @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column
+                                                    prop="name"
+                                                    label="监考人数">
+                                                </el-table-column>
+                                                <el-table-column
+                                                    prop="address"
+                                                    label="报名开始时间" width="180">
+                                                    <template slot-scope="scope">
+                                                        <el-button
+                                                            size="mini"
+                                                            type="text"
+                                                            @click="handleEdit(scope.$index, scope.row)">2023年A楼2023监考报名</el-button>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column
+                                                    prop="address"
+                                                    label="报名结束时间">
+                                                </el-table-column>
+                                                <el-table-column
+                                                    prop="address"
+                                                    label="创建时间">
+                                                </el-table-column>
+                                                <el-table-column
+                                                    prop="address"
+                                                    label="批次状态">
+                                                </el-table-column>
+                                                <el-table-column
+                                                    prop="address"
+                                                    label="操作" width="180">
+                                                    <template slot-scope="scope">
+                                                        <el-button
+                                                            size="mini"
+                                                            type="text"
+                                                            @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+                                                    </template>
+                                                </el-table-column>
+                                        </el-table>
+                                    </el-dialog>
                                 </el-col>
                                 <el-col :span="4">
                                     <el-input size="small" v-model="input" placeholder="请输入监考名称关键词查询"></el-input>
@@ -113,6 +172,8 @@ export default {
       }],
       value: '',
       input: '',
+      selectedIds: [],
+      dialogTableVisible: false,
       tableData: [{
         date: '2016-05-02',
         name: '王小虎',
@@ -133,16 +194,18 @@ export default {
       activeName: 'Batch'
     }
   },
-  methods: {
-    handleClick (tab, event) {
-      console.log(tab, event)
-    },
-    handleEdit (row) {
-      this.$router.push({
-        name: 'DetailList',
-        query: {name: row.name}
-      })
-    }
+  methods: { handleSelectionChange (val) {
+    this.selectedIds = val.map(item => this.tableData.indexOf(item))
+  },
+  handleClick (tab, event) {
+    console.log(tab, event)
+  },
+  handleEdit (row) {
+    this.$router.push({
+      name: 'DetailList',
+      query: {name: row.name}
+    })
+  }
   }
 }
 </script>

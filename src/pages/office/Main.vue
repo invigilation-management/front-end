@@ -21,8 +21,8 @@ export default {
       logo: {
         src: logo,
         alt: '上程数据',
-        firstDes: '上程数据',
-        secondDes: '广泛UE模板'
+        firstDes: '抽象小学期',
+        secondDes: '之研究生监考报名'
       }
     }
   },

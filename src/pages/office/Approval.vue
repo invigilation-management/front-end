@@ -9,9 +9,9 @@
                             <el-row :gutter="10">
                                 <el-col :span="12">
                                     <el-button size="small" type="primary" icon="el-icon-s-custom">邀约</el-button>
-                                    <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+                                    <el-button size="small" type="inform" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
                                         <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
-                                            <el-table :data="tableData">
+                                            <el-table :data="selectedIds.map(index => tableData[index])">
                                                 <el-table-column
                                                     label="序号">
                                                     <template slot-scope="scope">
@@ -60,7 +60,7 @@
                                                         <el-button
                                                             size="mini"
                                                             type="text"
-                                                            @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+                                                            @click="handleEdit(scope.$index, scope.row)">审批</el-button>
                                                     </template>
                                                 </el-table-column>
                                             </el-table>
@@ -142,7 +142,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+                                            @click="handleEdit(scope.$index, scope.row)">审批</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -156,7 +156,62 @@
                             <el-row :gutter="10">
                                 <el-col :span="12">
                                     <el-button size="small" type="primary" icon="el-icon-s-custom">邀约</el-button>
-                                    <el-button size="small" type="inform">数据导出</el-button>
+                                    <el-button size="small" type="inform" plain class="white" @click="dialogTableVisible2 = true">数据导出</el-button>
+                                    <el-dialog title="导出数据" :visible.sync="dialogTableVisible2">
+                                        <el-table :data="selectedIds2.map(index => tableData[index])">
+                                            <el-table-column
+                                                label="序号">
+                                                <template slot-scope="scope">
+                                                    {{scope.$index+1}}
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column
+                                                label="报名人"
+                                                prop="name">
+                                                <template slot-scope="scope">
+                                                    <span class="teamName">{{scope.row.name}}</span>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column
+                                                prop="num"
+                                                label="工号">
+                                            </el-table-column>
+                                            <el-table-column
+                                                prop="batch"
+                                                label="监考批次" width="180">
+                                                <template v-slot="scope">
+                                                    <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                                            scope.row.batch
+                                                        }}
+                                                    </el-button>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column
+                                                prop="address"
+                                                label="意向监考校区">
+                                            </el-table-column>
+                                            <el-table-column
+                                                prop="address"
+                                                label="上传材料" width="180">
+                                                <template v-slot="scope">
+                                                    <el-button
+                                                        size="mini"
+                                                        type="text"
+                                                        @click="handleSubmit(scope.row)">预览</el-button>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column
+                                                prop="address"
+                                                label="操作" width="180">
+                                                <template slot-scope="scope">
+                                                    <el-button
+                                                        size="mini"
+                                                        type="text"
+                                                        @click="handleEdit(scope.$index, scope.row)">审批</el-button>
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                    </el-dialog>
                                 </el-col>
                                 <el-col :span="4">
                                     <el-select size="small" v-model="value" placeholder="请选择监考批次">
@@ -234,7 +289,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+                                            @click="handleEdit(scope.$index, scope.row)">审批</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -248,7 +303,62 @@
                             <el-row :gutter="10">
                                 <el-col :span="12">
                                     <el-button size="small" type="primary" icon="el-icon-s-custom">邀约</el-button>
-                                    <el-button size="small" type="inform">数据导出</el-button>
+                                    <el-button size="small" type="inform" plain class="white" @click="dialogTableVisible1 = true">数据导出</el-button>
+                                    <el-dialog title="导出数据" :visible.sync="dialogTableVisible1">
+                                        <el-table :data="selectedIds1.map(index => tableData[index])">
+                                            <el-table-column
+                                                label="序号">
+                                                <template slot-scope="scope">
+                                                    {{scope.$index+1}}
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column
+                                                label="报名人"
+                                                prop="name">
+                                                <template slot-scope="scope">
+                                                    <span class="teamName">{{scope.row.name}}</span>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column
+                                                prop="num"
+                                                label="工号">
+                                            </el-table-column>
+                                            <el-table-column
+                                                prop="batch"
+                                                label="监考批次" width="180">
+                                                <template v-slot="scope">
+                                                    <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                                            scope.row.batch
+                                                        }}
+                                                    </el-button>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column
+                                                prop="address"
+                                                label="意向监考校区">
+                                            </el-table-column>
+                                            <el-table-column
+                                                prop="address"
+                                                label="上传材料" width="180">
+                                                <template v-slot="scope">
+                                                    <el-button
+                                                        size="mini"
+                                                        type="text"
+                                                        @click="handleSubmit(scope.row)">预览</el-button>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column
+                                                prop="address"
+                                                label="操作" width="180">
+                                                <template slot-scope="scope">
+                                                    <el-button
+                                                        size="mini"
+                                                        type="text"
+                                                        @click="handleEdit(scope.$index, scope.row)">审批</el-button>
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                    </el-dialog>
                                 </el-col>
                                 <el-col :span="4">
                                     <el-select size="small" v-model="value" placeholder="请选择监考批次">
@@ -326,7 +436,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+                                            @click="handleEdit(scope.$index, scope.row)">审批</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -366,7 +476,12 @@ export default {
       }],
       value: '',
       input: '',
+      selectedIds: [],
+      selectedIds1: [],
+      selectedIds2: [],
       dialogTableVisible: false,
+      dialogTableVisible1: false,
+      dialogTableVisible2: false,
       tableData: [{
         date: '2016-05-02',
         name: '王小虎',
@@ -410,6 +525,9 @@ export default {
     }
   },
   methods: {
+    handleSelectionChange (val) {
+      this.selectedIds = val.map(item => this.tableData.indexOf(item))
+    },
     handleClick (tab, event) {
       console.log(tab, event)
     },
