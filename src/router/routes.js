@@ -137,9 +137,25 @@ const officeDirectorPage = [
         component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/ApprovalDetails.vue')
       },
       {
+        path: 'AgreeDetails',
+        name: 'AgreeDetails',
+        component: () => import(/* webpackChunkName: "AgreeDetailsOffice" */ '../pages/office/AgreeDetails.vue')
+      },
+      {
+        path: 'DisagreeDetails',
+        name: 'DisagreeDetails',
+        component: () => import(/* webpackChunkName: "AgreeDetailsOffice" */ '../pages/office/DisagreeDetails.vue')
+      },
+      {
         path: 'detailList',
         name: 'DetailList',
         component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/DetailList.vue')
+      },
+
+      {
+        path: 'Batch-Details',
+        name: 'BatchDetails',
+        component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/BatchDetails.vue')
       },
       {
         path: 'examlist',

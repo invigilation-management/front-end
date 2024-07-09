@@ -60,9 +60,6 @@
                                                 <el-table-column
                                                     label="报名人"
                                                     prop="name">
-                                                    <template slot-scope="scope">
-                                                        <span class="teamName">{{scope.row.name}}</span>
-                                                    </template>
                                                 </el-table-column>
                                                 <el-table-column
                                                     prop="num"
@@ -72,9 +69,10 @@
                                                     prop="batch"
                                                     label="监考批次" width="180">
                                                     <template v-slot="scope">
-                                                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
-                                                                scope.row.batch
-                                                            }}
+                                                        <el-button
+                                                            type="text"
+                                                            size="small"
+                                                            @click="handleEdit333333333333(scope.row)">{{scope.row.batch}}
                                                         </el-button>
                                                     </template>
                                                 </el-table-column>
@@ -272,9 +270,6 @@
                                 <el-table-column
                                     label="报名人"
                                     prop="name">
-                                    <template slot-scope="scope">
-                                        <span class="teamName">{{scope.row.name}}</span>
-                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="num"
@@ -284,15 +279,12 @@
                                     prop="batch"
                                     label="监考批次" width="180">
                                     <template v-slot="scope">
-                                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
-                                                scope.row.batch
-                                            }}
+                                        <el-button
+                                            type="text"
+                                            size="small"
+                                            @click="handleEdit333333333333(scope.$index, scope.row)">{{scope.row.batch }}
                                         </el-button>
                                     </template>
-                                </el-table-column>
-                                <el-table-column
-                                    prop="address"
-                                    label="意向监考校区">
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
@@ -364,9 +356,6 @@
                                 <el-table-column
                                     label="报名人"
                                     prop="name">
-                                    <template slot-scope="scope">
-                                        <span class="teamName">{{scope.row.name}}</span>
-                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="num"
@@ -381,10 +370,6 @@
                                             }}
                                         </el-button>
                                     </template>
-                                </el-table-column>
-                                <el-table-column
-                                    prop="address"
-                                    label="意向监考校区">
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
@@ -403,7 +388,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handle111111111111111111111111111111111111(scope.$index, scope.row)">查看</el-button>
+                                            @click="handle2222222222222222(scope.$index, scope.row)">查看</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -503,6 +488,24 @@ export default {
         query: {name: row.name}
       })
     },
+    handl1111111111111111111 (row) {
+      this.$router.push({
+        name: 'AgreeDetails',
+        query: {name: row.name}
+      })
+    },
+    handle2222222222222222 (row) {
+      this.$router.push({
+        name: 'DisagreeDetails',
+        query: {name: row.name}
+      })
+    },
+    handleEdit333333333333 (row) {
+      this.$router.push({
+        name: 'BatchDetails',
+        query: {name: row.name}
+      })
+    },
     showdialog (index) {
       this.dialogData = this.tableData[index]
       this.dialog_Regist_approval = true
@@ -562,9 +565,6 @@ export default {
 }
 /deep/.el-dropdown{
     font-size: 12px;
-}
-.teamName{
-    color: #166AFF;
 }
 /deep/ .el-table th.el-table__cell{
     background-color: #F3F3F3;
