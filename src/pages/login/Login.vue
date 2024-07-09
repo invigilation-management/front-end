@@ -47,6 +47,12 @@ export default {
         case 3:
           this.$router.push('/teacher/fill-form')
           break
+        case 4:
+          this.$router.push({path: '/admissions/exam-approval/agree'})
+          break
+        case 5:
+          this.$router.push({path: '/admissions/exam-approval/agree'})
+          break
         default:
           alert('未知角色')
           break
@@ -60,7 +66,7 @@ export default {
       //   'user3': 3,: teachers
       // }
       // return userRoleMap[username] || 1 || 2 || 3// 默认返回0表示未知角色
-      return 1
+      return 2
     }
   }
 }

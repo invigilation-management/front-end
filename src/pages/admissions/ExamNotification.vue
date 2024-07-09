@@ -69,8 +69,8 @@
                             <el-table-column
                                 label="操作"
                                 width="200">
-                                <template slot-scope="scope">
-                                    <el-button type="text" size="small">查看名单</el-button>
+                                <template v-slot="scope">
+                                    <el-button type="text" @click="handleGoToVice" size="small">查看名单</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -140,7 +140,7 @@
                     label="操作"
                     width="200">
                     <template slot-scope="scope">
-                        <el-button type="text" size="small">查看名单</el-button>
+                        <el-button type="text" @click='handleGoToVice' size="small">查看名单</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -257,6 +257,12 @@ export default {
     handleEdit (row) {
       this.$router.push({
         name: 'batchDetails',
+        query: {name: row.name}
+      })
+    },
+    handleGoToVice (row) {
+      this.$router.push({
+        name: 'NotationVice',
         query: {name: row.name}
       })
     }
