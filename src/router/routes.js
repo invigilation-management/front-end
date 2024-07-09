@@ -91,6 +91,21 @@ const admissionsHeadPage = [
         component: () => import(/* webpackChunkName: "ExamNotification" */ '../pages/admissions/ExamNotification.vue')
       },
       {
+        path: 'feestotal',
+        name: 'FeesTotal',
+        component: () => import(/* webpackChunkName: "ExamNotification" */ '../pages/admissions/FeesTotal.vue')
+      },
+      {
+        path: 'managetotal',
+        name: 'ManageTotal',
+        component: () => import(/* webpackChunkName: "ExamNotification" */ '../pages/admissions/ManageTotal.vue')
+      },
+      {
+        path: 'notationvice',
+        name: 'NotationVice',
+        component: () => import(/* webpackChunkName: "ExamNotification" */ '../pages/admissions/NotationVice.vue')
+      },
+      {
         path: 'exam-fees',
         name: 'examFees',
         component: () => import(/* webpackChunkName: "ExamFees" */ '../pages/admissions/ExamFees.vue')

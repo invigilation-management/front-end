@@ -116,7 +116,7 @@ export default {
           // ]
         },
         {
-          path: '/admissions/exam-schedule',
+          path: '/admissions/managetotal',
           icon: 'suncaper-menu-unfold',
           title: '监考安排表'
           // children: [
@@ -133,7 +133,7 @@ export default {
           title: '监考通知确认单'
         },
         {
-          path: '/admissions/exam-fees',
+          path: '/admissions/feestotal',
           icon: 'suncaper-menu-unfold',
           title: '监考费用明细'
         },
