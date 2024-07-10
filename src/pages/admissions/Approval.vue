@@ -8,7 +8,7 @@
                         <el-tab-pane label="待我审批" name="Batch">
                             <el-row :gutter="10">
                                 <el-col :span="12">
-                                    <el-button size="small" type="primary" icon="el-icon-s-custom" @click="invitation = true">邀约</el-button>
+                                    <el-button type="primary" icon="el-icon-s-custom" @click="invitation = true">邀约</el-button>
                                     <el-dialog title="邀约" :visible.sync="invitation">
                                         <hr class="card-divider">
                                         <div style="background-color: #E4EEFF;margin: 20px;height: 50px;text-align: center">
@@ -44,7 +44,7 @@
                                         </div>
                                     </el-dialog>
 <!--                                    <el-button size="small" type="inform" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>-->
-                                    <el-button size="small" type="inform" @click="dialogTableVisible = true">数据导出</el-button>
+                                    <el-button type="inform" @click="dialogTableVisible = true">数据导出</el-button>
                                         <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                                             <el-table :data="selectedIds.map(index => tableData[index])">
                                                 <el-table-column
@@ -67,7 +67,7 @@
                                                     prop="batch"
                                                     label="监考名称" width="180">
                                                     <template v-slot="scope">
-                                                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                                        <el-button type="text" @click="handleEdit(scope.row)">{{
                                                                 scope.row.batch
                                                             }}
                                                         </el-button>
@@ -82,7 +82,6 @@
                                                     label="材料" width="180">
                                                     <template v-slot="scope">
                                                         <el-button
-                                                            size="mini"
                                                             type="text"
                                                             @click="handlePreview(scope.row)">预览</el-button>
                                                     </template>
@@ -92,7 +91,6 @@
                                                     label="操作" width="180">
                                                     <template slot-scope="scope">
                                                         <el-button
-                                                            size="mini"
                                                             type="text"
                                                             @click="showApprovalDialog(scope.row)">审批</el-button>
                                                     </template>
@@ -101,7 +99,7 @@
                                         </el-dialog>
                                 </el-col>
                                 <el-col :span="4">
-                                    <el-select size="small" v-model="value" placeholder="请选择监考批次">
+                                    <el-select v-model="value" placeholder="请选择监考批次">
                                         <el-option
                                             v-for="item in options"
                                             :key="item.value"
@@ -111,12 +109,12 @@
                                     </el-select>
                                 </el-col>
                                 <el-col :span="5">
-                                    <el-input size="small" v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
+                                    <el-input v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
                                 </el-col>
                                 <el-col :span="3">
                                     <div class="buttonright">
-                                        <el-button size="small" type="primary">查询</el-button>
-                                        <el-button size="small" type="inform">重置</el-button>
+                                        <el-button type="primary">查询</el-button>
+                                        <el-button type="inform">重置</el-button>
                                     </div>
                                 </el-col>
                             </el-row>
@@ -148,7 +146,7 @@
                                     prop="batch"
                                     label="监考名称" width="180">
                                     <template v-slot="scope">
-                                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                        <el-button type="text" @click="handleEdit(scope.row)">{{
                                                 scope.row.batch
                                             }}
                                         </el-button>
@@ -163,7 +161,6 @@
                                     label="材料" width="180">
                                     <template v-slot="scope">
                                         <el-button
-                                            size="mini"
                                             type="text"
                                             @click="handlePreview(scope.row)">预览</el-button>
                                     </template>
@@ -173,7 +170,6 @@
                                     label="操作" width="180">
                                     <template slot-scope="scope">
                                         <el-button
-                                            size="mini"
                                             type="text"
                                             @click="showApprovalDialog(scope.row)">审批</el-button>
                                     </template>
@@ -227,8 +223,8 @@
                         <el-tab-pane label="同意报名" name="Agree">
                             <el-row :gutter="10">
                                 <el-col :span="12">
-                                    <el-button size="small" type="primary" icon="el-icon-s-custom">邀约</el-button>
-                                    <el-button size="small" type="inform" @click="dialogTableVisible1 = true">数据导出</el-button>
+                                    <el-button type="primary" icon="el-icon-s-custom">邀约</el-button>
+                                    <el-button type="inform" @click="dialogTableVisible1 = true">数据导出</el-button>
                                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible1">
                                         <el-table :data="selectedIds1.map(index => tableData[index])">
                                             <el-table-column
@@ -252,7 +248,7 @@
                                                 label="监考名称"
                                                 width="180">
                                                 <template v-slot="scope">
-                                                    <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                                    <el-button type="text" @click="handleEdit(scope.row)">{{
                                                             scope.row.batch
                                                         }}
                                                     </el-button>
@@ -267,7 +263,6 @@
                                                 label="材料" width="180">
                                                 <template v-slot="scope">
                                                     <el-button
-                                                        size="mini"
                                                         type="text"
                                                         @click="handlePreview(scope.row)">预览</el-button>
                                                 </template>
@@ -277,7 +272,6 @@
                                                 label="操作" width="180">
                                                 <template slot-scope="scope">
                                                     <el-button
-                                                        size="mini"
                                                         type="text"
                                                         @click="showApprovalDialog(scope.row)">审批</el-button>
                                                 </template>
@@ -286,7 +280,7 @@
                                     </el-dialog>
                                 </el-col>
                                 <el-col :span="4">
-                                    <el-select size="small" v-model="value" placeholder="请选择监考批次">
+                                    <el-select v-model="value" placeholder="请选择监考批次">
                                         <el-option
                                             v-for="item in options"
                                             :key="item.value"
@@ -296,12 +290,12 @@
                                     </el-select>
                                 </el-col>
                                 <el-col :span="5">
-                                    <el-input size="small" v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
+                                    <el-input v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
                                 </el-col>
                                 <el-col :span="3">
                                     <div class="buttonright">
-                                        <el-button size="small" type="primary">查询</el-button>
-                                        <el-button size="small" type="inform">重置</el-button>
+                                        <el-button type="primary">查询</el-button>
+                                        <el-button type="inform">重置</el-button>
                                     </div>
                                 </el-col>
                             </el-row>
@@ -334,7 +328,7 @@
                                     prop="batch"
                                     label="监考名称" width="180">
                                     <template v-slot="scope">
-                                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                        <el-button type="text" @click="handleEdit(scope.row)">{{
                                                 scope.row.name
                                             }}
                                         </el-button>
@@ -344,7 +338,6 @@
                                     label="材料" width="180">
                                     <template v-slot="scope">
                                         <el-button
-                                            size="mini"
                                             type="text"
                                             @click="handleSubmit(scope.row)">预览</el-button>
                                     </template>
@@ -353,7 +346,6 @@
                                     label="操作" width="180">
                                     <template v-slot="scope">
                                         <el-button
-                                            size="mini"
                                             type="text"
                                             @click="handleAction(scope.$index, scope.row)">审批</el-button>
                                     </template>
@@ -368,8 +360,8 @@
                         <el-tab-pane label="不同意报名" name="Disagree">
                             <el-row :gutter="10">
                                 <el-col :span="12">
-                                    <el-button size="small" type="primary" icon="el-icon-s-custom">邀约</el-button>
-                                    <el-button size="small" type="inform" @click="dialogTableVisible2 = true">数据导出</el-button>
+                                    <el-button type="primary" icon="el-icon-s-custom">邀约</el-button>
+                                    <el-button type="inform" @click="dialogTableVisible2 = true">数据导出</el-button>
                                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible2">
                                         <el-table :data="selectedIds2.map(index => tableData[index])">
                                             <el-table-column
@@ -392,7 +384,7 @@
                                                 prop="batch"
                                                 label="监考名称" width="180">
                                                 <template v-slot="scope">
-                                                    <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                                    <el-button type="text" @click="handleEdit(scope.row)">{{
                                                             scope.row.batch
                                                         }}
                                                     </el-button>
@@ -407,7 +399,6 @@
                                                 label="材料" width="180">
                                                 <template v-slot="scope">
                                                     <el-button
-                                                        size="mini"
                                                         type="text"
                                                         @click="handlePreview(scope.row)">预览</el-button>
                                                 </template>
@@ -417,7 +408,6 @@
                                                 label="操作" width="180">
                                                 <template slot-scope="scope">
                                                     <el-button
-                                                        size="mini"
                                                         type="text"
                                                         @click="showApprovalDialog(scope.row)">审批</el-button>
                                                 </template>
@@ -426,7 +416,7 @@
                                     </el-dialog>
                                 </el-col>
                                 <el-col :span="4">
-                                    <el-select size="small" v-model="value" placeholder="请选择监考批次">
+                                    <el-select  v-model="value" placeholder="请选择监考批次">
                                         <el-option
                                             v-for="item in options"
                                             :key="item.value"
@@ -436,12 +426,12 @@
                                     </el-select>
                                 </el-col>
                                 <el-col :span="5">
-                                    <el-input size="small" v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
+                                    <el-input v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
                                 </el-col>
                                 <el-col :span="3">
                                     <div class="buttonright">
-                                        <el-button size="small" type="primary">查询</el-button>
-                                        <el-button size="small" type="inform">重置</el-button>
+                                        <el-button  type="primary">查询</el-button>
+                                        <el-button  type="inform">重置</el-button>
                                     </div>
                                 </el-col>
                             </el-row>
@@ -474,7 +464,7 @@
                                     prop="batch"
                                     label="监考批次" width="180">
                                     <template v-slot="scope">
-                                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+                                        <el-button type="text" @click="handleEdit(scope.row)">{{
                                                 scope.row.name
                                             }}
                                         </el-button>
@@ -484,7 +474,6 @@
                                     label="" width="180">
                                     <template v-slot="scope">
                                         <el-button
-                                            size="mini"
                                             type="text"
                                             @click="handleSubmit(scope.row)">预览</el-button>
                                     </template>
@@ -493,7 +482,6 @@
                                     label="操作" width="180">
                                     <template v-slot="scope">
                                         <el-button
-                                            size="mini"
                                             type="text"
                                             @click="handleAction(scope.$index, scope.row)">审批</el-button>
                                     </template>
@@ -560,8 +548,32 @@ export default {
         num: '1001',
         batch: '2023年A卷2023监考报名'
       }],
-      agreeData: [],
-      disagreeData: [],
+      agreeData: [ {
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '兴庆校区',
+        num: '1001',
+        batch: '2023年A卷2023监考报名'
+      }, {
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '兴庆校区',
+        num: '1001',
+        batch: '2023年A卷2023监考报名'
+      }],
+      disagreeData: [ {
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '兴庆校区',
+        num: '1001',
+        batch: '2023年A卷2023监考报名'
+      }, {
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '兴庆校区',
+        num: '1001',
+        batch: '2023年A卷2023监考报名'
+      }],
       activeName: 'Batch',
       selectedIds: [],
       selectedIds1: [],

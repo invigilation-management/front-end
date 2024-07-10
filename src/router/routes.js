@@ -114,6 +114,16 @@ const admissionsHeadPage = [
         path: 'role-management',
         name: 'roleManagement',
         component: () => import(/* webpackChunkName: "RoleManagement" */ '../pages/admissions/RoleManagement.vue')
+      },
+      {
+        path: 'viewList',
+        name: 'ViewList',
+        component: () => import(/* webpackChunkName: "RoleManagement" */ '../pages/admissions/ViewList.vue')
+      },
+      {
+        path: 'examFees',
+        name: 'ExamFees',
+        component: () => import(/* webpackChunkName: "RoleManagement" */ '../pages/admissions/ExamFees.vue')
       }
     ]
   }
