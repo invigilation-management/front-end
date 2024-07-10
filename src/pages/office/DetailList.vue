@@ -33,7 +33,7 @@
                                     <el-radio v-model="invite_way" label="help">帮助报名</el-radio>
                                 </div>
                                 <div>
-                                    <el-input placeholder="请输入姓名/工号/学号模糊查询" style="margin: 10px"></el-input>
+                                    <el-input placeholder="请输入姓名/工号模糊查询" style="margin: 10px"></el-input>
                                 </div>
                                 <div style="margin: 20px;background-color: #F3F3F3 ;height: 160px;text-align: left">
                                     <br><br>&nbsp;&nbsp; &nbsp;姓名：<br><br>
@@ -112,7 +112,7 @@
                             </el-dialog>
                         </el-col>
                         <el-col :span="4">
-                            <el-input size="small" v-model="searchQuery" placeholder="请输入人名或工号关键词查询"></el-input>
+                            <el-input size="small" v-model="searchQuery" placeholder="请输入姓名/工号模糊查询"></el-input>
                         </el-col>
                         <el-col :span="3">
                             <div class="buttonright">
