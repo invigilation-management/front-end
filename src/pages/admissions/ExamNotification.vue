@@ -20,7 +20,41 @@
                     </el-dialog>
                     <!--                    以上是对话弹窗部分-->
                     <!--                    以上是对话弹窗部分-->
-                    <el-button type="primary" plain class="white">创建批次</el-button>
+                    <el-button type="primary" plain class="white" @click="dialogVisible_ack=true">创建批次</el-button>
+                    <!--                    以下是对话弹窗部分-->
+                    <!--                    以下是对话弹窗部分-->
+                    <el-dialog title="创建通知确认批次" :visible.sync="dialogVisible_ack">
+                        <el-form :model="form">
+                            <el-form-item label="监考名称" :label-width="formLabelWidth">
+                                <el-input v-model="form.name" autocomplete="off" placeholder="请输入监考名称"></el-input>
+                            </el-form-item>
+                            <el-form-item label="确认情况" :label-width="formLabelWidth">
+                                <el-input v-model="form.detail" autocomplete="off" placeholder="请输入确认情况"></el-input>
+                            </el-form-item>
+                            <el-form-item label="报名开始时间" :label-width="formLabelWidth">
+                                <el-input v-model="form.begin_time" autocomplete="off" placeholder="请输入报名开始时间"></el-input>
+                            </el-form-item>
+                            <el-form-item label="报名结束时间" :label-width="formLabelWidth">
+                                <el-input v-model="form.end_time" autocomplete="off" placeholder="请输入报名结束时间"></el-input>
+                            </el-form-item>
+                            <el-form-item label="创建时间" :label-width="formLabelWidth" :label-height="bigformLabelHeight">
+                                <el-input v-model="form.create_time" autocomplete="off" placeholder="请输入创建时间" style="height: 158px;height: auto">
+                                </el-input>
+                            </el-form-item>
+                            <el-form-item label="批次状态" :label-width="formLabelWidth">
+                                <el-select v-model="form.thisstatus" placeholder="请选择批次状态" >
+                                    <el-option label="已结束" value="已结束"></el-option>
+                                    <el-option label="进行中" value="进行中"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-form>
+                        <div slot="footer" class="dialog-footer" style="text-align: center">
+                            <el-button type="primary" @click="dialogVisible_ack = false" style="background-color: #166AFF"> 提 交 </el-button>
+                            <el-button @click="dialogVisible_ack = false">取 消</el-button>
+                        </div>
+                    </el-dialog>
+                    <!--                    以上是对话弹窗部分-->
+                    <!--                    以上是对话弹窗部分-->
                     <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                         <el-table :data="selectedIds.map(index => tableData[index])"><el-table-column
@@ -162,6 +196,17 @@ export default {
       dialogTableVisible: false,
       selectedIds: [],
       dialogVisibleFind: false,
+      dialogVisible_ack: false,
+      formLabelWidth: '120px',
+      bigformLabelHeight: '158px',
+      form: {
+        name: '',
+        detail: '',
+        begin_time: '',
+        end_time: '',
+        create_time: '',
+        thisstatus: ''
+      },
       tableData: [
         {
           name: '2023年A卷2023监考报名',
