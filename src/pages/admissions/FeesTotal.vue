@@ -8,14 +8,48 @@
                         <el-col :span="6">
                             <el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input>
                         </el-col>
-                        <el-col :span="3">
+                        <el-col :span="4">
                             <el-button type="primary">查询</el-button>
                             <el-button type="inform">重置</el-button>
                         </el-col>
-                        <el-col :span="15">
+                        <el-col :span="14">
                             <div class="buttonright">
                                 <el-button type="primary">快速找人</el-button>
-                                <el-button type="primary">创建批次</el-button>
+                                <el-button type="primary" @click="dialogVisible_fee=true">创建批次</el-button>
+                                <el-dialog title="创建监考安排批次" :visible.sync="dialogVisible_fee">
+                                    <el-form :model="form">
+                                        <el-form-item label="监考名称" :label-width="formLabelWidth">
+                                            <el-input v-model="form.name" autocomplete="off" placeholder="请输入监考名称"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="监考人" :label-width="formLabelWidth">
+                                            <el-input v-model="form.members_num" autocomplete="off" placeholder="请输入监考人"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="报名开始时间" :label-width="formLabelWidth">
+                                            <el-input v-model="form.begin_time" autocomplete="off" placeholder="请输入报名开始时间"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="报名结束时间" :label-width="formLabelWidth">
+                                            <el-input v-model="form.end_time" autocomplete="off" placeholder="请输入报名结束时间"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="创建时间" :label-width="formLabelWidth" :label-height="bigformLabelHeight">
+                                            <el-input v-model="form.create_time" autocomplete="off" placeholder="请输入创建时间" style="height: 158px;height: auto">
+                                            </el-input>
+                                        </el-form-item>
+                                        <el-form-item  label="批次状态" :label-width="formLabelWidth">
+                                            <el-select v-model="form.this_status" placeholder="请选择批次状态" >
+                                                <el-option label="已结束" value="已结束">
+                                                    <span>已结束</span>
+                                                </el-option>
+                                                <el-option  label="进行中" value="进行中">
+                                                    <span>进行中</span>
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                    </el-form>
+                                    <div slot="footer" class="dialog-footer" style="text-align: center">
+                                        <el-button type="primary" @click="dialogVisible_fee = false" style="background-color: #166AFF"> 提 交 </el-button>
+                                        <el-button @click="dialogVisible_fee = false">取 消</el-button>
+                                    </div>
+                                </el-dialog>
                                 <el-button type="inform" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
                                 <!--                    以下是对话弹窗部分-->
                                 <!--                    以下是对话弹窗部分-->
@@ -205,12 +239,23 @@ export default {
       }],
       value: '',
       input: '',
+      form: {
+        name: '',
+        peoples_num: '',
+        begin_time: '',
+        end_time: '',
+        create_time: '',
+        this_status: ''
+      },
       selectedIds: [],
       selectedIds1: [],
       selectedIds2: [],
       dialogTableVisible: false,
       dialogTableVisible1: false,
       dialogTableVisible2: false,
+      dialogVisible_fee: false,
+      formLabelWidth: '120px',
+      bigformLabelHeight: '158px',
       input_exam_num: '',
       invitation: false,
       invite_way: 'self',

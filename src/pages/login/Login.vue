@@ -66,7 +66,7 @@ export default {
       //   'user3': 3,: teachers
       // }
       // return userRoleMap[username] || 1 || 2 || 3// 默认返回0表示未知角色
-      return 1
+      return 2
     }
   }
 }

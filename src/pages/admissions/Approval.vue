@@ -7,7 +7,7 @@
                     <el-tabs v-model="activeName" @tab-click="handleClick">
                         <el-tab-pane label="待我审批" name="Batch">
                             <el-row :gutter="10">
-                                <el-col :span="12">
+                                <el-col :span="10">
                                     <el-button type="primary" icon="el-icon-s-custom" @click="invitation = true">邀约</el-button>
                                     <el-dialog title="邀约" :visible.sync="invitation">
                                         <hr class="card-divider">
@@ -108,10 +108,10 @@
                                         </el-option>
                                     </el-select>
                                 </el-col>
-                                <el-col :span="5">
+                                <el-col :span="6">
                                     <el-input v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
                                 </el-col>
-                                <el-col :span="3">
+                                <el-col :span="4">
                                     <div class="buttonright">
                                         <el-button type="primary">查询</el-button>
                                         <el-button type="inform">重置</el-button>
@@ -222,7 +222,7 @@
                         </el-tab-pane>
                         <el-tab-pane label="同意报名" name="Agree">
                             <el-row :gutter="10">
-                                <el-col :span="12">
+                                <el-col :span="10">
                                     <el-button type="primary" icon="el-icon-s-custom">邀约</el-button>
                                     <el-button type="inform" @click="dialogTableVisible1 = true">数据导出</el-button>
                                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible1">
@@ -289,10 +289,10 @@
                                         </el-option>
                                     </el-select>
                                 </el-col>
-                                <el-col :span="5">
+                                <el-col :span="6">
                                     <el-input v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
                                 </el-col>
-                                <el-col :span="3">
+                                <el-col :span="4">
                                     <div class="buttonright">
                                         <el-button type="primary">查询</el-button>
                                         <el-button type="inform">重置</el-button>
@@ -359,7 +359,7 @@
                         </el-tab-pane>
                         <el-tab-pane label="不同意报名" name="Disagree">
                             <el-row :gutter="10">
-                                <el-col :span="12">
+                                <el-col :span="10">
                                     <el-button type="primary" icon="el-icon-s-custom">邀约</el-button>
                                     <el-button type="inform" @click="dialogTableVisible2 = true">数据导出</el-button>
                                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible2">
@@ -425,10 +425,10 @@
                                         </el-option>
                                     </el-select>
                                 </el-col>
-                                <el-col :span="5">
+                                <el-col :span="6">
                                     <el-input v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
                                 </el-col>
-                                <el-col :span="3">
+                                <el-col :span="4">
                                     <div class="buttonright">
                                         <el-button  type="primary">查询</el-button>
                                         <el-button  type="inform">重置</el-button>
