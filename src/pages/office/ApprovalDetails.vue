@@ -25,7 +25,8 @@ import HistoryCard from '../../components/HistoryCard.vue'
 
 export default {
   name: 'ApprovalDetails',
-  components: {HistoryCard, SignUpInfo}}
+  components: {HistoryCard, SignUpInfo}
+}
 </script>
 
 <style scoped>

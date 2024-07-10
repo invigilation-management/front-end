@@ -33,7 +33,7 @@
                                     <el-radio v-model="invite_way" label="help">帮助报名</el-radio>
                                 </div>
                                 <div>
-                                    <el-input placeholder="请输入姓名/工号/学号模糊查询" style="margin: 10px"></el-input>
+                                    <el-input placeholder="请输入姓名/工号模糊查询" style="margin: 10px"></el-input>
                                 </div>
                                 <div style="margin: 20px;background-color: #F3F3F3 ;height: 160px;text-align: left">
                                     <br><br>&nbsp;&nbsp; &nbsp;姓名：<br><br>
@@ -55,7 +55,7 @@
                             <!-- 以上是对话弹窗部分-->
                             <el-button size="small" type="inform" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
                             <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
-                                <el-table :data="selectedIds.map(index => tableData[index])">
+                                <el-table :data="selectedIds.map(index => filteredData[index])">
                                     <el-table-column
                                         type="selection"
                                         width="55">
@@ -112,17 +112,17 @@
                             </el-dialog>
                         </el-col>
                         <el-col :span="4">
-                            <el-input size="small" v-model="input" placeholder="请输入监考名称关键词查询"></el-input>
+                            <el-input size="small" v-model="searchQuery" placeholder="请输入姓名/工号模糊查询"></el-input>
                         </el-col>
                         <el-col :span="3">
                             <div class="buttonright">
-                                <el-button size="small" type="primary">查询</el-button>
-                                <el-button size="small" type="inform">重置</el-button>
+                                <el-button size="small" type="primary" @click="handleSearch">查询</el-button>
+                                <el-button size="small" @click="handleReset">重置</el-button>
                             </div>
                         </el-col>
                     </el-row>
                     <el-table
-                            :data="tableData"
+                            :data="filteredData"
                             style="width: 100%"
                             @selection-change="handleSelectionChange">
                         <el-table-column
@@ -136,39 +136,31 @@
                             </template>
                         </el-table-column>
                         <el-table-column
+                                prop="name"
                                 label="姓名">
-                            <template slot-scope="scope">
-                                <span class="teamName">{{scope.row.date}}</span>
-                            </template>
                         </el-table-column>
                         <el-table-column
-                                prop="name"
+                                prop="num"
                                 label="工号">
                         </el-table-column>
                         <el-table-column
-                                prop="address"
-                                label="所在单位" width="180">
-                            <template slot-scope="scope">
-                                <el-button
-                                        size="mini"
-                                        type="text"
-                                        @click="handleEdit(scope.$index, scope.row)">2023年A楼2023监考报名</el-button>
-                            </template>
+                                prop="dept"
+                                label="所在单位">
                         </el-table-column>
                         <el-table-column
-                                prop="address"
+                                prop="id_card"
                                 label="身份证号">
                         </el-table-column>
                         <el-table-column
-                                prop="address"
+                                prop="tele"
                                 label="移动电话">
                         </el-table-column>
                         <el-table-column
-                                prop="address"
+                                prop="source"
                                 label="来源">
                         </el-table-column>
                         <el-table-column
-                                prop="address"
+                                prop="operation"
                                 label="操作" width="180">
                             <template slot-scope="scope">
                                 <el-button
@@ -213,37 +205,71 @@ export default {
       value: '',
       input: '',
       tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
+        name: '王小一',
+        num: '1001',
+        dept: '软件学院',
+        id_card: '610526',
+        tele: '110',
+        source: '自主报名'
       }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
+        name: '王小二',
+        num: '1002',
+        dept: '软件学院',
+        id_card: '610526',
+        tele: '110',
+        source: '自主报名'
       }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
+        name: '王小三',
+        num: '1003',
+        dept: '软件学院',
+        id_card: '610526',
+        tele: '110',
+        source: '自主报名'
       }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
+        name: '王小四',
+        num: '1004',
+        dept: '软件学院',
+        id_card: '610526',
+        tele: '110',
+        source: '自主报名'
       }],
       activeName: 'Batch',
       invitation: false,
       invite_way: 'self',
       input_exam_num: '',
       selectedIds: [],
-      dialogTableVisible: false
+      dialogTableVisible: false,
+      searchQuery: '',
+      filteredData: []
     }
   },
   methods: {
     handleClick (tab, event) {
       console.log(tab, event)
     },
+    fetchItems () {
+      this.items = this.$data.tableData
+      this.filteredData = this.items
+    },
+    handleSearch () {
+      if (this.searchQuery.trim()) {
+        this.filteredData = this.items.filter(item =>
+          item.name.includes(this.searchQuery) || (item.num.includes(this.searchQuery))
+        )
+      } else {
+        this.filteredData = this.items
+      }
+    },
+    handleReset () {
+      this.searchQuery = ''
+      this.filteredData = this.items
+    },
     handleSelectionChange (val) {
-      this.selectedIds = val.map(item => this.tableData.indexOf(item))
+      this.selectedIds = val.map(item => this.filteredData.indexOf(item))
     }
+  },
+  mounted () {
+    this.fetchItems()
   }
 }
 </script>
