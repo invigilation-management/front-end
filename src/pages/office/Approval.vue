@@ -82,7 +82,7 @@
                                                 </el-table-column>
                                                 <el-table-column
                                                     prop="address"
-                                                    label="" width="180">
+                                                    label="上传材料" width="180">
                                                     <template v-slot="scope">
                                                         <el-button
                                                             size="mini"
@@ -167,12 +167,21 @@
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
-                                    label="" width="180">
+                                    label="上传材料" width="180">
                                     <template v-slot="scope">
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.row)">预览</el-button>
+                                            @click="dialogVisible = true">预览</el-button>
+                                        <!--                                            以下是对话框-->
+                                        <!--                                            以下是对话框-->
+                                        <el-dialog
+                                            title="提示"
+                                            :visible.sync="dialogVisible"
+                                            width="30%">
+                                        </el-dialog>
+                                        <!--                                            以上是对话框-->
+                                        <!--                                            以上是对话框-->
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -388,7 +397,7 @@
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
-                                    label="" width="180">
+                                    label="上传材料" width="180">
                                     <template v-slot="scope">
                                         <el-button
                                             size="mini"
@@ -567,7 +576,7 @@
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
-                                    label="" width="180">
+                                    label="上传材料" width="180">
                                     <template v-slot="scope">
                                         <el-button
                                             size="mini"
@@ -601,7 +610,7 @@
 
 <script>
 // import {handle} from 'nightwatch/lib/runner/cli/errorhandler'
-
+// import { request } from "@/utiles/request.js";
 export default {
   name: 'Approval',
   data () {
@@ -675,6 +684,7 @@ export default {
         batch: '2023年A楼2023监考报名'
       }],
       dialog_Regist_approval: false,
+      dialogVisible: false,
       activeName: 'Batch',
       dialogData: {}
     }
