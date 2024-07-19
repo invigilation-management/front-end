@@ -21,5 +21,11 @@ export default {
       commit(types.SET_USER_TYPE, res.data.faculty.level)
     }
     return res
+  },
+  async clearUserInfo ({ commit }) {
+    // 清除前端用户信息
+    commit(types.SET_USER_ID, null)
+    commit(types.SET_USER_NAME, null)
+    commit(types.SET_USER_TYPE, null)
   }
 }

@@ -29,7 +29,7 @@
       <a
         href="javascript:;"
         class="header-logout"
-        @click="logout"
+        @click="exit"
         role="button"
       >
         <s-tooltip effect="dark" content="退出" placement="bottom">
@@ -45,7 +45,8 @@
 <script>
 import Icon from '@/components/Icon'
 import {Tooltip} from 'element-ui'
-
+import {userLogout} from '@api/user'
+import store from '../store'
 export default {
   name: 's-header',
   props: {
@@ -58,6 +59,14 @@ export default {
   components: {
     's-icon': Icon,
     's-tooltip': Tooltip
+  },
+  methods: {
+    exit () {
+      userLogout().then(res => {
+        store.dispatch('user/clearUserInfo')
+        this.$router.push({path: '/'})
+      })
+    }
   }
 }
 </script>
