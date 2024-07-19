@@ -61,7 +61,7 @@ export default {
           case 4:
             this.$router.push({path: '/admissions/exam-approval/agree'})
             break
-          case 15:
+          case 5:
             this.$router.push({path: '/admissions/exam-approval/agree'})
             break
           default:
