@@ -157,6 +157,128 @@ export default {
           title: '监考记录'
         }
       ]
+    },
+    4: {
+      main: [
+        {
+          path: '/office/approval',
+          icon: 'suncaper-menu-unfold',
+          title: '报名审批'
+          // children: [
+          //   {
+          //     path: 'agree-details',
+          //     icon: 'suncaper-menu-unfold',
+          //     title: '同意报名详情'
+          //   },
+          //   {
+          //     path: 'disagree-details',
+          //     icon: 'suncaper-menu-unfold',
+          //     title: '不同意报名详情'
+          //   },
+          //   {
+          //     path: 'waiting-result',
+          //     icon: 'suncaper-menu-unfold',
+          //     title: '等待结果'
+          //   }
+          //
+          // ]
+        },
+
+        {
+          path: '/office/examlist',
+          icon: 'suncaper-menu-unfold',
+          title: '监考名单'
+          // children: [
+          //   {
+          //     path: 'details',
+          //     icon: 'suncaper-menu-unfold',
+          //     title: '监考名单'
+          //   },
+          //   {
+          //     path: 'batch-details',
+          //     icon: 'suncaper-menu-unfold',
+          //     title: '监考详细名单'
+          //   }
+          // ]
+        }
+        // {
+        //   path: '/office/failure',
+        //   icon: 'suncaper-menu-unfold',
+        //   title: '失败'
+        // },
+        // {
+        //   path: '/office/fill-info',
+        //   icon: 'suncaper-menu-unfold',
+        //   title: '填写信息'
+        // },
+        // {
+        //   path: '/office/success',
+        //   icon: 'suncaper-menu-unfold',
+        //   title: '成功'
+        // },
+
+      ]
+    },
+    5: {
+      main: [
+        {
+          path: '/office/approval',
+          icon: 'suncaper-menu-unfold',
+          title: '报名审批'
+          // children: [
+          //   {
+          //     path: 'agree-details',
+          //     icon: 'suncaper-menu-unfold',
+          //     title: '同意报名详情'
+          //   },
+          //   {
+          //     path: 'disagree-details',
+          //     icon: 'suncaper-menu-unfold',
+          //     title: '不同意报名详情'
+          //   },
+          //   {
+          //     path: 'waiting-result',
+          //     icon: 'suncaper-menu-unfold',
+          //     title: '等待结果'
+          //   }
+          //
+          // ]
+        },
+
+        {
+          path: '/office/examlist',
+          icon: 'suncaper-menu-unfold',
+          title: '监考名单'
+          // children: [
+          //   {
+          //     path: 'details',
+          //     icon: 'suncaper-menu-unfold',
+          //     title: '监考名单'
+          //   },
+          //   {
+          //     path: 'batch-details',
+          //     icon: 'suncaper-menu-unfold',
+          //     title: '监考详细名单'
+          //   }
+          // ]
+        }
+        // {
+        //   path: '/office/failure',
+        //   icon: 'suncaper-menu-unfold',
+        //   title: '失败'
+        // },
+        // {
+        //   path: '/office/fill-info',
+        //   icon: 'suncaper-menu-unfold',
+        //   title: '填写信息'
+        // },
+        // {
+        //   path: '/office/success',
+        //   icon: 'suncaper-menu-unfold',
+        //   title: '成功'
+        // },
+
+      ]
     }
   },
   sidebarTheme: {
