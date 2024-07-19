@@ -33,7 +33,7 @@
                                     <el-radio v-model="invite_way" label="help">帮助报名</el-radio>
                                 </div>
                                 <div>
-                                    <el-input placeholder="请输入姓名/工号/学号模糊查询" style="margin: 10px"></el-input>
+                                    <el-input placeholder="请输入姓名/工号模糊查询" style="margin: 10px"></el-input>
                                 </div>
                                 <div style="margin: 20px;background-color: #F3F3F3 ;height: 160px;text-align: left">
                                     <br><br>&nbsp;&nbsp; &nbsp;姓名：<br><br>
@@ -112,7 +112,7 @@
                             </el-dialog>
                         </el-col>
                         <el-col :span="4">
-                            <el-input size="small" v-model="searchQuery" placeholder="请输入人名关键词查询"></el-input>
+                            <el-input size="small" v-model="searchQuery" placeholder="请输入姓名/工号模糊查询"></el-input>
                         </el-col>
                         <el-col :span="3">
                             <div class="buttonright">
@@ -136,39 +136,31 @@
                             </template>
                         </el-table-column>
                         <el-table-column
+                                prop="name"
                                 label="姓名">
-                            <template slot-scope="scope">
-                                <span class="teamName">{{scope.row.date}}</span>
-                            </template>
                         </el-table-column>
                         <el-table-column
-                                prop="name"
+                                prop="num"
                                 label="工号">
                         </el-table-column>
                         <el-table-column
-                                prop="address"
-                                label="所在单位" width="180">
-                            <template slot-scope="scope">
-                                <el-button
-                                        size="mini"
-                                        type="text"
-                                        @click="handleEdit(scope.$index, scope.row)">2023年A楼2023监考报名</el-button>
-                            </template>
+                                prop="dept"
+                                label="所在单位">
                         </el-table-column>
                         <el-table-column
-                                prop="address"
+                                prop="id_card"
                                 label="身份证号">
                         </el-table-column>
                         <el-table-column
-                                prop="address"
+                                prop="tele"
                                 label="移动电话">
                         </el-table-column>
                         <el-table-column
-                                prop="address"
+                                prop="source"
                                 label="来源">
                         </el-table-column>
                         <el-table-column
-                                prop="address"
+                                prop="operation"
                                 label="操作" width="180">
                             <template slot-scope="scope">
                                 <el-button
@@ -213,21 +205,33 @@ export default {
       value: '',
       input: '',
       tableData: [{
-        date: '2016-05-02',
         name: '王小一',
-        address: '上海市普陀区金沙江路 1518 弄'
+        num: '1001',
+        dept: '软件学院',
+        id_card: '610526',
+        tele: '110',
+        source: '自主报名'
       }, {
-        date: '2016-05-04',
         name: '王小二',
-        address: '上海市普陀区金沙江路 1517 弄'
+        num: '1002',
+        dept: '软件学院',
+        id_card: '610526',
+        tele: '110',
+        source: '自主报名'
       }, {
-        date: '2016-05-01',
         name: '王小三',
-        address: '上海市普陀区金沙江路 1519 弄'
+        num: '1003',
+        dept: '软件学院',
+        id_card: '610526',
+        tele: '110',
+        source: '自主报名'
       }, {
-        date: '2016-05-03',
         name: '王小四',
-        address: '上海市普陀区金沙江路 1516 弄'
+        num: '1004',
+        dept: '软件学院',
+        id_card: '610526',
+        tele: '110',
+        source: '自主报名'
       }],
       activeName: 'Batch',
       invitation: false,
@@ -250,7 +254,7 @@ export default {
     handleSearch () {
       if (this.searchQuery.trim()) {
         this.filteredData = this.items.filter(item =>
-          item.name.includes(this.searchQuery)
+          item.name.includes(this.searchQuery) || (item.num.includes(this.searchQuery))
         )
       } else {
         this.filteredData = this.items
