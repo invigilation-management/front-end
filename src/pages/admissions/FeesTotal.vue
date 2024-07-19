@@ -8,11 +8,11 @@
                         <el-col :span="6">
                             <el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input>
                         </el-col>
-                        <el-col :span="3">
+                        <el-col :span="4">
                             <el-button type="primary">查询</el-button>
                             <el-button type="inform">重置</el-button>
                         </el-col>
-                        <el-col :span="15">
+                        <el-col :span="14">
                             <div class="buttonright">
                                 <el-button type="primary">快速找人</el-button>
                                 <el-button type="primary" @click="dialogVisible_fee=true">创建批次</el-button>
