@@ -48,25 +48,36 @@ export default {
       }
       // axios.get(' http://localhost:8080/api/user/Login', {params: obj})
       getLogin(obj).then(res => {
-        switch (res.data.faculty.level) {
-          case 1:
-            this.$router.push('/office/approval')
-            break
-          case 2:
-            this.$router.push({path: '/admissions/exam-approval/agree'})
-            break
-          case 3:
-            this.$router.push('/teacher/fill-form')
-            break
-          case 4:
-            this.$router.push({path: '/admissions/exam-approval/agree'})
-            break
-          case 5:
-            this.$router.push({path: '/admissions/exam-approval/agree'})
-            break
-          default:
-            alert('未知角色')
-            break
+        if (res.data != null) {
+          this.$message({
+            message: '登录成功',
+            type: 'success'
+          })
+          switch (res.data.faculty.level) {
+            case 1:
+              this.$router.push('/office/approval')
+              break
+            case 2:
+              this.$router.push({path: '/admissions/exam-approval/agree'})
+              break
+            case 3:
+              this.$router.push('/teacher/fill-form')
+              break
+            case 4:
+              this.$router.push({path: '/admissions/exam-approval/agree'})
+              break
+            case 5:
+              this.$router.push({path: '/admissions/exam-approval/agree'})
+              break
+            default:
+              alert('未知角色')
+              break
+          }
+        } else {
+          this.$message({
+            message: '用户名或密码错误',
+            type: 'warning'
+          })
         }
       })
       // 模拟根据用户名获取角色，实际应用中应替换为API调用
