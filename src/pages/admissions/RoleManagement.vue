@@ -8,7 +8,7 @@
             <el-card>
                 <el-row :gutter="10">
                     <el-col :span="6">
-                        <el-input v-model="input" placeholder="请输入内容"></el-input>
+                        <el-input v-model="input" placeholder="请输入部门名称关键词查询"></el-input>
                     </el-col>
                     <el-col :span="4">
                         <el-button type="primary" class="blue">查询</el-button>

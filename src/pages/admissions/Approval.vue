@@ -98,16 +98,6 @@
                                             </el-table>
                                         </el-dialog>
                                 </el-col>
-                                <el-col :span="4">
-                                    <el-select v-model="value" placeholder="请选择监考批次">
-                                        <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                                </el-col>
                                 <el-col :span="6">
                                     <el-input v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
                                 </el-col>
@@ -279,16 +269,6 @@
                                         </el-table>
                                     </el-dialog>
                                 </el-col>
-                                <el-col :span="4">
-                                    <el-select v-model="value" placeholder="请选择监考批次">
-                                        <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                                </el-col>
                                 <el-col :span="6">
                                     <el-input v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
                                 </el-col>
@@ -414,16 +394,6 @@
                                             </el-table-column>
                                         </el-table>
                                     </el-dialog>
-                                </el-col>
-                                <el-col :span="4">
-                                    <el-select  v-model="value" placeholder="请选择监考批次">
-                                        <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                        </el-option>
-                                    </el-select>
                                 </el-col>
                                 <el-col :span="6">
                                     <el-input v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
