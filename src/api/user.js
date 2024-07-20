@@ -9,6 +9,7 @@ export const getLogin = (params) => http.GET('/api/user/login', params)
 // 登出
 export const userLogout = () => http.GET('/api/user/logout')
 
+// 审批第一页面获取信息的方法
 export const approvalTable = (userId) => {
   return axios.get('/api/registration/getWaitingToBeApprovalALL', {
     params: {
@@ -16,4 +17,31 @@ export const approvalTable = (userId) => {
     }
   })
 }
+// 获取当前的用户信息
 export const getuserid = () => http.GET('/api/user/me')
+
+// 同意审批
+export const agreeApprovalTable = (userId) => {
+  return axios.get('/api/registration/getAlreadyAgreeALL', {
+    params: {
+      userId: userId
+    }
+  })
+}
+// 不同意审批
+export const disagreeApprovalTable = (userId) => {
+  return axios.get('/api/registration/getAlreadyDisagreeALL', {
+    params: {
+      userId: userId
+    }
+  })
+}
+
+// 监考管理页面的表格获取方法
+export const examManageTable = (userId) => {
+  return axios.get('/api/batch/getManagementPageALL', {
+    params: {
+      userId: userId
+    }
+  })
+}
