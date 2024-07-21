@@ -61,3 +61,19 @@ export const collegeRoleTable = (userId) => {
     }
   })
 }
+// 监考通知确认单的表格打印方法
+export const noticeConfirmTable = (userId) => {
+  return axios.get('/api/batch/getConfirmPageALL', {
+    params: {
+      userId: userId
+    }
+  })
+}
+// 点击监考名称（是一个按钮或者链接），转到新的页面
+export const todetails = (batchName) => {
+  return axios.get('/api/batch/getBatchDetailsPageALL', {
+    params: {
+      batchName: batchName
+    }
+  })
+}

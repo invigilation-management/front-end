@@ -126,14 +126,14 @@
                                     prop=""
                                     label="报名人">
                                     <template slot-scope="scope">
-                                        <span class="teamName">{{ scope.row.trueFacultyName }}</span>
+                                        <span class="normal">{{ scope.row.trueFacultyName }}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="name"
                                     label="工号">
                                     <template slot-scope="scope">
-                                        <span class="teamName">{{ scope.row.trueFacultyId }}</span>
+                                        <span class="normal">{{ scope.row.trueFacultyId }}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -150,7 +150,7 @@
                                     prop="address"
                                     label="意向监考校区">
                                     <template slot-scope="scope">
-                                        <span class="teamName">{{ scope.row.targetCampus }}</span>
+                                        <span class="normal">{{ scope.row.targetCampus }}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -304,14 +304,14 @@
                                     label="报名人">
                                     prop="name"
                                     <template slot-scope="scope">
-                                        <span class="teamName">{{scope.row.trueFacultyName}}</span>
+                                        <span class="normal">{{scope.row.trueFacultyName}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="num"
                                     label="工号">
                                     <template slot-scope="scope">
-                                        <span class="teamName">{{scope.row.trueFacultyId}}</span>
+                                        <span class="normal">{{scope.row.trueFacultyId}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -433,14 +433,14 @@
                                     prop="name"
                                     label="报名人">
                                     <template slot-scope="scope">
-                                        <span class="teamName">{{scope.row.trueFacultyName}}</span>
+                                        <span class="normal">{{scope.row.trueFacultyName}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="num"
                                     label="工号">
                                     <template slot-scope="scope">
-                                        <span class="teamName">{{scope.row.trueFacultyId}}</span>
+                                        <span class="normal">{{scope.row.trueFacultyId}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column

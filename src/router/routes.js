@@ -49,6 +49,7 @@ const admissionsHeadPage = [
       {
         path: 'batch-details',
         name: 'batchDetails',
+        props: true,
         component: () => import(/* webpackChunkName: "BatchDetails" */ '../pages/admissions/BatchDetails.vue')
       },
       {

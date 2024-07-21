@@ -2,7 +2,7 @@
     <div>
         <h1>
             <i class="el-icon-back"></i>|
-            <span class="title_2"> 监考管理</span>
+            <span class="title_2">监考管理</span>
         </h1>
         <el-card class="card">
             <el-row :gutter="10">
@@ -274,7 +274,8 @@ export default {
     handleEdit (row) {
       this.$router.push({
         name: 'batchDetails',
-        query: {name: row.name}
+        query: {name: row.name},
+        params: {batchname: row.batchName}
       })
     },
     writeExamManageTable () {

@@ -140,7 +140,7 @@
                     width="300">
                     <template v-slot="scope">
                         <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
-                                scope.row.name
+                                scope.row.batchName
                             }}
                         </el-button>
                     </template>
@@ -149,26 +149,45 @@
                     prop="status"
                     label="确认情况"
                     width="137">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.alreadyConfirmNum}}/{{scope.row.expectNum}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     prop="startTime"
                     label="报名开始时间"
                     width="255">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.regStartTime}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     prop="endTime"
                     label="报名结束时间"
                     width="255">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.regEndTime}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     prop="createTime"
                     label="创建时间"
                     width="255">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.batchCreatedTime}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     prop="status"
                     label="批次状态"
                     width="155">
+                    <template slot-scope="scope">
+                        <span class="teamName">
+                            <div style="color: black" v-if="scope.row.regStartTime>nowTime">未开始</div>
+                            <div style="color: red" v-else-if="scope.row.regEndTime<nowTime">已结束</div>
+                            <div style="color: green" v-else>进行中</div>
+                        </span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="操作"
@@ -188,10 +207,13 @@
 </template>
 
 <script>
+import {noticeConfirmTable, getuserid} from '../../api/user'
+import moment from 'moment'
 export default {
   name: 'ViewList',
   data () {
     return {
+      nowTime: moment().format('YYYY-MM-DD HH:mm:ss'),
       input: '',
       dialogTableVisible: false,
       selectedIds: [],
@@ -207,95 +229,26 @@ export default {
         create_time: '',
         thisstatus: ''
       },
-      tableData: [
-        {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        },
-        {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        },
-        {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        },
-        {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }
-
-        // Add more data objects as required
-      ]
+      tableData: []
     }
   },
   methods: {
+    getNoticeConfirmTable () {
+      getuserid().then(response => {
+        const userId = response.data.userId
+        console.log('userId:', userId)
+        // Call approvalTable with the retrieved userId
+        noticeConfirmTable(userId).then(response => {
+          this.tableData = response.data.data.records
+        }).catch(error => {
+          console.error('Error fetching approval table:', error)
+          // Handle errors as needed
+        })
+      }).catch(error => {
+        console.error('Error fetching userId:', error)
+        // Handle errors from getuserid() if necessary
+      })
+    },
     handleSelectionChange (val) {
       this.selectedIds = val.map(item => this.tableData.indexOf(item))
     },
@@ -311,6 +264,9 @@ export default {
         query: {name: row.name}
       })
     }
+  },
+  created () {
+    this.getNoticeConfirmTable()
   }
 }
 </script>
