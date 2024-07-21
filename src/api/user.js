@@ -53,3 +53,11 @@ export const examPlan = (userId) => {
     }
   })
 }
+// 部门与角色管理的表格打印方法
+export const collegeRoleTable = (userId) => {
+  return axios.get('/api/college/getRoleAndCollegeALL', {
+    params: {
+      userId: userId
+    }
+  })
+}
