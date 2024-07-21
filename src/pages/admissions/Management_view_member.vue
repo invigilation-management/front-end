@@ -83,8 +83,18 @@
 </template>
 
 <script>
+// import {methods} from 'babel-plugin-transform-runtime/lib/definitions'
+
 export default {
-  name: 'Waiting'
+  name: 'Waiting',
+  methods: {
+    handleEdit () {
+      this.$router.push({
+        name: 'batchDetails',
+        query: {name: row.name}
+      })
+    }
+  }
 }
 </script>
 <style scoped>
