@@ -147,12 +147,12 @@
                 </el-table-column>
                 <el-table-column
                     prop="status"
-                    label="报名情况"
+                    label="确认情况"
                     width="137">
                 </el-table-column>
                 <el-table-column
                     prop="startTime"
-                    label="时间"
+                    label="报名开始时间"
                     width="255">
                 </el-table-column>
                 <el-table-column

@@ -50,7 +50,41 @@ export default {
       //   '/teacher/exam-record/view-confirm'
       // ]
     },
-    4: { // admin
+    4: { // officeDirector
+      main1: ['*']
+      //   [
+      //   '/office/exam-approval',
+      //   '/office/exam-approval/batch-details',
+      //   '/office/exam-approval/fill-info',
+      //   '/office/exam-approval/fill-info/waiting-result',
+      //   '/office/exam-approval/fill-info/failure',
+      //   '/office/exam-approval/fill-info/success',
+      //   '/office/exam-approval/agree',
+      //   '/office/exam-approval/agree/details',
+      //   '/office/exam-approval/disagree',
+      //   '/office/exam-approval/disagree/details',
+      //   '/office/exam-list',
+      //   '/office/exam-list/details'
+      // ]
+    },
+    5: { // officeDirector
+      main1: ['*']
+      //   [
+      //   '/office/exam-approval',
+      //   '/office/exam-approval/batch-details',
+      //   '/office/exam-approval/fill-info',
+      //   '/office/exam-approval/fill-info/waiting-result',
+      //   '/office/exam-approval/fill-info/failure',
+      //   '/office/exam-approval/fill-info/success',
+      //   '/office/exam-approval/agree',
+      //   '/office/exam-approval/agree/details',
+      //   '/office/exam-approval/disagree',
+      //   '/office/exam-approval/disagree/details',
+      //   '/office/exam-list',
+      //   '/office/exam-list/details'
+      // ]
+    },
+    6: { // admin
       main: ['*']
     }
   }

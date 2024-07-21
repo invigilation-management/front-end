@@ -8,7 +8,7 @@
             <el-card>
                 <el-row :gutter="10">
                     <el-col :span="6">
-                        <el-input v-model="input" placeholder="请输入内容"></el-input>
+                        <el-input v-model="input" placeholder="请输入部门名称关键词查询"></el-input>
                     </el-col>
                     <el-col :span="4">
                         <el-button type="primary" class="blue">查询</el-button>
@@ -155,28 +155,40 @@
                         prop="name"
                         width="400">
                         <template slot-scope="scope">
-                            <el-button type="text">{{scope.row.name}}</el-button>
+                            <el-button type="text">{{scope.row.collegeName}}</el-button>
                         </template>
                     </el-table-column>
                     <el-table-column
                         prop="code"
                         label="部门代码"
                         width="140">
+                        <template slot-scope="scope">
+                            <span class="teamName">{{scope.row.collegeId}}</span>
+                        </template>
                     </el-table-column>
                     <el-table-column
                         prop="type"
                         label="部门类型"
                         width="140">
+                        <template slot-scope="scope">
+                            <span class="teamName">{{scope.row.type}}</span>
+                        </template>
                     </el-table-column>
                     <el-table-column
                         prop="num"
                         label="成员人数"
                         width="140">
+                        <template slot-scope="scope">
+                            <span class="teamName">{{scope.row.numPeople}}</span>
+                        </template>
                     </el-table-column>
                     <el-table-column
                         prop="date"
                         label="添加时间"
                         width="140">
+                        <template slot-scope="scope">
+                            <span class="teamName">{{scope.row.createTime}}</span>
+                        </template>
                     </el-table-column>
                     <el-table-column
                         label="操作">
@@ -193,9 +205,26 @@
 </template>
 
 <script>
+import {getuserid, collegeRoleTable} from '../../api/user'
 export default {
   name: 'RoleManagement',
   methods: {
+    getCollegeRoleTable () {
+      getuserid().then(response => {
+        const userId = response.data.userId
+        console.log('userId:', userId)
+        // Call approvalTable with the retrieved userId
+        collegeRoleTable(userId).then(response => {
+          this.tableData = response.data.data.records
+        }).catch(error => {
+          console.error('Error fetching approval table:', error)
+          // Handle errors as needed
+        })
+      }).catch(error => {
+        console.error('Error fetching userId:', error)
+        // Handle errors from getuserid() if necessary
+      })
+    },
     handleMembers (row) {
       this.$router.push({
         name: 'waiting',
@@ -206,36 +235,15 @@ export default {
       this.selectedIds = val.map(item => this.tableData.indexOf(item))
     }
   },
+  created () {
+    this.getCollegeRoleTable()
+  },
   data () {
     return {
       input: '',
       dialogTableVisible: false,
       selectedIds: [],
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        code: '10023456',
-        type: '行政部门',
-        num: '3'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        code: '10023456',
-        type: '行政部门',
-        num: '3'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        code: '10023456',
-        type: '行政部门',
-        num: '3'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        code: '10023456',
-        type: '行政部门',
-        num: '3'
-      }],
+      tableData: [],
       dialogVisibleSelect: false,
       dialogVisibleFind: false,
       selectedContent: 'alone',

@@ -98,16 +98,6 @@
                                             </el-table>
                                         </el-dialog>
                                 </el-col>
-                                <el-col :span="4">
-                                    <el-select v-model="value" placeholder="请选择监考批次">
-                                        <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                                </el-col>
                                 <el-col :span="6">
                                     <el-input v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
                                 </el-col>
@@ -119,7 +109,7 @@
                                 </el-col>
                             </el-row>
                             <el-table
-                                :data="tableData"
+                                :data=approval_infos
                                 style="width: 100%"
                                 @selection-change="handleSelectionChange">
                                 <el-table-column
@@ -133,21 +123,25 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column
+                                    prop=""
                                     label="报名人">
                                     <template slot-scope="scope">
-                                        <span class="teamName">{{scope.row.date}}</span>
+                                        <span class="teamName">{{ scope.row.trueFacultyName }}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="name"
                                     label="工号">
+                                    <template slot-scope="scope">
+                                        <span class="teamName">{{ scope.row.trueFacultyId }}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
-                                    prop="batch"
+                                    prop="batchName"
                                     label="监考名称" width="180">
                                     <template v-slot="scope">
                                         <el-button type="text" @click="handleEdit(scope.row)">{{
-                                                scope.row.batch
+                                                scope.row.batch.batchName
                                             }}
                                         </el-button>
                                     </template>
@@ -155,6 +149,9 @@
                                 <el-table-column
                                     prop="address"
                                     label="意向监考校区">
+                                    <template slot-scope="scope">
+                                        <span class="teamName">{{ scope.row.targetCampus }}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
@@ -279,16 +276,6 @@
                                         </el-table>
                                     </el-dialog>
                                 </el-col>
-                                <el-col :span="4">
-                                    <el-select v-model="value" placeholder="请选择监考批次">
-                                        <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                                </el-col>
                                 <el-col :span="6">
                                     <el-input v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
                                 </el-col>
@@ -300,7 +287,7 @@
                                 </el-col>
                             </el-row>
                             <el-table
-                                :data="agreeData"
+                                :data="agreeApproval_infos"
                                 style="width: 100%"
                                 @selection-change="handleSelectionChange">
                                 <el-table-column
@@ -317,19 +304,22 @@
                                     label="报名人">
                                     prop="name"
                                     <template slot-scope="scope">
-                                        <span class="teamName">{{scope.row.date}}</span>
+                                        <span class="teamName">{{scope.row.trueFacultyName}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="num"
                                     label="工号">
+                                    <template slot-scope="scope">
+                                        <span class="teamName">{{scope.row.trueFacultyId}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="batch"
                                     label="监考名称" width="180">
                                     <template v-slot="scope">
                                         <el-button type="text" @click="handleEdit(scope.row)">{{
-                                                scope.row.name
+                                                scope.row.batch.batchName
                                             }}
                                         </el-button>
                                     </template>
@@ -415,16 +405,6 @@
                                         </el-table>
                                     </el-dialog>
                                 </el-col>
-                                <el-col :span="4">
-                                    <el-select  v-model="value" placeholder="请选择监考批次">
-                                        <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                                </el-col>
                                 <el-col :span="6">
                                     <el-input v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
                                 </el-col>
@@ -436,7 +416,7 @@
                                 </el-col>
                             </el-row>
                             <el-table
-                                :data="disagreeData"
+                                :data="disagreeApproval_infos"
                                 style="width: 100%"
                                 @selection-change="handleSelectionChange">
                                 <el-table-column
@@ -450,28 +430,31 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    prop="num"
+                                    prop="name"
                                     label="报名人">
                                     <template slot-scope="scope">
-                                        <span class="teamName">{{scope.row.date}}</span>
+                                        <span class="teamName">{{scope.row.trueFacultyName}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="num"
                                     label="工号">
+                                    <template slot-scope="scope">
+                                        <span class="teamName">{{scope.row.trueFacultyId}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="batch"
                                     label="监考批次" width="180">
                                     <template v-slot="scope">
                                         <el-button type="text" @click="handleEdit(scope.row)">{{
-                                                scope.row.name
+                                                scope.row.batch.batchName
                                             }}
                                         </el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    label="" width="180">
+                                    label="上传材料" width="180">
                                     <template v-slot="scope">
                                         <el-button
                                             type="text"
@@ -501,79 +484,16 @@
 </template>
 
 <script>
+import {approvalTable, getuserid, agreeApprovalTable, disagreeApprovalTable} from '../../api/user'
 export default {
   name: 'Approval',
   data: function () {
     return {
-      options: [{
-        value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
-      }],
       value: '',
       input: '',
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '兴庆校区',
-        num: '1001',
-        batch: '2023年A卷2023监考报名'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '兴庆校区',
-        num: '1001',
-        batch: '2023年A卷2023监考报名'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '兴庆校区',
-        num: '1001',
-        batch: '2023年A卷2023监考报名'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '兴庆校区',
-        num: '1001',
-        batch: '2023年A卷2023监考报名'
-      }],
-      agreeData: [ {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '兴庆校区',
-        num: '1001',
-        batch: '2023年A卷2023监考报名'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '兴庆校区',
-        num: '1001',
-        batch: '2023年A卷2023监考报名'
-      }],
-      disagreeData: [ {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '兴庆校区',
-        num: '1001',
-        batch: '2023年A卷2023监考报名'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '兴庆校区',
-        num: '1001',
-        batch: '2023年A卷2023监考报名'
-      }],
+      approval_infos: [],
+      agreeApproval_infos: [],
+      disagreeApproval_infos: [],
       activeName: 'Batch',
       selectedIds: [],
       selectedIds1: [],
@@ -589,8 +509,67 @@ export default {
     }
   },
   methods: {
+    getApprovalTabel () {
+      getuserid().then(response => {
+        const userId = response.data.userId
+
+        console.log('userId:', userId)
+
+        // Call approvalTable with the retrieved userId
+        approvalTable(userId).then(response => {
+          this.approval_infos = response.data.data.records
+          console.info('开始')
+          console.info(this.approval_infos)
+          console.info('结束')
+        }).catch(error => {
+          console.error('Error fetching approval table:', error)
+          // Handle errors as needed
+        })
+      }).catch(error => {
+        console.error('Error fetching userId:', error)
+        // Handle errors from getuserid() if necessary
+      })
+    },
+    getAgreeApprovalTabel () {
+      getuserid().then(response => {
+        const userId = response.data.userId
+        console.log('userId:', userId)
+        // Call approvalTable with the retrieved userId
+        agreeApprovalTable(userId).then(response => {
+          this.agreeApproval_infos = response.data.data.records
+          console.info('开始')
+          console.info(this.agreeApproval_infos)
+          console.info('结束')
+        }).catch(error => {
+          console.error('Error fetching approval table:', error)
+          // Handle errors as needed
+        })
+      }).catch(error => {
+        console.error('Error fetching userId:', error)
+        // Handle errors from getuserid() if necessary
+      })
+    },
+    getDisagreeApprovalTabel () {
+      getuserid().then(response => {
+        const userId = response.data.userId
+        console.log('userId:', userId)
+        // Call approvalTable with the retrieved userId
+        disagreeApprovalTable(userId).then(response => {
+          this.disagreeApproval_infos = response.data.data.records
+          console.info('开始')
+          console.info(this.disagreeApproval_infos)
+          console.info('结束')
+        }).catch(error => {
+          console.error('Error fetching approval table:', error)
+          // Handle errors as needed
+        })
+      }).catch(error => {
+        console.error('Error fetching userId:', error)
+        // Handle errors from getuserid() if necessary
+      })
+    },
     handleSelectionChange (val) {
-      this.selectedIds = val.map(item => this.tableData.indexOf(item))
+      this.selectedIds = val.map(item => this.approval_infos.indexOf(item))
     },
     handleClick (tab, event) {
       console.log(tab, event)
@@ -618,6 +597,11 @@ export default {
       // 提交审批逻辑
       this.isApprovalDialogVisible = false
     }
+  },
+  created () {
+    this.getApprovalTabel()
+    this.getAgreeApprovalTabel()
+    this.getDisagreeApprovalTabel()
   }
 }
 </script>

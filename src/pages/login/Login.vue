@@ -26,6 +26,9 @@
 </template>
 
 <script>
+// import axios from 'axios'
+import { getLogin } from '@api/user'
+
 export default {
   data () {
     return {
@@ -35,6 +38,7 @@ export default {
   },
   methods: {
     handleLogin () {
+<<<<<<< HEAD
       // 角色类型: 1 - 研公办主任/综合办主任/副院长, 2 - 研究生招生考务科科长, 3 - 在职在岗教职工
       const roleType = this.getRoleByUsername(this.username)
       switch (roleType) {
@@ -57,8 +61,50 @@ export default {
           alert('未知角色')
           break
       }
+=======
+      this.getRoleByUsername(this.username)
+>>>>>>> e6908c707f02189b6916d38a1637668611bfad40
     },
     getRoleByUsername (username) {
+      // axios.get('bj-cynosdbmysql-grp-a8a70awi.sql.tencentcdb.com/login?userId='+this.username+'&password='+this.password)
+      let obj = {
+        userId: this.username,
+        password: this.password
+      }
+      // axios.get(' http://localhost:8080/api/user/Login', {params: obj})
+      getLogin(obj).then(res => {
+        if (res.data != null) {
+          this.$message({
+            message: '登录成功',
+            type: 'success'
+          })
+          switch (res.data.faculty.level) {
+            case 1:
+              this.$router.push('/office/approval')
+              break
+            case 2:
+              this.$router.push({path: '/admissions/exam-approval/agree'})
+              break
+            case 3:
+              this.$router.push('/teacher/fill-form')
+              break
+            case 4:
+              this.$router.push('/office/approval')
+              break
+            case 5:
+              this.$router.push('/office/approval')
+              break
+            default:
+              alert('未知角色')
+              break
+          }
+        } else {
+          this.$message({
+            message: '用户名或密码错误',
+            type: 'warning'
+          })
+        }
+      })
       // 模拟根据用户名获取角色，实际应用中应替换为API调用
       // const userRoleMap = {
       //   'user1': 1,: office
@@ -66,7 +112,6 @@ export default {
       //   'user3': 3,: teachers
       // }
       // return userRoleMap[username] || 1 || 2 || 3// 默认返回0表示未知角色
-      return 2
     }
   }
 }
