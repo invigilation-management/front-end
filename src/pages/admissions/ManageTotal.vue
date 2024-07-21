@@ -9,8 +9,8 @@
                                     <el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input>
                                 </el-col>
                                 <el-col :span="4">
-                                        <el-button type="primary">查询</el-button>
-                                        <el-button type="inform">重置</el-button>
+                                        <el-button type="primary" @click='select'>查询</el-button>
+                                        <el-button type="inform" @click="reset">重置</el-button>
                                 </el-col>
                                 <el-col :span="14">
                                     <div class="buttonright">
@@ -236,7 +236,7 @@
 </template>
 
 <script>
-import {examPlan, getuserid} from '../../api/user'
+import {examPlan, getuserid, manageFeesSelect} from '../../api/user'
 import moment from 'moment'
 export default {
   name: 'ManageTotal',
@@ -290,6 +290,18 @@ export default {
     }
   },
   methods: {
+    // 当前页面的重置方法
+    reset () {
+      this.getExamPlanTable()
+    },
+    // 表示当前页面的的模糊查询方法
+    select () {
+      if (this.input != null) {
+        manageFeesSelect(this.input).then(response => {
+          this.tableData = response.data.data.records
+        })
+      }
+    },
     getExamPlanTable () {
       getuserid().then(response => {
         const userId = response.data.userId
@@ -338,7 +350,8 @@ export default {
     handleEdit333333333333 (row) {
       this.$router.push({
         name: 'batchDetails',
-        query: {name: row.name}
+        query: {name: row.name},
+        params: {batchname: row.batchName}
       })
     },
     showdialog (index) {

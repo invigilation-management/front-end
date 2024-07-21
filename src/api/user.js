@@ -77,3 +77,12 @@ export const todetails = (batchName) => {
     }
   })
 }
+
+// 监考安排表/费用明细公用页面的快速查询功能接口
+export const manageFeesSelect = (batchName) => {
+  return axios.get('/api/batch/getConfirmPageUnClearALL', {
+    params: {
+      batchName: batchName
+    }
+  })
+}

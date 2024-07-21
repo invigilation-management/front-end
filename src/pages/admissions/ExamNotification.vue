@@ -255,7 +255,8 @@ export default {
     handleEdit (row) {
       this.$router.push({
         name: 'batchDetails',
-        query: {name: row.name}
+        query: {name: row.name},
+        params: {batchname: row.batchName}
       })
     },
     handleGoToVice (row) {

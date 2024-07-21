@@ -336,7 +336,8 @@ export default {
     handleEdit333333333333 (row) {
       this.$router.push({
         name: 'batchDetails',
-        query: {name: row.name}
+        query: {name: row.name},
+        params: {batchname: row.batchName}
       })
     },
     showdialog (index) {
