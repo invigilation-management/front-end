@@ -192,6 +192,13 @@
                     prop="status"
                     label="批次状态"
                     width="155">
+                    <template slot-scope="scope">
+                        <span class="teamName">
+                            <div style="color: black" v-if="scope.row.regStartTime>nowTime">未开始</div>
+                            <div style="color: red" v-else-if="scope.row.regEndTime<nowTime">已结束</div>
+                            <div style="color: green" v-else>进行中</div>
+                        </span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="操作"
@@ -213,11 +220,13 @@
 
 <script>
 import {examManageTable, getuserid} from '../../api/user'
-
+import moment from 'moment'
 export default {
   name: 'ViewList',
   data () {
     return {
+      nowTime: moment().format('YYYY-MM-DD HH:mm:ss'),
+      // 表示现在的时间
       input: '',
       selectedIds: [],
       dialogTableVisible: false,

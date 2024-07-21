@@ -485,7 +485,6 @@
 
 <script>
 import {approvalTable, getuserid, agreeApprovalTable, disagreeApprovalTable} from '../../api/user'
-
 export default {
   name: 'Approval',
   data: function () {

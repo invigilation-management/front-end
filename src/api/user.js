@@ -45,3 +45,11 @@ export const examManageTable = (userId) => {
     }
   })
 }
+// 监考安排表和监考费用明细的表格打印方法（数据信息一模一样）
+export const examPlan = (userId) => {
+  return axios.get('/api/batch/getAppointAndFeesPageALL', {
+    params: {
+      userId: userId
+    }
+  })
+}

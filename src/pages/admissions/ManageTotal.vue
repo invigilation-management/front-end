@@ -166,7 +166,7 @@
                                         label="监考名称" width="180">
                                     <template v-slot="scope">
                                         <el-button type="text" size="small" @click="handleEdit333333333333(scope.row)">{{
-                                            scope.row.batch
+                                            scope.row.batchName
                                             }}
                                         </el-button>
                                     </template>
@@ -174,22 +174,41 @@
                                 <el-table-column
                                         prop="num"
                                         label="监考人数">
+                                    <template slot-scope="scope">
+                                        <span class="teamName">{{scope.row.expectNum}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         prop="num"
                                         label="报名开始时间">
+                                    <template slot-scope="scope">
+                                        <span class="teamName">{{scope.row.regStartTime}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         prop="num"
                                         label="报名结束时间">
+                                    <template slot-scope="scope">
+                                        <span class="teamName">{{scope.row.regEndTime}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         prop="num"
                                         label="创建时间">
+                                    <template slot-scope="scope">
+                                        <span class="teamName">{{scope.row.batchCreatedTime}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         prop="address"
                                         label="批次状态">
+                                    <template slot-scope="scope">
+                        <span class="teamName">
+                            <div style="color: black" v-if="scope.row.regStartTime>nowTime">未开始</div>
+                            <div style="color: red" v-else-if="scope.row.regEndTime<nowTime">已结束</div>
+                            <div style="color: green" v-else>进行中</div>
+                        </span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         prop="address"
@@ -217,12 +236,13 @@
 </template>
 
 <script>
-// import {handle} from 'nightwatch/lib/runner/cli/errorhandler'
-
+import {examPlan, getuserid} from '../../api/user'
+import moment from 'moment'
 export default {
   name: 'ManageTotal',
   data () {
     return {
+      nowTime: moment().format('YYYY-MM-DD HH:mm:ss'),
       options: [{
         value: '选项1',
         label: '黄金糕'
@@ -263,51 +283,29 @@ export default {
       invite_way: 'self',
       disagree_reason: '',
       agreeordis: 'agree',
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '兴庆校区',
-        num: '1001',
-        batch: '2023年A楼2023监考报名'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '兴庆校区',
-        num: '1001',
-        batch: '2023年A楼2023监考报名'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '兴庆校区',
-        num: '1001',
-        batch: '2023年A楼2023监考报名'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '兴庆校区',
-        num: '1001',
-        batch: '2023年A楼2023监考报名'
-      }],
-      agreeData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '兴庆校区',
-        num: '1001',
-        batch: '2023年A楼2023监考报名'
-      }],
-      disagreedata: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '兴庆校区',
-        num: '1001',
-        batch: '2023年A楼2023监考报名'
-      }],
+      tableData: [],
       dialog_Regist_approval: false,
       activeName: 'Batch',
       dialogData: {}
     }
   },
   methods: {
+    getExamPlanTable () {
+      getuserid().then(response => {
+        const userId = response.data.userId
+        console.log('userId:', userId)
+        // Call approvalTable with the retrieved userId
+        examPlan(userId).then(response => {
+          this.tableData = response.data.data.records
+        }).catch(error => {
+          console.error('Error fetching approval table:', error)
+          // Handle errors as needed
+        })
+      }).catch(error => {
+        console.error('Error fetching userId:', error)
+        // Handle errors from getuserid() if necessary
+      })
+    },
     handleSign () {
       this.$router.push({
         name: 'ApprovalDetails'
@@ -346,6 +344,9 @@ export default {
       this.dialogData = this.tableData[index]
       this.dialog_Regist_approval = true
     }
+  },
+  created () {
+    this.getExamPlanTable()
   }
 }
 </script>
