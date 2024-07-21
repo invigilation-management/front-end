@@ -38,28 +38,6 @@ export default {
   },
   methods: {
     handleLogin () {
-      // 角色类型: 1 - 研公办主任/综合办主任/副院长, 2 - 研究生招生考务科科长, 3 - 在职在岗教职工
-      const roleType = this.getRoleByUsername(this.username)
-      switch (roleType) {
-        case 1:
-          this.$router.push('/office/approval')
-          break
-        case 2:
-          this.$router.push({path: '/admissions/exam-approval/agree'})
-          break
-        case 3:
-          this.$router.push('/teacher/fill-form')
-          break
-        case 4:
-          this.$router.push({path: '/office/approval'})
-          break
-        case 5:
-          this.$router.push({path: '/office/approval'})
-          break
-        default:
-          alert('未知角色')
-          break
-      }
       this.getRoleByUsername(this.username)
     },
     getRoleByUsername (username) {

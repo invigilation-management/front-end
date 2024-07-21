@@ -90,8 +90,8 @@ export default {
   methods: {
     handleEdit () {
       this.$router.push({
-        name: 'batchDetails',
-        query: {name: row.name}
+        name: 'batchDetails'
+        // query: {name: row.name}
       })
     }
   }
