@@ -120,7 +120,7 @@
 <!--                                    </el-select>-->
 <!--                                </el-col>-->
                                 <el-col :span="6" :offset="3">
-                                    <el-input size="small" v-model="searchQuery" placeholder="请输入姓名/工号模糊查询"></el-input>
+                                    <el-input size="small" v-model="searchQuery1" placeholder="请输入姓名/工号模糊查询"></el-input>
                                 </el-col>
                                 <el-col :span="3">
                                     <div class="buttonright">
@@ -130,7 +130,7 @@
                                 </el-col>
                             </el-row>
                             <el-table
-                                :data="filteredDataForUndetermined"
+                                :data="approval_infos"
                                 style="width: 100%"
                                 @selection-change="handleSelectionChangeForUndetermined">
                                 <el-table-column
@@ -146,10 +146,16 @@
                                 <el-table-column
                                     label="报名人"
                                     prop="name">
+                                    <template slot-scope="scope">
+                                        <span class="normal">{{ scope.row.trueFacultyName }}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="num"
                                     label="工号">
+                                    <template slot-scope="scope">
+                                        <span class="normal">{{ scope.row.trueFacultyId }}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="batch"
@@ -158,13 +164,16 @@
                                         <el-button
                                             type="text"
                                             size="small"
-                                            @click="handleBatchDetail(scope.row)">{{scope.row.batch}}
+                                            @click="handleBatchDetail(scope.row)">{{scope.row.batch.batchName}}
                                         </el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
                                     label="意向监考校区" width="180">
+                                    <template slot-scope="scope">
+                                        <span class="normal">{{ scope.row.targetCampus }}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="detail_uploaded"
@@ -275,7 +284,7 @@
                                     <!--                    以上是对话弹窗部分-->
                                     <!--                    以上是对话弹窗部分-->
                                     <el-dialog title="导出数据" :visible.sync="dialogTableVisibleForAgreed">
-                                        <el-table :data="selectedIdsForAgreed.map(index => filteredDataForAgreed[index])">
+                                        <el-table :data="selectedIdsForAgreed.map(index => tableData[index])">
                                             <el-table-column
                                                 label="序号">
                                                 <template slot-scope="scope">
@@ -302,10 +311,6 @@
                                                 </template>
                                             </el-table-column>
                                             <el-table-column
-                                                prop="address"
-                                                label="意向监考校区" width="180">
-                                            </el-table-column>
-                                            <el-table-column
                                                 prop="detail_uploaded"
                                                 label="上传材料" width="180">
                                                 <template v-slot="scope">
@@ -329,7 +334,7 @@
 <!--                                    </el-select>-->
 <!--                                </el-col>-->
                                 <el-col :span="6" :offset="3">
-                                    <el-input size="small" v-model="searchQuery" placeholder="请输入姓名/工号模糊查询"></el-input>
+                                    <el-input size="small" v-model="searchQuery2" placeholder="请输入姓名/工号模糊查询"></el-input>
                                 </el-col>
                                 <el-col :span="3">
                                     <div class="buttonright">
@@ -339,7 +344,7 @@
                                 </el-col>
                             </el-row>
                             <el-table
-                                :data="filteredDataForAgreed"
+                                :data="agreeApproval_infos"
                                 style="width: 100%"
                                 @selection-change="handleSelectionChangeForAgreed">
                                 <el-table-column
@@ -355,10 +360,16 @@
                                 <el-table-column
                                     label="报名人"
                                     prop="name">
+                                    <template slot-scope="scope">
+                                        <span class="normal">{{scope.row.trueFacultyName}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="num"
                                     label="工号">
+                                    <template slot-scope="scope">
+                                        <span class="normal">{{scope.row.trueFacultyId}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="batch"
@@ -367,13 +378,9 @@
                                         <el-button
                                             type="text"
                                             size="small"
-                                            @click="handleBatchDetail(scope.row)">{{scope.row.batch}}
+                                            @click="handleBatchDetail(scope.row)">{{scope.row.batch.batchName}}
                                         </el-button>
                                     </template>
-                                </el-table-column>
-                                <el-table-column
-                                    prop="address"
-                                    label="意向监考校区" width="180">
                                 </el-table-column>
                                 <el-table-column
                                     prop="detail_uploaded"
@@ -447,7 +454,8 @@
                                     <!--                    以上是对话弹窗部分-->
                                     <!--                    以上是对话弹窗部分-->
                                     <el-dialog title="导出数据" :visible.sync="dialogTableVisibleForDisagreed">
-                                        <el-table :data="selectedIdsForDisagreed.map(index => filteredDataForDisagreed[index])">
+                                        <el-table
+                                            :data="selectedIdsForDisagreed.map(index => tableData[index])">
                                             <el-table-column
                                                 label="序号">
                                                 <template slot-scope="scope">
@@ -501,7 +509,7 @@
 <!--                                    </el-select>-->
 <!--                                </el-col>-->
                                 <el-col :span="6" :offset="3">
-                                    <el-input size="small" v-model="searchQuery" placeholder="请输入姓名/工号模糊查询"></el-input>
+                                    <el-input size="small" v-model="searchQuery3" placeholder="请输入姓名/工号模糊查询"></el-input>
                                 </el-col>
                                 <el-col :span="3">
                                     <div class="buttonright">
@@ -511,7 +519,7 @@
                                 </el-col>
                             </el-row>
                             <el-table
-                                :data="filteredDataForDisagreed"
+                                :data="disagreeApproval_infos"
                                 style="width: 100%"
                                 @selection-change="handleSelectionChangeForDisagreed">
                                 <el-table-column
@@ -539,7 +547,7 @@
                                         <el-button
                                             type="text"
                                             size="small"
-                                            @click="handleBatchDetail(scope.row)">{{scope.row.batch}}
+                                            @click="handleBatchDetail(scope.row)">{{scope.row.batch.batchName}}
                                         </el-button>
                                     </template>
                                 </el-table-column>
@@ -582,6 +590,8 @@
 </template>
 
 <script>
+import {approvalTable, getuserid, agreeApprovalTable, disagreeApprovalTable, selectWaitingByName, selectAgreeByName, selectDisagreeByName}
+  from '../../api/office'
 
 export default {
   name: 'Approval',
@@ -605,6 +615,9 @@ export default {
       }],
       value: '',
       input: '',
+      approval_infos: [],
+      agreeApproval_infos: [],
+      disagreeApproval_infos: [],
       selectedIdsForUndetermined: [],
       selectedIdsForDisagreed: [],
       selectedIdsForAgreed: [],
@@ -616,49 +629,12 @@ export default {
       invite_way: 'self',
       disagree_reason: '',
       agreeordis: 'agree',
-      undeterminedData: [{
-        date: '2016-05-02',
-        name: '王小一',
-        address: '兴庆校区',
-        num: '1001',
-        batch: '2023年A楼2023监考报名'
-      }, {
-        date: '2016-05-02',
-        name: '王小二',
-        address: '兴庆校区',
-        num: '1002',
-        batch: '2023年A楼2023监考报名'
-      }, {
-        date: '2016-05-02',
-        name: '王小三',
-        address: '兴庆校区',
-        num: '1003',
-        batch: '2023年A楼2023监考报名'
-      }, {
-        date: '2016-05-02',
-        name: '王小四',
-        address: '兴庆校区',
-        num: '1004',
-        batch: '2023年A楼2023监考报名'
-      }],
-      agreedData: [{
-        date: '2016-05-02',
-        name: '王小五',
-        address: '兴庆校区',
-        num: '1005',
-        batch: '2023年A楼2023监考报名'
-      }],
-      disagreedData: [{
-        date: '2016-05-02',
-        name: '王小六',
-        address: '兴庆校区',
-        num: '1006',
-        batch: '2023年A楼2023监考报名'
-      }],
       dialog_Regist_approval: false,
       activeName: 'Batch',
       dialogData: {},
-      searchQuery: '',
+      searchQuery1: '',
+      searchQuery2: '',
+      searchQuery3: '',
       filteredDataForUndetermined: [],
       filteredDataForAgreed: [],
       filteredDataForDisagreed: []
@@ -708,7 +684,8 @@ export default {
     },
     handleBatchDetail (row) {
       this.$router.push({
-        name: 'BatchDetail'
+        name: 'BatchDetail',
+        params: {batchname: row.batch.batchName}
       })
     },
     agreeOrNot (index) {
@@ -728,49 +705,117 @@ export default {
       this.filteredDataForDisagreed = this.itemsForDisagreed
     },
     handleSearchForUndetermined () {
-      if (this.searchQuery.trim()) {
-        this.filteredDataForUndetermined = this.itemsForUndetermined.filter(item =>
-          item.name.includes(this.searchQuery) || (item.num.includes(this.searchQuery))
-        )
-      } else {
-        this.filteredDataForUndetermined = this.itemsForUndetermined
+      if (this.searchQuery1 != null) {
+        getuserid().then(res => {
+          const userId = res.data.userId
+          selectWaitingByName(userId, this.searchQuery1).then(res => {
+            this.approval_infos = res.data.records
+          })
+        })
       }
     },
     handleResetForUndetermined () {
-      this.searchQuery = ''
-      this.filteredDataForUndetermined = this.itemsForUndetermined
+      this.searchQuery1 = ''
+      this.getApprovalTabel()
     },
     handleSearchForAgreed () {
-      if (this.searchQuery.trim()) {
-        this.filteredDataForAgreed = this.itemsForAgreed.filter(item =>
-          item.name.includes(this.searchQuery) || (item.num.includes(this.searchQuery))
-        )
-      } else {
-        this.filteredDataForAgreed = this.itemsForAgreed
+      if (this.searchQuery2 != null) {
+        getuserid().then(res => {
+          const userId = res.data.userId
+          selectAgreeByName(userId, this.searchQuery2).then(res => {
+            this.agreeApproval_infos = res.data.records
+          })
+        })
       }
     },
     handleResetForAgreed () {
-      this.searchQuery = ''
-      this.filteredDataForAgreed = this.itemsForAgreed
+      this.searchQuery2 = ''
+      this.getAgreeApprovalTabel()
     },
     handleSearchForDisagreed () {
-      if (this.searchQuery.trim()) {
-        this.filteredDataForDisagreed = this.itemsForDisagreed.filter(item =>
-          item.name.includes(this.searchQuery) || (item.num.includes(this.searchQuery))
-        )
-      } else {
-        this.filteredDataForDisagreed = this.itemsForDisagreed
+      if (this.searchQuery3 != null) {
+        getuserid().then(res => {
+          const userId = res.data.userId
+          selectDisagreeByName(userId, this.searchQuery3).then(res => {
+            this.disagreeApproval_infos = res.data.records
+          })
+        })
       }
     },
     handleResetForDisagreed () {
-      this.searchQuery = ''
-      this.filteredDataForDisagreed = this.itemsForDisagreed
+      this.searchQuery3 = ''
+      this.getDisagreeApprovalTabel()
+    },
+    getApprovalTabel () {
+      getuserid().then(res => {
+        const userId = res.data.userId
+        console.log('userId:', userId)
+
+        approvalTable(userId).then(res => {
+          this.approval_infos = res.data.records
+
+          console.info('开始')
+          console.info(this.approval_infos)
+          console.info('结束')
+        }).catch(error => {
+          console.error('Error fetching approval table:', error)
+          // Handle errors as needed
+        })
+      }).catch(error => {
+        console.error('Error fetching userId:', error)
+        // Handle errors from getuserid() if necessary
+      })
+    },
+    getAgreeApprovalTabel () {
+      getuserid().then(res => {
+        console.info(res.data.userId)
+        const userId = res.data.userId
+        console.log('userId:', userId)
+
+        agreeApprovalTable(userId).then(res => {
+          this.agreeApproval_infos = res.data.records
+          console.info('开始')
+          console.info(this.agreeApproval_infos)
+          console.info('结束')
+        }).catch(error => {
+          console.error('Error fetching approval table:', error)
+          // Handle errors as needed
+        })
+      }).catch(error => {
+        console.error('Error fetching userId:', error)
+        // Handle errors from getuserid() if necessary
+      })
+    },
+    getDisagreeApprovalTabel () {
+      getuserid().then(res => {
+        console.info(res.data.userId)
+        const userId = res.data.userId
+        console.log('userId:', userId)
+
+        disagreeApprovalTable(userId).then(res => {
+          this.disagreeApproval_infos = res.data.records
+          console.info('开始')
+          // console.info(this.disagreeApproval_infos)
+          console.info('结束')
+        }).catch(error => {
+          console.error('Error fetching approval table:', error)
+          // Handle errors as needed
+        })
+      }).catch(error => {
+        console.error('Error fetching userId:', error)
+        // Handle errors from getuserid() if necessary
+      })
     }
   },
   mounted () {
     this.fetchItemsForUndetermined()
     this.fetchItemsForAgreed()
     this.fetchItemsForDisagreed()
+  },
+  created () {
+    this.getApprovalTabel()
+    this.getAgreeApprovalTabel()
+    this.getDisagreeApprovalTabel()
   }
 }
 </script>

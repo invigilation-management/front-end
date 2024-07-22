@@ -9,7 +9,7 @@
         <div class="smalltitle">批次名称：{{batch_name}}</div>
         <div class="smalltitle">批次开始时间：{{batch_start_time}}</div>
         <div class="smalltitle">批次结束时间：{{batch_end_time}}</div>
-        <div class="smalltitle">批次时长：{{batch_duration}}</div>
+        <div class="smalltitle">批次时长：{{batch_duration}}天</div>
         <div class="smalltitle">监考说明：{{batch_info}}</div>
         <div class="smalltitle">上传附件：</div>
         <el-button type="text">附件.docx</el-button>

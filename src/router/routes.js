@@ -180,6 +180,7 @@ const officeDirectorPage = [
       {
         path: 'Batch-Details',
         name: 'BatchDetail',
+        props: true,
         component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/BatchDetail.vue')
       },
       {
