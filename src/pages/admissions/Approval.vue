@@ -489,7 +489,9 @@ import {
   getuserid,
   agreeApprovalTable,
   disagreeApprovalTable,
-  approvalNameSelect
+  approvalNameSelect,
+  agreeSelect,
+  disagreeSelect
 } from '../../api/user'
 export default {
   name: 'Approval',
@@ -544,7 +546,7 @@ export default {
       if (this.input2 != null) {
         getuserid().then(response => {
           this.thisuserid = response.data.userId
-          approvalNameSelect(this.input2, this.thisuserid).then(response => {
+          agreeSelect(this.input2, this.thisuserid).then(response => {
             this.agreeApproval_infos = response.data.records
           })
         })
@@ -559,7 +561,7 @@ export default {
       if (this.input3 != null) {
         getuserid().then(response => {
           this.thisuserid = response.data.userId
-          approvalNameSelect(this.input3, this.thisuserid).then(response => {
+          disagreeSelect(this.input3, this.thisuserid).then(response => {
             this.disagreeApproval_infos = response.data.records
           })
         })
@@ -568,13 +570,9 @@ export default {
     getApprovalTabel () {
       getuserid().then(response => {
         const userId = response.data.userId
-        console.log('userId:', userId)
         // Call approvalTable with the retrieved userId
         approvalTable(userId).then(response => {
           this.approval_infos = response.data.records
-          console.info('开始')
-          console.info(this.approval_infos)
-          console.info('结束')
         }).catch(error => {
           console.error('Error fetching approval table:', error)
           // Handle errors as needed
@@ -587,39 +585,26 @@ export default {
     getAgreeApprovalTabel () {
       getuserid().then(response => {
         const userId = response.data.userId
-        console.log('userId:', userId)
-        // Call approvalTable with the retrieved userId
         agreeApprovalTable(userId).then(response => {
           this.agreeApproval_infos = response.data.records
-          console.info('开始')
-          console.info(this.agreeApproval_infos)
-          console.info('结束')
         }).catch(error => {
           console.error('Error fetching approval table:', error)
-          // Handle errors as needed
         })
       }).catch(error => {
         console.error('Error fetching userId:', error)
-        // Handle errors from getuserid() if necessary
       })
     },
     getDisagreeApprovalTabel () {
       getuserid().then(response => {
         const userId = response.data.userId
         console.log('userId:', userId)
-        // Call approvalTable with the retrieved userId
         disagreeApprovalTable(userId).then(response => {
           this.disagreeApproval_infos = response.data.records
-          console.info('开始')
-          console.info(this.disagreeApproval_infos)
-          console.info('结束')
         }).catch(error => {
           console.error('Error fetching approval table:', error)
-          // Handle errors as needed
         })
       }).catch(error => {
         console.error('Error fetching userId:', error)
-        // Handle errors from getuserid() if necessary
       })
     },
     handleSelectionChange (val) {

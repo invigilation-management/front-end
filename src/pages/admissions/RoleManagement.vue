@@ -11,8 +11,8 @@
                         <el-input v-model="input" placeholder="请输入部门名称关键词查询"></el-input>
                     </el-col>
                     <el-col :span="4">
-                        <el-button type="primary" class="blue">查询</el-button>
-                        <el-button type="primary" plain class="white">重置</el-button>
+                        <el-button type="primary" class="blue" @click="select">查询</el-button>
+                        <el-button type="primary" plain class="white" @click="reset">重置</el-button>
                     </el-col>
                     <el-col :span="12" :offset="2">
                         <el-button type="primary" class="blue" @click="dialogVisibleFind= true">快速找人</el-button>
@@ -205,10 +205,21 @@
 </template>
 
 <script>
-import {getuserid, collegeRoleTable} from '../../api/user'
+import {getuserid, collegeRoleTable, collegeRoleSelect} from '../../api/user'
 export default {
   name: 'RoleManagement',
   methods: {
+    select () {
+      if (this.input != null) {
+        collegeRoleSelect(this.input).then(response => {
+          this.tableData = response.data.records
+        })
+      }
+    },
+    reset () {
+      this.getCollegeRoleTable()
+      this.input = null
+    },
     getCollegeRoleTable () {
       getuserid().then(response => {
         const userId = response.data.userId

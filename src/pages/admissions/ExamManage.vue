@@ -123,8 +123,8 @@
                 </el-col>
                 <el-col :span="6" :offset="5"><el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
                 <el-col :span="4">
-                    <el-button class="blue" type="primary">查询</el-button>
-                    <el-button plain class="white" type="primary">重置</el-button>
+                    <el-button class="blue" type="primary" @click="select">查询</el-button>
+                    <el-button plain class="white" type="primary" @click=reset>重置</el-button>
                 </el-col>
             </el-row>
             <el-table
@@ -219,7 +219,7 @@
 </template>
 
 <script>
-import {examManageTable, getuserid} from '../../api/user'
+import {examManageTable, getuserid, examManageSelect} from '../../api/user'
 import moment from 'moment'
 export default {
   name: 'ViewList',
@@ -249,6 +249,17 @@ export default {
     }
   },
   methods: {
+    select () {
+      if (this.input != null) {
+        examManageSelect(this.input).then(response => {
+          this.examManageInfos = response.data.records
+        })
+      }
+    },
+    reset () {
+      this.getExamManageTable()
+      this.input = null
+    },
     getExamManageTable () {
       getuserid().then(response => {
         const userId = response.data.userId

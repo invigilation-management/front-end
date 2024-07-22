@@ -75,3 +75,35 @@ export const approvalNameSelect = (trueFacultyName, userId) => {
     userId: userId
   })
 }
+// 监考管理页面的快速查询功能接口
+export const examManageSelect = (batchName) => {
+  return http.GET('/api/batch/getManagementPageUnclearFindALL', {
+    batchName: batchName
+  })
+}
+// 监考通知确认单页面的快速查询功能接口
+export const noticeConfirmSelect = (batchName) => {
+  return http.GET('/api/batch/getConfirmPageUnClearALL', {
+    batchName: batchName
+  })
+}
+//  部门与角色管理页面的快速查询功能接口
+export const collegeRoleSelect = (collegeName) => {
+  return http.GET('/api/college/getRoleAndCollegeALLUnclearFind', {
+    collegeName: collegeName
+  })
+}
+// 已同意查询
+export const agreeSelect = (trueFacultyName, userId) => {
+  return http.GET('/api/registration/getAgreeUnclearALLByString', {
+    trueFacultyName: trueFacultyName,
+    userId: userId
+  })
+}
+// 不同意查询
+export const disagreeSelect = (trueFacultyName, userId) => {
+  return http.GET('/api/registration/getDisagreeUnclearALLByString', {
+    trueFacultyName: trueFacultyName,
+    userId: userId
+  })
+}

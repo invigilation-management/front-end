@@ -112,8 +112,8 @@
                 </el-col>
                 <el-col :span="6" :offset="5" ><el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
                 <el-col :span="4">
-                    <el-button class="blue" type="primary">查询</el-button>
-                    <el-button type="primary" plain class="white">重置</el-button>
+                    <el-button class="blue" type="primary" @click="select">查询</el-button>
+                    <el-button type="primary" plain class="white" @click="reset">重置</el-button>
                 </el-col>
             </el-row>
             <el-table
@@ -207,7 +207,7 @@
 </template>
 
 <script>
-import {noticeConfirmTable, getuserid} from '../../api/user'
+import {noticeConfirmTable, getuserid, noticeConfirmSelect} from '../../api/user'
 import moment from 'moment'
 export default {
   name: 'ViewList',
@@ -233,6 +233,17 @@ export default {
     }
   },
   methods: {
+    select () {
+      if (this.input != null) {
+        noticeConfirmSelect(this.input).then(response => {
+          this.tableData = response.data.records
+        })
+      }
+    },
+    reset () {
+      this.getNoticeConfirmTable()
+      this.input = null
+    },
     getNoticeConfirmTable () {
       getuserid().then(response => {
         const userId = response.data.userId
