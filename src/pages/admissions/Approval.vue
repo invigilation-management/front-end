@@ -99,12 +99,12 @@
                                         </el-dialog>
                                 </el-col>
                                 <el-col :span="6">
-                                    <el-input v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
+                                    <el-input v-model="input1" placeholder="请输入报名人姓名/工号查询"></el-input>
                                 </el-col>
                                 <el-col :span="4">
                                     <div class="buttonright">
-                                        <el-button type="primary">查询</el-button>
-                                        <el-button type="inform">重置</el-button>
+                                        <el-button type="primary" @click="selectOne">查询</el-button>
+                                        <el-button type="inform" @click="resetOne">重置</el-button>
                                     </div>
                                 </el-col>
                             </el-row>
@@ -277,12 +277,12 @@
                                     </el-dialog>
                                 </el-col>
                                 <el-col :span="6">
-                                    <el-input v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
+                                    <el-input v-model="input2" placeholder="请输入报名人姓名/工号查询"></el-input>
                                 </el-col>
                                 <el-col :span="4">
                                     <div class="buttonright">
-                                        <el-button type="primary">查询</el-button>
-                                        <el-button type="inform">重置</el-button>
+                                        <el-button type="primary" @click="selectTwo">查询</el-button>
+                                        <el-button type="inform" @click="resetTwo">重置</el-button>
                                     </div>
                                 </el-col>
                             </el-row>
@@ -406,12 +406,12 @@
                                     </el-dialog>
                                 </el-col>
                                 <el-col :span="6">
-                                    <el-input v-model="input" placeholder="请输入报名人姓名/工号查询"></el-input>
+                                    <el-input v-model="input3" placeholder="请输入报名人姓名/工号查询"></el-input>
                                 </el-col>
                                 <el-col :span="4">
                                     <div class="buttonright">
-                                        <el-button  type="primary">查询</el-button>
-                                        <el-button  type="inform">重置</el-button>
+                                        <el-button  type="primary" @click="selectThree">查询</el-button>
+                                        <el-button  type="inform" @click="resetThree">重置</el-button>
                                     </div>
                                 </el-col>
                             </el-row>
@@ -484,13 +484,22 @@
 </template>
 
 <script>
-import {approvalTable, getuserid, agreeApprovalTable, disagreeApprovalTable} from '../../api/user'
+import {
+  approvalTable,
+  getuserid,
+  agreeApprovalTable,
+  disagreeApprovalTable,
+  approvalNameSelect
+} from '../../api/user'
 export default {
   name: 'Approval',
   data: function () {
     return {
       value: '',
-      input: '',
+      input1: '',
+      input2: '',
+      input3: '',
+      thisuserid: '',
       approval_infos: [],
       agreeApproval_infos: [],
       disagreeApproval_infos: [],
@@ -509,15 +518,60 @@ export default {
     }
   },
   methods: {
+    // 表示当前页面的的重置方法
+    resetOne () {
+      this.getApprovalTabel()
+      this.input1 = null
+    },
+    // 表示当前页面的的模糊查询方法
+    selectOne () {
+      if (this.input1 != null) {
+        console.log(typeof this.input1)
+        getuserid().then(response => {
+          this.thisuserid = response.data.userId
+          approvalNameSelect(this.input1, this.thisuserid).then(response => {
+            this.approval_infos = response.data.records
+          })
+        })
+      }
+    },
+    resetTwo () {
+      this.getAgreeApprovalTabel()
+      this.input2 = null
+    },
+    // 表示当前页面的的模糊查询方法
+    selectTwo () {
+      if (this.input2 != null) {
+        getuserid().then(response => {
+          this.thisuserid = response.data.userId
+          approvalNameSelect(this.input2, this.thisuserid).then(response => {
+            this.agreeApproval_infos = response.data.records
+          })
+        })
+      }
+    },
+    resetThree () {
+      this.getDisagreeApprovalTabel()
+      this.input3 = null
+    },
+    // 表示当前页面的的模糊查询方法
+    selectThree () {
+      if (this.input3 != null) {
+        getuserid().then(response => {
+          this.thisuserid = response.data.userId
+          approvalNameSelect(this.input3, this.thisuserid).then(response => {
+            this.disagreeApproval_infos = response.data.records
+          })
+        })
+      }
+    },
     getApprovalTabel () {
       getuserid().then(response => {
         const userId = response.data.userId
-
         console.log('userId:', userId)
-
         // Call approvalTable with the retrieved userId
         approvalTable(userId).then(response => {
-          this.approval_infos = response.data.data.records
+          this.approval_infos = response.data.records
           console.info('开始')
           console.info(this.approval_infos)
           console.info('结束')
@@ -536,7 +590,7 @@ export default {
         console.log('userId:', userId)
         // Call approvalTable with the retrieved userId
         agreeApprovalTable(userId).then(response => {
-          this.agreeApproval_infos = response.data.data.records
+          this.agreeApproval_infos = response.data.records
           console.info('开始')
           console.info(this.agreeApproval_infos)
           console.info('结束')
@@ -555,7 +609,7 @@ export default {
         console.log('userId:', userId)
         // Call approvalTable with the retrieved userId
         disagreeApprovalTable(userId).then(response => {
-          this.disagreeApproval_infos = response.data.data.records
+          this.disagreeApproval_infos = response.data.records
           console.info('开始')
           console.info(this.disagreeApproval_infos)
           console.info('结束')

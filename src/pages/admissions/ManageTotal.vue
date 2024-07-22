@@ -293,12 +293,13 @@ export default {
     // 当前页面的重置方法
     reset () {
       this.getExamPlanTable()
+      this.input = null
     },
     // 表示当前页面的的模糊查询方法
     select () {
       if (this.input != null) {
         manageFeesSelect(this.input).then(response => {
-          this.tableData = response.data.data.records
+          this.tableData = response.data.records
         })
       }
     },
@@ -308,7 +309,7 @@ export default {
         console.log('userId:', userId)
         // Call approvalTable with the retrieved userId
         examPlan(userId).then(response => {
-          this.tableData = response.data.data.records
+          this.tableData = response.data.records
         }).catch(error => {
           console.error('Error fetching approval table:', error)
           // Handle errors as needed

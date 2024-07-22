@@ -255,7 +255,7 @@ export default {
         console.log('userId:', userId)
         // Call approvalTable with the retrieved userId
         examManageTable(userId).then(response => {
-          this.examManageInfos = response.data.data.records
+          this.examManageInfos = response.data.records
           console.info('开始')
           console.info(this.examManageInfos)
           console.info('结束')

@@ -38,11 +38,11 @@ export default {
         console.log('kaishi')
         console.log(response)
         console.log('jieshu')
-        this.batch_name = response.data.data.records[0].batchName
-        this.batch_start_time = response.data.data.records[0].batchStartTime
-        this.batch_end_time = response.data.data.records[0].batchEndTime
-        this.batch_duration = response.data.data.records[0].batchDuration
-        this.batch_info = response.data.data.records[0].batchInfo
+        this.batch_name = response.data.records[0].batchName
+        this.batch_start_time = response.data.records[0].batchStartTime
+        this.batch_end_time = response.data.records[0].batchEndTime
+        this.batch_duration = response.data.records[0].batchDuration
+        this.batch_info = response.data.records[0].batchInfo
       })
     }
   },

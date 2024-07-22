@@ -215,7 +215,7 @@ export default {
         console.log('userId:', userId)
         // Call approvalTable with the retrieved userId
         collegeRoleTable(userId).then(response => {
-          this.tableData = response.data.data.records
+          this.tableData = response.data.records
         }).catch(error => {
           console.error('Error fetching approval table:', error)
           // Handle errors as needed

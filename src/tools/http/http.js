@@ -5,7 +5,7 @@ import NProgress from 'nprogress'
 
 axios.defaults.baseURL = process.env.BASE_URL
 axios.interceptors.request.use(config => {
-  NProgress.start()
+  // NProgress.start()
   return config
 }, error => {
   return Promise.reject(error)
