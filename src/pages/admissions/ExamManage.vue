@@ -27,23 +27,29 @@
                     <el-dialog title="创建监考报名批次" :visible.sync="dialogFormVisible">
                         <el-form :model="form">
                             <el-form-item label="批次名称" :label-width="formLabelWidth">
-                                <el-input v-model="form.name" autocomplete="off" placeholder="请输入批次名称"></el-input>
-                            </el-form-item>
-                            <el-form-item label="关联年份" :label-width="formLabelWidth">
-                                <el-select v-model="form.region" placeholder="请选择关联年份" >
-                                    <el-option label="2023" value="2023"></el-option>
-                                    <el-option label="2024" value="2024"></el-option>
-                                </el-select>
+                                <el-input v-model="form.batchName" autocomplete="off" placeholder="请输入批次名称"></el-input>
                             </el-form-item>
                             <el-form-item label="批次开始时间" :label-width="formLabelWidth">
-                                <el-input v-model="form.date1" autocomplete="off" placeholder="请输入批次开始时间"></el-input>
+                                <el-input v-model="form.batchStartTime" autocomplete="off" placeholder="请输入批次开始时间"></el-input>
                             </el-form-item>
                             <el-form-item label="批次结束时间" :label-width="formLabelWidth">
-                                <el-input v-model="form.date2" autocomplete="off" placeholder="请输入批次结束时间"></el-input>
+                                <el-input v-model="form.batchEndTime" autocomplete="off" placeholder="请输入批次结束时间"></el-input>
                             </el-form-item>
-                            <el-form-item label="监考说明" :label-width="formLabelWidth" :label-height="bigformLabelHeight">
-                                <el-input v-model="form.detail"  type="textarea" autocomplete="off" placeholder="请输入监考说明..." style="height: 158px;height: auto" rows="10" >
+                            <el-form-item label="报名开始时间" :label-width="formLabelWidth">
+                                <el-input v-model="form.regStartTime" autocomplete="off" placeholder="请输入报名开始时间"></el-input>
+                            </el-form-item>
+                            <el-form-item label="报名结束时间" :label-width="formLabelWidth">
+                                <el-input v-model="form.regEndTime" autocomplete="off" placeholder="请输入报名结束时间"></el-input>
+                            </el-form-item>
+                            <el-form-item label="监考说明" :label-width="formLabelWidth">
+                                <el-input v-model="form.batchInfo"  type="textarea" autocomplete="off" placeholder="请输入监考说明" style="height: auto">
                                 </el-input>
+                            </el-form-item>
+                            <el-form-item label="持续时间" :label-width="formLabelWidth">
+                                <el-input v-model="form.batchDuration" autocomplete="off" placeholder="请输入持续时间"></el-input>
+                            </el-form-item>
+                            <el-form-item label="需求人数" :label-width="formLabelWidth">
+                                <el-input v-model="form.expectNum" autocomplete="off" placeholder="请输入需求人数"></el-input>
                             </el-form-item>
                             <el-form-item label="上传附件" :label-width="formLabelWidth" :label-height="bigformLabelHeight">
                                 <el-button type="primary" icon="el-icon-upload2">上传文件</el-button>
@@ -51,7 +57,7 @@
                             <div class="form_text">限制上传文件10个以下，单个大小不超过100M</div>
                         </el-form>
                         <div slot="footer" class="dialog-footer">
-                            <el-button type="primary" @click="dialogFormVisible = false" style="background-color: #166AFF"> 提 交 </el-button>
+                            <el-button type="primary" @click='batchCreateSubmit' style="background-color: #166AFF"> 提 交 </el-button>
                             <el-button @click="dialogFormVisible = false">取 消</el-button>
                         </div>
                     </el-dialog>
@@ -219,7 +225,7 @@
 </template>
 
 <script>
-import {examManageTable, getuserid, examManageSelect} from '../../api/user'
+import {examManageTable, getuserid, examManageSelect, addBatch} from '../../api/user'
 import moment from 'moment'
 export default {
   name: 'ViewList',
@@ -234,21 +240,48 @@ export default {
       examManageInfos: [],
       dialogFormVisible: false,
       form: {
-        name: '',
-        detail: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        batchName: '',
+        regStartTime: '',
+        regEndTime: '',
+        batchInfo: '',
+        batchStartTime: '',
+        batchEndTime: '',
+        batchDuration: '',
+        expectNum: ''
       },
       formLabelWidth: '120px',
       bigformLabelHeight: '158px'
     }
   },
   methods: {
+    batchCreateSubmit () {
+      // 创建批次对话框的确认方法
+      this.dialogFormVisible = false
+      let isnullornot = true
+      for (let key in this.form) {
+        if (!this.form[key]) {
+          isnullornot = false
+          break // 可以提前结束循环，因为已经确定表单不合法
+        }
+      }
+      console.log(isnullornot)
+      if (isnullornot === true) {
+        // 可以创建新的batch
+        addBatch(this.form).then(res => {
+          if (res.data === true) {
+            this.$message({
+              message: '创建成功',
+              type: 'success'
+            })
+          } else if (res.data === false) {
+            this.$message({
+              message: '创建失败，请稍后重试',
+              type: 'warning'
+            })
+          }
+        })
+      }
+    },
     select () {
       if (this.input != null) {
         examManageSelect(this.input).then(response => {

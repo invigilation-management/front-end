@@ -114,3 +114,7 @@ export const addCollege = (collegeName, type) => {
     type: type
   })
 }
+// 监考管理页面的创建批次接口
+export const addBatch = (obj) => {
+  return http.POST('/api/batch/addBatch', obj)
+}

@@ -286,7 +286,7 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    label="材料" width="180">
+                                    label="上传材料" width="180">
                                     <template v-slot="scope">
                                         <el-button
                                             type="text"
@@ -298,7 +298,7 @@
                                     <template v-slot="scope">
                                         <el-button
                                             type="text"
-                                            @click="handleAction(scope.$index, scope.row)">审批</el-button>
+                                            @click="handleAction(scope.$index, scope.row)">审批详情</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -427,7 +427,7 @@
                                     <template v-slot="scope">
                                         <el-button
                                             type="text"
-                                            @click="handleAction(scope.$index, scope.row)">审批</el-button>
+                                            @click="handleAction(scope.$index, scope.row)">审批详情</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
