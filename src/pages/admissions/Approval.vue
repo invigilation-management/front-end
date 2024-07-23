@@ -297,8 +297,7 @@
                                     label="操作" width="180">
                                     <template v-slot="scope">
                                         <el-button
-                                            type="text"
-                                            @click="handleAction(scope.$index, scope.row)">审批详情</el-button>
+                                            type="text">审批详情</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -426,8 +425,7 @@
                                     label="操作" width="180">
                                     <template v-slot="scope">
                                         <el-button
-                                            type="text"
-                                            @click="handleAction(scope.$index, scope.row)">审批详情</el-button>
+                                            type="text">审批详情</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -472,11 +470,11 @@
                         type="textarea"
                         style="background-color: #f0f0f0; width: 100%;"></el-input>
                 </el-form-item>
-                <span style="color: red; display: block; text-align: center; font-size: 16px;">请确认，一经提交无法申请</span>
+                <span style="color: red; display: block; text-align: center; font-size: 16px;">请确认，一经提交无法更改</span>
                 <hr />
                 <el-form-item style="text-align: center;">
-                    <el-button type="primary" @click="submitApproval" style="font-size: 16px;">提交</el-button>
-                    <el-button @click="isApprovalDialogVisible = false" style="font-size: 16px;">取消</el-button>
+                    <el-button type="primary" @click='submitApproval' style="font-size: 16px;">提交</el-button>
+                    <el-button @click='innerReset' style="font-size: 16px;">取消</el-button>
                 </el-form-item>
             </el-form>
         </el-dialog>
@@ -491,7 +489,9 @@ import {
   disagreeApprovalTable,
   approvalNameSelect,
   agreeSelect,
-  disagreeSelect
+  disagreeSelect,
+  agree,
+  disagree
 } from '../../api/user'
 export default {
   name: 'Approval',
@@ -522,8 +522,13 @@ export default {
     }
   },
   methods: {
-    // 表示当前页面的的重置方法
+    innerReset () {
+      // 表示子页面的清空方法
+      this.isApprovalDialogVisible = false
+    },
+
     resetOne () {
+      // 表示当前页面的的重置方法
       this.getApprovalTabel()
       this.input1 = null
     },
@@ -633,12 +638,59 @@ export default {
     },
     showApprovalDialog (index) {
       this.approvalForm = this.approval_infos[index]
-      console.info(this.approvalForm)
       this.isApprovalDialogVisible = true
     },
     submitApproval () {
-      // 提交审批逻辑
+      // 同意审批逻辑
       this.isApprovalDialogVisible = false
+      console.log(this.approvalForm.approval)
+      if (this.approvalForm.approval === '同意') {
+        // 同意这个审批的逻辑：
+        getuserid().then(response => {
+          const userId = response.data.userId
+          agree(userId, this.approvalForm.trueFacultyId, this.approvalForm.batch.batchName, this.approvalForm.targetCampus).then(res => {
+            if (res.data === true) {
+              this.$message({
+                message: '通过成功',
+                type: 'success'
+              })
+            } else if (res.data === false) {
+              this.$message({
+                message: '通过失败，请稍后重试',
+                type: 'warning'
+              })
+            }
+          }).catch(error => {
+            console.error('Error fetching approval table:', error)
+            // Handle errors as needed
+          })
+        }).catch(error => {
+          console.error('Error fetching userId:', error)
+          // Handle errors from getuserid() if necessary
+        })
+      } else {
+        // 这里是拒绝审批的方法
+        getuserid().then(response => {
+          const userId = response.data.userId
+          disagree(userId, this.approvalForm.trueFacultyId, this.approvalForm.batch.batchName).then(res => {
+            if (res.data === true) {
+              this.$message({
+                message: '拒绝成功',
+                type: 'success'
+              })
+            } else if (res.data === false) {
+              this.$message({
+                message: '拒绝失败，请稍后重试',
+                type: 'warning'
+              })
+            }
+          }).catch(error => {
+            console.error('Error fetching approval table:', error)
+          })
+        }).catch(error => {
+          console.error('Error fetching userId:', error)
+        })
+      }
     },
     handleAction () {
       this.isApprovalDialogVisible = true

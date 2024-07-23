@@ -38,8 +38,9 @@
                             <el-radio v-model="selectedContent" label="alot">批量导入</el-radio>
 <!--                            以下是添加一个成员时的对话框-->
                             <div v-if="selectedContent === 'alone'">
-                                <el-input autocomplete="off"  style="width: 500px" class="input1" placeholder="请输入姓名/工号模糊查询" ></el-input>
-                                <el-button type="primary" style="margin-left: 30px;width: 145px" @click="innerSelect">查询</el-button>
+                                <el-input autocomplete="off"  style="width: 500px" class="input1" placeholder="请输入姓名/工号模糊查询" v-model="innerSelectItem"></el-input>
+                                <el-button type="primary" style="margin-left: 30px;width: 100px" @click='innerSelect'>查询</el-button>
+                                <el-button type="primary" plain @click="innerReset" style="width: 100px">重置</el-button>
                                 <div class="grey">
                                     <br>&nbsp; 姓名: {{this.selectName}}<br>
                                     <br>&nbsp; 工号:{{this.selectId}}<br>
@@ -49,7 +50,7 @@
                                 <br><el-input v-model="input_department" placeholder="请选择所在部门"></el-input>
                                 <br><br>
                                 <div style="display: flex; flex-direction: column; align-items: center;">
-                                    <el-button type="primary" @click="dialogVisibleSelect = false" style="background-color:#166AFF;width: 200px">提交</el-button>
+                                    <el-button type="primary" @click='finalChange' style="background-color:#166AFF;width: 200px">提交</el-button>
                                 </div>
                             </div>
 <!--                            以下是操作一堆成导入教职工名单：员时的对话框-->
@@ -208,10 +209,40 @@
 </template>
 
 <script>
-import {getuserid, collegeRoleTable, collegeRoleSelect, addCollege} from '../../api/user'
+import {getuserid, collegeRoleTable, collegeRoleSelect, addCollege, findBeforePost, addfaculty} from '../../api/user'
 export default {
   name: 'RoleManagement',
   methods: {
+    finalChange () {
+      // 改变当前选中用户的所在学院信息
+      this.dialogVisibleSelect = false
+      if (this.input_department != null && this.selectId != null &&
+            this.selectName != null &&
+        this.selectCollege != null) {
+        let obj = {facultyId: this.selectId,
+          facultyName: this.selectName,
+          collegeName: this.input_department}
+        addfaculty(obj).then(res => {
+          if (res.data === true) {
+            this.$message({
+              message: '更改成功',
+              type: 'success'
+            })
+          } else if (res.data === false) {
+            this.$message({
+              message: '更改失败，请稍后重试',
+              type: 'warning'
+            })
+          }
+        })
+      }
+    },
+    innerReset () {
+      this.selectId = null
+      this.selectName = null
+      this.selectCollege = null
+      this.innerSelectItem = null
+    },
     collegeSubmit () {
       // 子对话里添加部门
       this.dialogVisible_Add_Department = false
@@ -233,6 +264,13 @@ export default {
     },
     innerSelect () {
       // 里面的子对话查询
+      if (this.innerSelectItem != null) {
+        findBeforePost(this.innerSelectItem).then(res => {
+          this.selectId = res.data.records[0].facultyId
+          this.selectName = res.data.records[0].facultyName
+          this.selectCollege = res.data.records[0].college.collegeName
+        })
+      }
     },
     select () {
       if (this.input != null) {
@@ -289,7 +327,8 @@ export default {
       dialogVisible_Add_Department: false,
       selectName: '',
       selectId: '',
-      selectCollege: ''
+      selectCollege: '',
+      innerSelectItem: ''
     }
   }
 }

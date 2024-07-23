@@ -118,3 +118,30 @@ export const addCollege = (collegeName, type) => {
 export const addBatch = (obj) => {
   return http.POST('/api/batch/addBatch', obj)
 }
+// 部门的对话框中的子查询接口
+export const findBeforePost = (trueFacultyName) => {
+  return http.GET('/api/faculty/findBeforePost', {
+    trueFacultyName: trueFacultyName
+  })
+}
+// 部门与角色管理添加成员
+export const addfaculty = (obj) => {
+  return http.POST('/api/faculty/updateFaculty', obj)
+}
+// 同意审批后的接口
+export const agree = (userId, trueFacultyId, batchName, targetCampus) => {
+  return http.GET('/api/registration/afterApproval', {
+    userId: userId,
+    trueFacultyId: trueFacultyId,
+    batchName: batchName,
+    targetCampus: targetCampus
+  })
+}
+// 不同意审批后的接口
+export const disagree = (userId, trueFacultyId, batchName) => {
+  return http.GET('/api/registration/afterDisapproval', {
+    userId: userId,
+    trueFacultyId: trueFacultyId,
+    batchName: batchName
+  })
+}
