@@ -175,6 +175,7 @@ const officeDirectorPage = [
       {
         path: 'detailList',
         name: 'DetailList',
+        props: true,
         component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/DetailList.vue')
       },
       {
@@ -191,6 +192,7 @@ const officeDirectorPage = [
           {
             path: 'details',
             name: 'examListDetails',
+            props: true,
             component: () => import(/* webpackChunkName: "ExamListDetails" */ '../pages/office/ExamListDetails.vue')
           }
         ]

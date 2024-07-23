@@ -200,8 +200,8 @@
                                                 <div style="width: 300px;margin-top: 20px">操作</div>
                                             </div>
                                             <div style="height: 80px;margin: 20px;display: flex;text-align: center">
-                                                <div style="width: 300px;margin-top: 20px">{{dialogData.name}}</div>
-                                                <div style="width: 300px;margin-top: 20px">{{dialogData.num}}</div>
+                                                <div style="width: 300px;margin-top: 20px">{{dialogData.trueFacultyName}}</div>
+                                                <div style="width: 300px;margin-top: 20px">{{dialogData.trueFacultyId}}</div>
                                                 <div style="width: 300px;margin-top: 20px">
                                                     <el-button type="text" @click="dialog_Regist_approval= false">移除</el-button>
                                                 </div>
@@ -234,9 +234,15 @@
                                 </el-table-column>
                             </el-table>
                             <el-pagination
+                                style="margin-top: 20px"
                                 background
-                                layout="total, prev, pager, next"
-                                :total="1000">
+                                @size-change="handleSizeChange1"
+                                @current-change="handleCurrentChange1"
+                                :current-page="pageNo1"
+                                :page-sizes="[3, 10, 20, 40]"
+                                :page-size="pageSize1"
+                                layout="total, sizes, prev, pager, next, jumper"
+                                :total=total1>
                             </el-pagination>
                         </el-tab-pane>
 <!--                                            分界线                                         -->
@@ -399,14 +405,20 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                           @click="handleAgreed(scope.$index, scope.row)">审批</el-button>
+                                           @click="handleAgreed(scope.$index, scope.row)">查看</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
                             <el-pagination
+                                style="margin-top: 20px"
                                 background
-                                layout="total, prev, pager, next"
-                                :total="1000">
+                                @size-change="handleSizeChange2"
+                                @current-change="handleCurrentChange2"
+                                :current-page="pageNo2"
+                                :page-sizes="[3, 10, 20, 40]"
+                                :page-size="pageSize2"
+                                layout="total, sizes, prev, pager, next, jumper"
+                                :total=total2>
                             </el-pagination>
                         </el-tab-pane>
 <!--                                            分界线                                         -->
@@ -482,10 +494,6 @@
                                                 </template>
                                             </el-table-column>
                                             <el-table-column
-                                                prop="address"
-                                                label="意向监考校区" width="180">
-                                            </el-table-column>
-                                            <el-table-column
                                                 prop="detail_uploaded"
                                                 label="上传材料" width="180">
                                                 <template v-slot="scope">
@@ -535,10 +543,16 @@
                                 <el-table-column
                                     label="报名人"
                                     prop="name">
+                                    <template slot-scope="scope">
+                                        <span class="normal">{{scope.row.trueFacultyName}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="num"
                                     label="工号">
+                                    <template slot-scope="scope">
+                                        <span class="normal">{{scope.row.trueFacultyId}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="batch"
@@ -550,10 +564,6 @@
                                             @click="handleBatchDetail(scope.row)">{{scope.row.batch.batchName}}
                                         </el-button>
                                     </template>
-                                </el-table-column>
-                                <el-table-column
-                                    prop="address"
-                                    label="意向监考校区" width="180">
                                 </el-table-column>
                                 <el-table-column
                                     prop="detail_uploaded"
@@ -572,14 +582,20 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleDisagreed(scope.$index, scope.row)">审批</el-button>
+                                            @click="handleDisagreed(scope.$index, scope.row)">查看</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
                             <el-pagination
+                                style="margin-top: 20px"
                                 background
-                                layout="total, prev, pager, next"
-                                :total="1000">
+                                @size-change="handleSizeChange3"
+                                @current-change="handleCurrentChange3"
+                                :current-page="pageNo3"
+                                :page-sizes="[3, 10, 20, 40]"
+                                :page-size="pageSize3"
+                                layout="total, sizes, prev, pager, next, jumper"
+                                :total=total3>
                             </el-pagination>
                         </el-tab-pane>
                     </el-tabs>
@@ -637,7 +653,16 @@ export default {
       searchQuery3: '',
       filteredDataForUndetermined: [],
       filteredDataForAgreed: [],
-      filteredDataForDisagreed: []
+      filteredDataForDisagreed: [],
+      total1: 0,
+      total2: 0,
+      total3: 0,
+      pageNo1: 1,
+      pageSize1: 3,
+      pageNo2: 1,
+      pageSize2: 3,
+      pageNo3: 1,
+      pageSize3: 3
     }
   },
   methods: {
@@ -689,27 +714,31 @@ export default {
       })
     },
     agreeOrNot (index) {
-      this.dialogData = this.filteredDataForUndetermined[index]
+      console.log(this.filteredDataForUndetermined)
+      // this.dialogData = this.filteredDataForUndetermined[index]
+      this.dialogData = this.approval_infos[index]
       this.dialog_Regist_approval = true
     },
     fetchItemsForUndetermined () {
-      this.itemsForUndetermined = this.$data.undeterminedData
-      this.filteredDataForUndetermined = this.itemsForUndetermined
+      this.itemsForUndetermined = this.$data.approval_infos
+      console.log(this.itemsForUndetermined, 'this.itemsForUndetermined')
+      this.filteredDataForUndetermined = this.itemsForUndetermined || []
     },
     fetchItemsForAgreed () {
-      this.itemsForAgreed = this.$data.agreedData
+      this.itemsForAgreed = this.$data.agreeApproval_infos
       this.filteredDataForAgreed = this.itemsForAgreed
     },
     fetchItemsForDisagreed () {
-      this.itemsForDisagreed = this.$data.disagreedData
+      this.itemsForDisagreed = this.$data.disagreeApproval_infos
       this.filteredDataForDisagreed = this.itemsForDisagreed
     },
     handleSearchForUndetermined () {
       if (this.searchQuery1 != null) {
         getuserid().then(res => {
           const userId = res.data.userId
-          selectWaitingByName(userId, this.searchQuery1).then(res => {
+          selectWaitingByName(userId, this.searchQuery1, this.pageSize1, this.pageNo1).then(res => {
             this.approval_infos = res.data.records
+            this.total1 = res.data.total
           })
         })
       }
@@ -722,8 +751,9 @@ export default {
       if (this.searchQuery2 != null) {
         getuserid().then(res => {
           const userId = res.data.userId
-          selectAgreeByName(userId, this.searchQuery2).then(res => {
+          selectAgreeByName(userId, this.searchQuery2, this.pageSize2, this.pageNo2).then(res => {
             this.agreeApproval_infos = res.data.records
+            this.total2 = res.data.total
           })
         })
       }
@@ -736,8 +766,9 @@ export default {
       if (this.searchQuery3 != null) {
         getuserid().then(res => {
           const userId = res.data.userId
-          selectDisagreeByName(userId, this.searchQuery3).then(res => {
+          selectDisagreeByName(userId, this.searchQuery3, this.pageSize3, this.pageNo3).then(res => {
             this.disagreeApproval_infos = res.data.records
+            this.total3 = res.data.total
           })
         })
       }
@@ -751,8 +782,9 @@ export default {
         const userId = res.data.userId
         console.log('userId:', userId)
 
-        approvalTable(userId).then(res => {
+        approvalTable(userId, this.pageSize1, this.pageNo1).then(res => {
           this.approval_infos = res.data.records
+          this.total1 = res.data.total
 
           console.info('开始')
           console.info(this.approval_infos)
@@ -772,8 +804,9 @@ export default {
         const userId = res.data.userId
         console.log('userId:', userId)
 
-        agreeApprovalTable(userId).then(res => {
+        agreeApprovalTable(userId, this.pageSize2, this.pageNo2).then(res => {
           this.agreeApproval_infos = res.data.records
+          this.total2 = res.data.total
           console.info('开始')
           console.info(this.agreeApproval_infos)
           console.info('结束')
@@ -792,8 +825,9 @@ export default {
         const userId = res.data.userId
         console.log('userId:', userId)
 
-        disagreeApprovalTable(userId).then(res => {
+        disagreeApprovalTable(userId, this.pageSize3, this.pageNo3).then(res => {
           this.disagreeApproval_infos = res.data.records
+          this.total3 = res.data.total
           console.info('开始')
           // console.info(this.disagreeApproval_infos)
           console.info('结束')
@@ -805,6 +839,31 @@ export default {
         console.error('Error fetching userId:', error)
         // Handle errors from getuserid() if necessary
       })
+    },
+    handleSizeChange1 (value) {
+      this.pageSize1 = value
+      this.getApprovalTabel()
+    },
+    handleSizeChange2 (value) {
+      this.pageSize2 = value
+      console.info(this.pageSize2)
+      this.getAgreeApprovalTabel()
+    },
+    handleSizeChange3 (value) {
+      this.pageSize3 = value
+      this.getApprovalTabel()
+    },
+    handleCurrentChange1 (value) {
+      this.pageNo1 = value
+      this.getApprovalTabel()
+    },
+    handleCurrentChange2 (value) {
+      this.pageNo2 = value
+      this.getAgreeApprovalTabel()
+    },
+    handleCurrentChange3 (value) {
+      this.pageNo3 = value
+      this.getDisagreeApprovalTabel()
     }
   },
   mounted () {

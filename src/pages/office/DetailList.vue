@@ -88,10 +88,6 @@
                                     </el-table-column>
                                     <el-table-column
                                         prop="address"
-                                        label="身份证号">
-                                    </el-table-column>
-                                    <el-table-column
-                                        prop="address"
                                         label="移动电话">
                                     </el-table-column>
                                     <el-table-column
@@ -122,7 +118,7 @@
                         </el-col>
                     </el-row>
                     <el-table
-                            :data="filteredData"
+                            :data="DetailListTable"
                             style="width: 100%"
                             @selection-change="handleSelectionChange">
                         <el-table-column
@@ -138,26 +134,40 @@
                         <el-table-column
                                 prop="name"
                                 label="姓名">
+                            <template slot-scope="scope">
+                                <span class="normal">{{scope.row.trueFacultyName}}</span>
+                            </template>
                         </el-table-column>
                         <el-table-column
                                 prop="num"
                                 label="工号">
+                            <template slot-scope="scope">
+                                <span class="normal">{{scope.row.trueFacultyId}}</span>
+                            </template>
                         </el-table-column>
                         <el-table-column
                                 prop="dept"
                                 label="所在单位">
-                        </el-table-column>
-                        <el-table-column
-                                prop="id_card"
-                                label="身份证号">
+                            <template slot-scope="scope">
+                                <span class="normal">{{scope.row.college}}</span>
+                            </template>
                         </el-table-column>
                         <el-table-column
                                 prop="tele"
                                 label="移动电话">
+                            <template slot-scope="scope">
+                                <span class="normal">{{scope.row.tele}}</span>
+                            </template>
                         </el-table-column>
                         <el-table-column
                                 prop="source"
                                 label="来源">
+                            <template slot-scope="scope">
+                                        <span class="normal">
+                                            <div  v-if="scope.row.true_faculty_id==scope.row.faculty_faculty_id">自主报名</div>
+                                            <div  v-else>被报名</div>
+                                        </span>
+                            </template>
                         </el-table-column>
                         <el-table-column
                                 prop="operation"
@@ -171,9 +181,15 @@
                         </el-table-column>
                     </el-table>
                     <el-pagination
-                            background
-                            layout="total, prev, pager, next"
-                            :total="1000">
+                        style="margin-top: 20px"
+                        background
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="pageNo"
+                        :page-sizes="[5, 10, 20, 40]"
+                        :page-size="pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="total">
                     </el-pagination>
                 </el-row>
             </el-card>
@@ -182,8 +198,11 @@
 </template>
 
 <script>
+import {getuserid, ExamListDetailsTable} from '../../api/office'
+
 export default {
   name: 'DetailList',
+  props: ['batchname'],
   data: function () {
     return {
       options: [{
@@ -202,6 +221,7 @@ export default {
         value: '选项5',
         label: '北京烤鸭'
       }],
+      batchName: '',
       value: '',
       input: '',
       tableData: [{
@@ -233,6 +253,7 @@ export default {
         tele: '110',
         source: '自主报名'
       }],
+      DetailListTable: [],
       activeName: 'Batch',
       invitation: false,
       invite_way: 'self',
@@ -240,7 +261,10 @@ export default {
       selectedIds: [],
       dialogTableVisible: false,
       searchQuery: '',
-      filteredData: []
+      filteredData: [],
+      total: 0,
+      pageNo: 1,
+      pageSize: 5
     }
   },
   methods: {
@@ -266,10 +290,27 @@ export default {
     },
     handleSelectionChange (val) {
       this.selectedIds = val.map(item => this.filteredData.indexOf(item))
+    },
+    getDetailListTable () {
+      console.info(this.batchname)
+      getuserid().then(res => {
+        const userId = res.data.userId
+        console.log('userId:', userId)
+        ExamListDetailsTable(userId, this.batchname, this.pageSize, this.pageNo).then(res => {
+          this.DetailListTable = res.data.records
+          this.total = res.data.total
+          console.info('121221314134134134134')
+          console.info(this.DetailListTable)
+        })
+      })
     }
   },
   mounted () {
     this.fetchItems()
+  },
+  created () {
+    this.getDetailListTable()
+    this.batchName = this.batchname
   }
 }
 </script>

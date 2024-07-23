@@ -26,7 +26,7 @@
                                                         <el-button
                                                             size="mini"
                                                             type="text"
-                                                            @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+                                                            @click="handleEdit(scope.row)">查看</el-button>
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column
@@ -36,12 +36,6 @@
                                                 <el-table-column
                                                     prop="address"
                                                     label="报名开始时间" width="180">
-                                                    <template slot-scope="scope">
-                                                        <el-button
-                                                            size="mini"
-                                                            type="text"
-                                                            @click="handleEdit(scope.$index, scope.row)">2023年A楼2023监考报名</el-button>
-                                                    </template>
                                                 </el-table-column>
                                                 <el-table-column
                                                     prop="address"
@@ -62,7 +56,7 @@
                                                         <el-button
                                                             size="mini"
                                                             type="text"
-                                                            @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+                                                            @click="handleEdit(scope.row)">查看</el-button>
                                                     </template>
                                                 </el-table-column>
                                         </el-table>
@@ -79,7 +73,7 @@
                                 </el-col>
                             </el-row>
                             <el-table
-                                :data="filteredData"
+                                :data="examListData"
                                 style="width: 100%"
                                 @selection-change="handleSelectionChange">
                                 <el-table-column
@@ -98,34 +92,47 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+                                            @click="handleBatchDetail(scope.row)">{{scope.row.batchName}}</el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="name"
                                     label="监考人数">
+                                    <template slot-scope="scope">
+                                        <span class="normal">{{ scope.row.batchDuration }}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
                                     label="报名开始时间" width="180">
                                     <template slot-scope="scope">
-                                        <el-button
-                                            size="mini"
-                                            type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">2023年A楼2023监考报名</el-button>
+                                        <span class="normal">{{ scope.row.batchStartTime }}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
                                     label="报名结束时间">
+                                    <template slot-scope="scope">
+                                        <span class="normal">{{ scope.row.batchEndTime }}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
                                     label="创建时间">
+                                    <template slot-scope="scope">
+                                        <span class="normal">{{ scope.row.batchCreatedTime }}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
-                                    prop="address"
+                                    prop="status"
                                     label="批次状态">
+                                    <template slot-scope="scope">
+                                        <span class="teamName">
+                                            <div style="color: black" v-if="scope.row.batchStartTime>nowTime">未开始</div>
+                                            <div style="color: red" v-else-if="scope.row.batchEndTime<nowTime">已结束</div>
+                                            <div style="color: green" v-else>进行中</div>
+                                        </span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
@@ -134,15 +141,21 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+                                            @click="handleEdit(scope.row)">查看</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
-                            <el-pagination
-                                background
-                                layout="total, prev, pager, next"
-                                :total="1000">
-                            </el-pagination>
+                    <el-pagination
+                        style="margin-top: 20px"
+                        background
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="pageNo"
+                        :page-sizes="[5, 10, 20, 40]"
+                        :page-size="pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="total">
+                    </el-pagination>
                 </el-row>
             </el-card>
         </div>
@@ -151,10 +164,13 @@
 
 <script>
 
+import {ExamListTable, getuserid, selectExamListByName} from '../../api/office'
+import moment from 'moment'
 export default {
   name: 'ExamList',
   data () {
     return {
+      nowTime: moment().format('YYYY-MM-DD HH:mm:ss'),
       options: [{
         value: '选项1',
         label: '黄金糕'
@@ -192,9 +208,13 @@ export default {
         name: '王小四',
         address: '上海市普陀区金沙江路 1516 弄'
       }],
+      examListData: [],
       activeName: 'Batch',
       searchQuery: '',
-      filteredData: []
+      filteredData: [],
+      total: 0,
+      pageNo: 1,
+      pageSize: 5
     }
   },
   methods: {
@@ -203,19 +223,15 @@ export default {
       this.filteredData = this.items
     },
     handleSearch () {
-      console.log(this.searchQuery)
-      console.log(this.items)
-      if (this.searchQuery.trim()) {
-        this.filteredData = this.items.filter(item =>
-          item.name.includes(this.searchQuery)
-        )
-      } else {
-        this.filteredData = this.items
+      if (this.searchQuery != null) {
+        selectExamListByName(this.searchQuery).then(res => {
+          this.examListData = res.data.records
+        })
       }
     },
     handleReset () {
       this.searchQuery = ''
-      this.filteredData = this.items
+      this.getExamListTable()
     },
     handleSelectionChange (val) {
       this.selectedIds = val.map(item => this.filteredData.indexOf(item))
@@ -223,12 +239,43 @@ export default {
     handleEdit (row) {
       this.$router.push({
         name: 'DetailList',
-        query: {name: row.name}
+        params: {batchname: row.batchName}
       })
+    },
+    getExamListTable () {
+      getuserid().then(res => {
+        const userId = res.data.userId
+        console.log('userId:', userId)
+        ExamListTable(userId, this.pageSize, this.pageNo).then(res => {
+          this.examListData = res.data.records
+          this.total = res.data.total
+          console.info('开始')
+          console.info(this.examListData)
+          console.info('结束')
+        })
+      })
+    },
+    handleBatchDetail (row) {
+      this.$router.push({
+        name: 'BatchDetail',
+        params: {batchname: row.batchName}
+      })
+    },
+    handleSizeChange (value) {
+      this.pageSize = value
+      this.getExamListTable()
+    },
+    handleCurrentChange (value) {
+      this.pageNo = value
+      this.getExamListTable()
     }
   },
   mounted () {
     this.fetchItems()
+  },
+  created () {
+    this.getExamListTable()
+    console.info(this.nowTime)
   }
 }
 </script>
