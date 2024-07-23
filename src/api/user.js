@@ -107,3 +107,10 @@ export const disagreeSelect = (trueFacultyName, userId) => {
     userId: userId
   })
 }
+// 部门与角色管理添加部门
+export const addCollege = (collegeName, type) => {
+  return http.GET('/api/college/addCollege', {
+    collegeName: collegeName,
+    type: type
+  })
+}

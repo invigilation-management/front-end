@@ -38,9 +38,12 @@
                             <el-radio v-model="selectedContent" label="alot">批量导入</el-radio>
 <!--                            以下是添加一个成员时的对话框-->
                             <div v-if="selectedContent === 'alone'">
-                                <el-input autocomplete="off"  class="input1" placeholder="请输入姓名/工号模糊查询" ></el-input>
+                                <el-input autocomplete="off"  style="width: 500px" class="input1" placeholder="请输入姓名/工号模糊查询" ></el-input>
+                                <el-button type="primary" style="margin-left: 30px;width: 145px" @click="innerSelect">查询</el-button>
                                 <div class="grey">
-                                    <br>&nbsp; 姓名: <br><br>&nbsp; 工号: <br><br>&nbsp; 所在单位: <br><br>
+                                    <br>&nbsp; 姓名: {{this.selectName}}<br>
+                                    <br>&nbsp; 工号:{{this.selectId}}<br>
+                                    <br>&nbsp; 所在单位: {{this.selectCollege}}<br><br>
                                 </div>
                                 <br><br>所在部门：<br>
                                 <br><el-input v-model="input_department" placeholder="请选择所在部门"></el-input>
@@ -70,13 +73,13 @@
                         <!--                    以下是对话弹窗部分-->
                         <el-dialog title="添加部门" :visible.sync="dialogVisible_Add_Department">
                             <hr class="card-divider">
-                            <br><br><br>
+                            <br>
                             部门名称：<el-input class="input2" v-model="input_department_name" placeholder="请输入部门名称"></el-input>
                             <br><br>
                             部门类型：<el-input class="input2" v-model="input_department_type" placeholder="请选择部门类型"></el-input>
                             <br><br><br>
                             <div style="display: flex; flex-direction: column; align-items: center;">
-                                <el-button type="primary" style="width: 200px;background-color:#166AFF">提交</el-button>
+                                <el-button type="primary" style="width: 200px;background-color:#166AFF" @click="collegeSubmit">提交</el-button>
                             </div>
                         </el-dialog>
                         <!--                    以上是对话弹窗部分-->
@@ -205,10 +208,32 @@
 </template>
 
 <script>
-import {getuserid, collegeRoleTable, collegeRoleSelect} from '../../api/user'
+import {getuserid, collegeRoleTable, collegeRoleSelect, addCollege} from '../../api/user'
 export default {
   name: 'RoleManagement',
   methods: {
+    collegeSubmit () {
+      // 子对话里添加部门
+      this.dialogVisible_Add_Department = false
+      if (this.input_department_name != null && this.input_department_type != null) {
+        addCollege(this.input_department_name, this.input_department_type).then(res => {
+          if (res.data === true) {
+            this.$message({
+              message: '添加成功',
+              type: 'success'
+            })
+          } else if (res.data === false) {
+            this.$message({
+              message: '添加失败，请稍后重试',
+              type: 'warning'
+            })
+          }
+        })
+      }
+    },
+    innerSelect () {
+      // 里面的子对话查询
+    },
     select () {
       if (this.input != null) {
         collegeRoleSelect(this.input).then(response => {
@@ -261,7 +286,10 @@ export default {
       input_department: '',
       input_department_name: '',
       input_department_type: '',
-      dialogVisible_Add_Department: false
+      dialogVisible_Add_Department: false,
+      selectName: '',
+      selectId: '',
+      selectCollege: ''
     }
   }
 }

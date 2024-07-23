@@ -92,7 +92,7 @@
                                                     <template slot-scope="scope">
                                                         <el-button
                                                             type="text"
-                                                            @click="showApprovalDialog(scope.row)">审批</el-button>
+                                                            @click="showApprovalDialog(scope.row)">data.records</el-button>
                                                     </template>
                                                 </el-table-column>
                                             </el-table>
@@ -168,49 +168,10 @@
                                     <template slot-scope="scope">
                                         <el-button
                                             type="text"
-                                            @click="showApprovalDialog(scope.row)">审批</el-button>
+                                            @click="showApprovalDialog(scope.$index)">审批</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
-<!--                            <el-dialog :visible.sync="isApprovalDialogVisible" title="审批" width="600px" center style="font-weight: bolder">-->
-<!--                            <el-form :model="approvalForm">-->
-<!--                                <el-table :data="[approvalForm]" stripe style="width: 100%; margin-bottom: 20px;">-->
-<!--                                    <el-table-column prop="num" label="工号" width="180">-->
-<!--                                        <template v-slot="scope">-->
-<!--                                            <span style="font-size: 16px; padding: 10px;">{{ scope.row.num }}</span>-->
-<!--                                        </template>-->
-<!--                                    </el-table-column>-->
-<!--                                    <el-table-column prop="name" label="姓名" width="180">-->
-<!--                                        <template v-slot="scope">-->
-<!--                                            <span style="font-size: 16px; padding: 10px;">{{ scope.row.name }}</span>-->
-<!--                                        </template>-->
-<!--                                    </el-table-column>-->
-<!--                                    <el-table-column width="180" label="操作">-->
-<!--                                        <template> <el-button type="text" style="font-size: 18px">移除</el-button></template>-->
-<!--                                    </el-table-column>-->
-<!--                                </el-table>-->
-<!--                                <hr />-->
-<!--                                <el-form-item label="审批" style="text-align: center;">-->
-<!--                                    <el-radio-group v-model="approvalForm.approval">-->
-<!--                                        <el-radio label="同意" style="font-size: 16px;">同意</el-radio>-->
-<!--                                        <el-radio label="不同意" style="font-size: 16px;">不同意</el-radio>-->
-<!--                                    </el-radio-group>-->
-<!--                                </el-form-item>-->
-<!--                                <el-form-item v-if="approvalForm.approval === '不同意'" style="text-align: center;">-->
-<!--                                    <el-input-->
-<!--                                        v-model="approvalForm.reason"-->
-<!--                                        placeholder="请输入不同意理由"-->
-<!--                                        type="textarea"-->
-<!--                                        style="background-color: #f0f0f0; width: 100%;"></el-input>-->
-<!--                                </el-form-item>-->
-<!--                                <span style="color: red; display: block; text-align: center; font-size: 16px;">请确认，一经提交无法申请</span>-->
-<!--                                <hr />-->
-<!--                                <el-form-item style="text-align: center;">-->
-<!--                                    <el-button type="primary" @click="submitApproval" style="font-size: 16px;">提交</el-button>-->
-<!--                                    <el-button @click="isApprovalDialogVisible = false" style="font-size: 16px;">取消</el-button>-->
-<!--                                </el-form-item>-->
-<!--                            </el-form>-->
-<!--                        </el-dialog>-->
                             <el-pagination
                                 background
                                 layout="total, prev, pager, next"
@@ -480,6 +441,45 @@
                 </el-row>
             </el-card>
         </div>
+        <el-dialog :visible.sync="isApprovalDialogVisible" title="审批" width="600px" center style="font-weight: bolder">
+            <el-form :model="approvalForm">
+                <el-table :data="[approvalForm]" stripe style="width: 100%; margin-bottom: 20px;">
+                    <el-table-column prop="num" label="工号" width="180">
+                        <template v-slot="scope">
+                            <span style="font-size: 16px; padding: 10px;">{{ approvalForm.trueFacultyId}}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="name" label="姓名" width="180">
+                        <template v-slot="scope">
+                            <span style="font-size: 16px; padding: 10px;">{{ approvalForm.trueFacultyName }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column width="180" label="操作">
+                        <template> <el-button type="text" style="font-size: 18px">移除</el-button></template>
+                    </el-table-column>
+                </el-table>
+                <hr />
+                <el-form-item label="审批" style="text-align: center;">
+                    <el-radio-group v-model="approvalForm.approval">
+                        <el-radio label="同意" style="font-size: 16px;">同意</el-radio>
+                        <el-radio label="不同意" style="font-size: 16px;">不同意</el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item v-if="approvalForm.approval === '不同意'" style="text-align: center;">
+                    <el-input
+                        v-model="approvalForm.reason"
+                        placeholder="请输入不同意理由"
+                        type="textarea"
+                        style="background-color: #f0f0f0; width: 100%;"></el-input>
+                </el-form-item>
+                <span style="color: red; display: block; text-align: center; font-size: 16px;">请确认，一经提交无法申请</span>
+                <hr />
+                <el-form-item style="text-align: center;">
+                    <el-button type="primary" @click="submitApproval" style="font-size: 16px;">提交</el-button>
+                    <el-button @click="isApprovalDialogVisible = false" style="font-size: 16px;">取消</el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
     </div>
 </template>
 
@@ -512,11 +512,13 @@ export default {
       dialogTableVisible: false,
       dialogTableVisible1: false,
       dialogTableVisible2: false,
+      isApprovalDialogVisible: false,
       invitation: false,
       invite_way: 'self',
       input_exam_num: '',
       disagree_reason: '',
-      agreeordis: 'agree'
+      agreeordis: 'agree',
+      approvalForm: {}
     }
   },
   methods: {
@@ -629,13 +631,18 @@ export default {
     handlePreview (row) {
       // 处理预览逻辑
     },
-    showApprovalDialog (row) {
-      this.approvalForm = { ...row }
-      this.isApprovalDialogVisible = false
+    showApprovalDialog (index) {
+      this.approvalForm = this.approval_infos[index]
+      console.info(this.approvalForm)
+      this.isApprovalDialogVisible = true
     },
     submitApproval () {
       // 提交审批逻辑
       this.isApprovalDialogVisible = false
+    },
+    handleAction () {
+      this.isApprovalDialogVisible = true
+      console.info('this.isApprovalDialogVisible')
     }
   },
   created () {
