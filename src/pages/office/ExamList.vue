@@ -99,7 +99,7 @@
                                     prop="name"
                                     label="监考人数">
                                     <template slot-scope="scope">
-                                        <span class="normal">{{ scope.row.batchDuration }}</span>
+                                        <span class="normal">{{ scope.row.alreadyPassedNum }}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
