@@ -1,36 +1,36 @@
 <template>
-  <div>
-    <div id="sidebar-logo" class="sidebar-logo" :style="{backgroundColor: theme === 'light' ? '#ffffff' : '#1f2c35'}">
-      <div class="sidebar-logo-png">
-      <img :src="logo.src" :alt="logo.alt" />
-      </div>
-      <transition name="fade" :duration="300">
-        <div v-if="!collapse" class="sidebar-logo-title">
-          <p>{{logo.firstDes}}</p>
-          <p>{{logo.secondDes}}</p>
+    <div>
+        <div id="sidebar-logo" class="sidebar-logo" :style="sidebarLogoStyles">
+            <div class="sidebar-logo-png">
+                <img :src="logo.src" :alt="logo.alt" />
+            </div>
+            <transition name="fade" :duration="300">
+                <div v-if="!collapse" class="sidebar-logo-title">
+                    <p>{{logo.firstDes}}</p>
+                    <p>{{logo.secondDes}}</p>
+                </div>
+            </transition>
         </div>
-      </transition>
+        <s-side-bar-scroll
+                :collapse="collapse"
+        >
+            <s-menu
+                    mode="vertical"
+                    :default-active="defaultActive"
+                    :collapse="collapse"
+                    :background-color="backgroundColor"
+                    :text-color="textColor"
+                    :active-text-color="activeTextColor"
+                    @select="handleMenuSelect"
+            >
+                <s-sidebar-item
+                        :sidebar-list="sidebarList"
+                />
+            </s-menu>
+        </s-side-bar-scroll>
     </div>
-    <s-side-bar-scroll
-      :collapse="collapse"
-    >
-      <s-menu
-        mode="vertical"
-        :default-active="defaultActive"
-        :collapse="collapse"
-        :background-color="backgroundColor"
-        :text-color="textColor"
-        :active-text-color="activeTextColor"
-        @select="handleMenuSelect"
-      >
-        <s-sidebar-item
-          :sidebar-list="sidebarList"
-        />
-      </s-menu>
-    </s-side-bar-scroll>
-  </div>
-
 </template>
+
 <script>
 import {Menu} from 'element-ui'
 import {_isArrayFn} from '@/tools/utils'
@@ -46,7 +46,8 @@ export default {
     backgroundColor: String,
     textColor: String,
     activeTextColor: String,
-    theme: String
+    theme: String,
+    backgroundImage: String // 新增背景图片属性
   },
   components: {
     's-menu': Menu,
@@ -75,6 +76,14 @@ export default {
         return false
       })
       return active
+    },
+    sidebarLogoStyles () {
+      return {
+        backgroundColor: this.theme === 'light' ? '#ffffff' : '#1f2c35',
+        backgroundImage: `url(${this.backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'
+      }
     }
   },
   methods: {
@@ -101,5 +110,4 @@ export default {
     }
   }
 }
-
 </script>

@@ -290,7 +290,8 @@ export default {
     light: {
       background: '#ffffff',
       text: '#000000',
-      activeText: '#1890ff'
+      activeText: '#1890ff',
+      backgroundImage: 'src/assets/images/xjtu.png' // 更新背景图片路径
     }
   }
 }
