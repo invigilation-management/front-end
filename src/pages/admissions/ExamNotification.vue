@@ -193,14 +193,19 @@
                     label="操作"
                     width="200">
                     <template slot-scope="scope">
-                        <el-button type="text" @click='handleGoToVice' size="small">查看名单</el-button>
+                        <el-button type="text" @click='handleGoToVice(scope.row)' size="small">查看名单</el-button>
                     </template>
                 </el-table-column>
             </el-table>
             <el-pagination
-                small
-                layout="prev, pager, next"
-                :total="50">
+                background
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="pagenum"
+                :page-sizes="[5, 10, 20, 50]"
+                :page-size='pagesize'
+                layout="total, sizes, prev, pager, next, jumper"
+                :total='total'>
             </el-pagination>
         </el-card>
     </div>
@@ -213,6 +218,9 @@ export default {
   name: 'ViewList',
   data () {
     return {
+      pagenum: 1,
+      pagesize: 10,
+      total: 0,
       nowTime: moment().format('YYYY-MM-DD HH:mm:ss'),
       input: '',
       dialogTableVisible: false,
@@ -233,10 +241,19 @@ export default {
     }
   },
   methods: {
+    handleSizeChange (value) {
+      this.pagesize = value
+      this.select()
+    },
+    handleCurrentChange (value) {
+      this.pagenum = value
+      this.select()
+    },
     select () {
       if (this.input != null) {
-        noticeConfirmSelect(this.input).then(response => {
+        noticeConfirmSelect(this.input, this.pagesize, this.pagenum).then(response => {
           this.tableData = response.data.records
+          this.total = response.data.total
         })
       }
     },
@@ -247,17 +264,14 @@ export default {
     getNoticeConfirmTable () {
       getuserid().then(response => {
         const userId = response.data.userId
-        console.log('userId:', userId)
-        // Call approvalTable with the retrieved userId
-        noticeConfirmTable(userId).then(response => {
+        noticeConfirmTable(userId, this.pagesize, this.pagenum).then(response => {
           this.tableData = response.data.records
+          this.total = response.data.total
         }).catch(error => {
           console.error('Error fetching approval table:', error)
-          // Handle errors as needed
         })
       }).catch(error => {
         console.error('Error fetching userId:', error)
-        // Handle errors from getuserid() if necessary
       })
     },
     handleSelectionChange (val) {
@@ -273,7 +287,7 @@ export default {
     handleGoToVice (row) {
       this.$router.push({
         name: 'NotationVice',
-        query: {name: row.name}
+        params: {batchname: row.batchName}
       })
     }
   },

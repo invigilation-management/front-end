@@ -174,8 +174,13 @@
                             </el-table>
                             <el-pagination
                                 background
-                                layout="total, prev, pager, next"
-                                :total="1000">
+                                @size-change="handleSizeChange1"
+                                @current-change="handleCurrentChange1"
+                                :current-page="pagenum1"
+                                :page-sizes="[5, 10, 20, 50]"
+                                :page-size='pagesize1'
+                                layout="total, sizes, prev, pager, next, jumper"
+                                :total='total1'>
                             </el-pagination>
                         </el-tab-pane>
                         <el-tab-pane label="同意报名" name="Agree">
@@ -280,7 +285,7 @@
                                     label="监考名称" width="180">
                                     <template v-slot="scope">
                                         <el-button type="text" @click="handleEdit(scope.row)">{{
-                                                scope.row.batch.batchName
+                                                scope.row.batch ? scope.row.batch.batchName : ''
                                             }}
                                         </el-button>
                                     </template>
@@ -303,8 +308,13 @@
                             </el-table>
                             <el-pagination
                                 background
-                                layout="total, prev, pager, next"
-                                :total="1000">
+                                @size-change="handleSizeChange2"
+                                @current-change="handleCurrentChange2"
+                                :current-page="pagenum2"
+                                :page-sizes="[5, 10, 20, 50]"
+                                :page-size='pagesize2'
+                                layout="total, sizes, prev, pager, next, jumper"
+                                :total='total2'>
                             </el-pagination>
                         </el-tab-pane>
                         <el-tab-pane label="不同意报名" name="Disagree">
@@ -431,8 +441,13 @@
                             </el-table>
                             <el-pagination
                                 background
-                                layout="total, prev, pager, next"
-                                :total="1000">
+                                @size-change="handleSizeChange3"
+                                @current-change="handleCurrentChange3"
+                                :current-page="pagenum3"
+                                :page-sizes="[5, 10, 20, 50]"
+                                :page-size='pagesize3'
+                                layout="total, sizes, prev, pager, next, jumper"
+                                :total='total3'>
                             </el-pagination>
                         </el-tab-pane>
                     </el-tabs>
@@ -497,6 +512,16 @@ export default {
   name: 'Approval',
   data: function () {
     return {
+      pagenum1: 1,
+      pagesize1: 10,
+      total1: 0,
+      pagenum2: 1,
+      pagesize2: 10,
+      total2: 0,
+      pagenum3: 1,
+      pagesize3: 10,
+      total3: 0,
+      // ------------------------------------------------------------
       value: '',
       input1: '',
       input2: '',
@@ -522,6 +547,30 @@ export default {
     }
   },
   methods: {
+    handleSizeChange1 (value) {
+      this.pagesize1 = value
+      this.selectOne()
+    },
+    handleCurrentChange1 (value) {
+      this.pagenum1 = value
+      this.selectOne()
+    },
+    handleSizeChange2 (value) {
+      this.pagesize2 = value
+      this.selectTwo()
+    },
+    handleCurrentChange2 (value) {
+      this.pagenum2 = value
+      this.selectTwo()
+    },
+    handleSizeChange3 (value) {
+      this.pagesize3 = value
+      this.selectThree()
+    },
+    handleCurrentChange3 (value) {
+      this.pagenum3 = value
+      this.selectThree()
+    },
     innerReset () {
       // 表示子页面的清空方法
       this.isApprovalDialogVisible = false
@@ -535,11 +584,12 @@ export default {
     // 表示当前页面的的模糊查询方法
     selectOne () {
       if (this.input1 != null) {
-        console.log(typeof this.input1)
         getuserid().then(response => {
           this.thisuserid = response.data.userId
-          approvalNameSelect(this.input1, this.thisuserid).then(response => {
+          approvalNameSelect(this.input1, this.thisuserid, this.pagesize1, this.pagenum1).then(response => {
+            console.log(response)
             this.approval_infos = response.data.records
+            this.total1 = response.data.total
           })
         })
       }
@@ -552,9 +602,14 @@ export default {
     selectTwo () {
       if (this.input2 != null) {
         getuserid().then(response => {
+          this.agreeApproval_infos = []
           this.thisuserid = response.data.userId
-          agreeSelect(this.input2, this.thisuserid).then(response => {
+          agreeSelect(this.input2, this.thisuserid, this.pagesize2, this.pagenum2).then(response => {
+            console.log(this.agreeApproval_infos)
             this.agreeApproval_infos = response.data.records
+            console.log(response.data.records)
+            console.log(this.agreeApproval_infos)
+            this.total2 = response.data.total
           })
         })
       }
@@ -568,8 +623,9 @@ export default {
       if (this.input3 != null) {
         getuserid().then(response => {
           this.thisuserid = response.data.userId
-          disagreeSelect(this.input3, this.thisuserid).then(response => {
+          disagreeSelect(this.input3, this.thisuserid, this.pagesize3, this.pagenum3).then(response => {
             this.disagreeApproval_infos = response.data.records
+            this.total3 = response.data.total
           })
         })
       }
@@ -577,23 +633,22 @@ export default {
     getApprovalTabel () {
       getuserid().then(response => {
         const userId = response.data.userId
-        // Call approvalTable with the retrieved userId
-        approvalTable(userId).then(response => {
+        approvalTable(userId, this.pagesize1, this.pagenum1).then(response => {
           this.approval_infos = response.data.records
+          this.total1 = response.data.total
         }).catch(error => {
           console.error('Error fetching approval table:', error)
-          // Handle errors as needed
         })
       }).catch(error => {
         console.error('Error fetching userId:', error)
-        // Handle errors from getuserid() if necessary
       })
     },
     getAgreeApprovalTabel () {
       getuserid().then(response => {
         const userId = response.data.userId
-        agreeApprovalTable(userId).then(response => {
+        agreeApprovalTable(userId, this.pagesize2, this.pagenum2).then(response => {
           this.agreeApproval_infos = response.data.records
+          this.total2 = response.data.total
         }).catch(error => {
           console.error('Error fetching approval table:', error)
         })
@@ -604,9 +659,9 @@ export default {
     getDisagreeApprovalTabel () {
       getuserid().then(response => {
         const userId = response.data.userId
-        console.log('userId:', userId)
-        disagreeApprovalTable(userId).then(response => {
+        disagreeApprovalTable(userId, this.pagesize3, this.pagenum3).then(response => {
           this.disagreeApproval_infos = response.data.records
+          this.total3 = response.data.total
         }).catch(error => {
           console.error('Error fetching approval table:', error)
         })
@@ -624,7 +679,7 @@ export default {
       this.$router.push({
         name: 'batchDetails',
         query: {name: row.name},
-        params: {batchname: row.batch.batchName}
+        params: {batchname: row.batch ? row.batch.batchName : ''}
       })
     },
     handleSubmit (row) {
@@ -643,7 +698,6 @@ export default {
     submitApproval () {
       // 同意审批逻辑
       this.isApprovalDialogVisible = false
-      console.log(this.approvalForm.approval)
       if (this.approvalForm.approval === '同意') {
         // 同意这个审批的逻辑：
         getuserid().then(response => {

@@ -104,112 +104,110 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="trueFacultyName"
                     label="姓名"
                     width="120">
-<!--                    <template v-slot="scope">-->
-<!--                    <el-button type="text" size="small" @click="handleEdit(scope.row)">{{-->
-<!--                            scope.row.name-->
-<!--                        }}-->
-<!--                    </el-button>-->
-<!--                </template>-->
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.trueFacultyName}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
-                    prop="status"
+                    prop="gender"
                     label="性别"
                     width="137">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.gender}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
-                    prop="num"
+                    prop="trueFacultyId"
                     label="工号"
                     width="180">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.trueFacultyId}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
-                    prop="partment"
+                    prop="college"
                     label="所在单位"
                     width="220">
-                </el-table-column>
-                <el-table-column
-                    prop="Id"
-                    label="身份证号"
-                    width="210">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.college}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     prop="tele"
                     label="移动电话"
                     width="155">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.tele}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="监考时间"
                     prop="time"
                     width="200">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.regStartTime}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="监考场次(200/场)"
                     prop="count"
                     width="200">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.regStartTime}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="总金额"
-                    prop="money"
+                    prop="amount"
                     width="150">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.amount}}</span>
+                    </template>
                 </el-table-column>
             </el-table>
             <el-pagination
-                small
-                layout="prev, pager, next"
-                :total="50">
+                    background
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="pagenum"
+                    :page-sizes="[5, 10, 20, 50]"
+                    :page-size='pagesize'
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total='total'>
             </el-pagination>
         </el-card>
     </div>
 </template>
 
 <script>
+import {toDetailFees} from '../../api/user'
 export default {
   name: 'ExamFees',
+  props: ['batchname'],
   data () {
     return {
+      pagenum: 1,
+      pagesize: 10,
+      total: 0,
       input: '',
       dialogTableVisible: false,
       selectedIds: [],
-      tableData: [
-        {
-          name: '张三',
-          status: '男',
-          num: '1001',
-          partment: '计算机学院',
-          Id: '350524000000000001',
-          tele: '17894562351',
-          time: '2023-09-12 10:30:00',
-          count: '4',
-          money: '800'
-        }, {
-          name: '张三',
-          status: '男',
-          num: '1001',
-          partment: '计算机学院',
-          Id: '350524000000000001',
-          tele: '17894562351',
-          time: '2023-09-12 10:30:00',
-          count: '4',
-          money: '800'
-        }, {
-          name: '张三',
-          status: '男',
-          num: '1001',
-          partment: '计算机学院',
-          Id: '350524000000000001',
-          tele: '17894562351',
-          time: '2023-09-12 10:30:00',
-          count: '4',
-          money: '800'
-        }
-
-        // Add more data objects as required
-      ]
+      tableData: [],
+      batchname1: ''
     }
   },
   methods: {
+    handleSizeChange (value) {
+      this.pagesize = value
+      this.show()
+    },
+    handleCurrentChange (value) {
+      this.pagenum = value
+      this.show()
+    },
     handleSelectionChange (val) {
       this.selectedIds = val.map(item => this.tableData.indexOf(item))
     },
@@ -218,7 +216,17 @@ export default {
         name: 'batchDetails',
         query: {name: row.name}
       })
+    },
+    show () {
+      toDetailFees(this.batchname1, this.pagesize, this.pagenum).then(response => {
+        this.tableData = response.data.records
+        this.total = response.data.total
+      })
     }
+  },
+  created () {
+    this.batchname1 = this.$route.params.batchname
+    this.show()
   }
 }
 </script>

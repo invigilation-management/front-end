@@ -33,11 +33,7 @@ export default {
   },
   methods: {
     show () {
-      console.log(this.$props.batchname)
       todetails(this.$props.batchname).then(response => {
-        console.log('kaishi')
-        console.log(response)
-        console.log('jieshu')
         this.batch_name = response.data.records[0].batchName
         this.batch_start_time = response.data.records[0].batchStartTime
         this.batch_end_time = response.data.records[0].batchEndTime

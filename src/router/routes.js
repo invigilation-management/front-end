@@ -44,6 +44,7 @@ const admissionsHeadPage = [
       {
         path: 'waiting',
         name: 'waiting',
+        props: true,
         component: () => import(/* webpackChunkName: "DisagreeDetails" */ '../pages/admissions/Management_view_member.vue')
       },
       {
@@ -104,11 +105,13 @@ const admissionsHeadPage = [
       {
         path: 'notationvice',
         name: 'NotationVice',
+        props: true,
         component: () => import(/* webpackChunkName: "ExamNotification" */ '../pages/admissions/NotationVice.vue')
       },
       {
         path: 'exam-fees',
         name: 'examFees',
+        props: true,
         component: () => import(/* webpackChunkName: "ExamFees" */ '../pages/admissions/ExamFees.vue')
       },
       {
@@ -119,6 +122,7 @@ const admissionsHeadPage = [
       {
         path: 'viewList',
         name: 'ViewList',
+        props: true,
         component: () => import(/* webpackChunkName: "RoleManagement" */ '../pages/admissions/ViewList.vue')
       },
       {

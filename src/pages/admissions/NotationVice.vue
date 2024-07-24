@@ -103,43 +103,61 @@
                         prop="name"
                         label="姓名"
                         width="129">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.trueFacultyName}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="status"
                         label="性别"
                         width="90"
                         show-overflow-tooltip>
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.gender}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="num"
                         label="工号"
                         width="150">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.trueFacultyId}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="partment"
                         label="所在单位"
                         width="177">
-                </el-table-column>
-                <el-table-column
-                        prop="Id"
-                        label="身份证号"
-                        width="217">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.college}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="tele"
                         label="移动电话"
                         width="150">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.tele}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
-                        prop="confirm"
+                        prop="confirmOrNot"
                         label="是否确认"
                         width="150">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.confirmOrNot}}</span>
+                    </template>
                 </el-table-column>
             </el-table>
             <el-pagination
-                    small
-                    layout="prev, pager, next"
-                    :total="50">
+                background
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="pagenum"
+                :page-sizes="[5, 10, 20, 50]"
+                :page-size='pagesize'
+                layout="total, sizes, prev, pager, next, jumper"
+                :total='total'>
             </el-pagination>
         </el-card>
         <!--        <router-link to="details">details</router-link>-->
@@ -150,10 +168,17 @@
 </template>
 
 <script>
+import {toDetailConfirm} from '../../api/user'
+
 export default {
   name: 'NotationVice',
+  props: ['batchname'],
   data () {
     return {
+      pagenum: 1,
+      pagesize: 10,
+      total: 0,
+      batchname1: '',
       input: '',
       dialogTableVisible: false,
       insert_exam_info: false,
@@ -173,55 +198,18 @@ export default {
       formLabelWidth: '120px',
       bigformLabelHeight: '158px',
       selectedIds: [],
-      tableData: [ {
-        name: '张三',
-        status: '男',
-        num: '1001',
-        partment: '计算机学院',
-        Id: '350524000000000001',
-        tele: '17894562351',
-        time: '2023-09-12 10:30:00',
-        count: '2',
-        room: '软件北小楼204',
-        confirm: '已确认'
-      }, {
-        name: '张三',
-        status: '男',
-        num: '1001',
-        partment: '计算机学院',
-        Id: '350524000000000001',
-        tele: '17894562351',
-        time: '2023-09-12 10:30:00',
-        count: '2',
-        room: '软件北小楼204',
-        confirm: '已确认'
-      }, {
-        name: '张三',
-        status: '男',
-        num: '1001',
-        partment: '计算机学院',
-        Id: '350524000000000001',
-        tele: '17894562351',
-        time: '2023-09-12 10:30:00',
-        count: '2',
-        room: '软件北小楼204',
-        confirm: '已确认'
-      }, {
-        name: '张三',
-        status: '男',
-        num: '1001',
-        partment: '计算机学院',
-        Id: '350524000000000001',
-        tele: '17894562351',
-        time: '2023-09-12 10:30:00',
-        count: '2',
-        room: '软件北小楼204',
-        confirm: '已确认'
-      }]
-
+      tableData: []
     }
   },
   methods: {
+    handleSizeChange (value) {
+      this.pagesize = value
+      this.show()
+    },
+    handleCurrentChange (value) {
+      this.pagenum = value
+      this.show()
+    },
     handleSelectionChange (val) {
       this.selectedIds = val.map(item => this.tableData.indexOf(item))
     },
@@ -230,7 +218,17 @@ export default {
         name: 'batchDetails',
         query: {name: row.name}
       })
+    },
+    show () {
+      toDetailConfirm(this.batchname1, this.pagesize, this.pagenum).then(response => {
+        this.tableData = response.data.records
+        this.total = response.data.total
+      })
     }
+  },
+  created () {
+    this.batchname1 = this.$route.params.batchname
+    this.show()
   }
 }
 </script>

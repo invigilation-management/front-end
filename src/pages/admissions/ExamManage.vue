@@ -217,8 +217,13 @@
             </el-table>
             <el-pagination
                 background
-                layout="prev, pager, next"
-                :total="1000">
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="pagenum"
+                :page-sizes="[5, 10, 20, 50]"
+                :page-size='pagesize'
+                layout="total, sizes, prev, pager, next, jumper"
+                :total='total'>
             </el-pagination>
         </el-card>
     </div>
@@ -231,6 +236,9 @@ export default {
   name: 'ViewList',
   data () {
     return {
+      pagenum: 1,
+      pagesize: 10,
+      total: 0,
       nowTime: moment().format('YYYY-MM-DD HH:mm:ss'),
       // 表示现在的时间
       input: '',
@@ -254,6 +262,14 @@ export default {
     }
   },
   methods: {
+    handleSizeChange (value) {
+      this.pagesize = value
+      this.select()
+    },
+    handleCurrentChange (value) {
+      this.pagenum = value
+      this.select()
+    },
     batchCreateSubmit () {
       // 创建批次对话框的确认方法
       this.dialogFormVisible = false
@@ -284,8 +300,9 @@ export default {
     },
     select () {
       if (this.input != null) {
-        examManageSelect(this.input).then(response => {
+        examManageSelect(this.input, this.pagesize, this.pagenum).then(response => {
           this.examManageInfos = response.data.records
+          this.total = response.data.total
         })
       }
     },
@@ -296,13 +313,9 @@ export default {
     getExamManageTable () {
       getuserid().then(response => {
         const userId = response.data.userId
-        console.log('userId:', userId)
-        // Call approvalTable with the retrieved userId
-        examManageTable(userId).then(response => {
+        examManageTable(userId, this.pagesize, this.pagenum).then(response => {
           this.examManageInfos = response.data.records
-          console.info('开始')
-          console.info(this.examManageInfos)
-          console.info('结束')
+          this.total = response.data.total
         }).catch(error => {
           console.error('Error fetching approval table:', error)
           // Handle errors as needed

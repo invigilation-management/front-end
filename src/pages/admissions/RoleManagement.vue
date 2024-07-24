@@ -202,6 +202,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
+                <el-pagination
+                    background
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="pagenum"
+                    :page-sizes="[5, 10, 20, 50]"
+                    :page-size='pagesize'
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total='total'>
+                </el-pagination>
             </el-card>
         </div>
         <!-- 添加你的部门与角色管理内容 -->
@@ -213,6 +223,14 @@ import {getuserid, collegeRoleTable, collegeRoleSelect, addCollege, findBeforePo
 export default {
   name: 'RoleManagement',
   methods: {
+    handleSizeChange (value) {
+      this.pagesize = value
+      this.select()
+    },
+    handleCurrentChange (value) {
+      this.pagenum = value
+      this.select()
+    },
     finalChange () {
       // 改变当前选中用户的所在学院信息
       this.dialogVisibleSelect = false
@@ -274,8 +292,9 @@ export default {
     },
     select () {
       if (this.input != null) {
-        collegeRoleSelect(this.input).then(response => {
+        collegeRoleSelect(this.input, this.pagesize, this.pagenum).then(response => {
           this.tableData = response.data.records
+          this.total = response.data.total
         })
       }
     },
@@ -286,17 +305,14 @@ export default {
     getCollegeRoleTable () {
       getuserid().then(response => {
         const userId = response.data.userId
-        console.log('userId:', userId)
-        // Call approvalTable with the retrieved userId
-        collegeRoleTable(userId).then(response => {
+        collegeRoleTable(userId, this.pagesize, this.pagenum).then(response => {
           this.tableData = response.data.records
+          this.total = response.data.total
         }).catch(error => {
           console.error('Error fetching approval table:', error)
-          // Handle errors as needed
         })
       }).catch(error => {
         console.error('Error fetching userId:', error)
-        // Handle errors from getuserid() if necessary
       })
     },
     handleMembers (row) {
@@ -314,6 +330,9 @@ export default {
   },
   data () {
     return {
+      pagenum: 1,
+      pagesize: 10,
+      total: 0,
       input: '',
       dialogTableVisible: false,
       selectedIds: [],

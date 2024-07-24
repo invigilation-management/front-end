@@ -83,8 +83,6 @@
 </template>
 
 <script>
-// import {methods} from 'babel-plugin-transform-runtime/lib/definitions'
-
 export default {
   name: 'Waiting',
   methods: {

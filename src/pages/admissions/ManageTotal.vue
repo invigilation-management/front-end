@@ -224,11 +224,16 @@
                                     </template>
                                 </el-table-column>
                             </el-table>
-                            <el-pagination
-                                    background
-                                    layout="total, prev, pager, next"
-                                    :total="1000">
-                            </el-pagination>
+                    <el-pagination
+                        background
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="pagenum"
+                        :page-sizes="[5, 10, 20, 50]"
+                        :page-size='pagesize'
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total='total'>
+                    </el-pagination>
                 </el-row>
             </el-card>
         </div>
@@ -242,6 +247,9 @@ export default {
   name: 'ManageTotal',
   data () {
     return {
+      pagenum: 1,
+      pagesize: 10,
+      total: 0,
       nowTime: moment().format('YYYY-MM-DD HH:mm:ss'),
       options: [{
         value: '选项1',
@@ -290,6 +298,14 @@ export default {
     }
   },
   methods: {
+    handleSizeChange (value) {
+      this.pagesize = value
+      this.select()
+    },
+    handleCurrentChange (value) {
+      this.pagenum = value
+      this.select()
+    },
     // 当前页面的重置方法
     reset () {
       this.getExamPlanTable()
@@ -298,25 +314,23 @@ export default {
     // 表示当前页面的的模糊查询方法
     select () {
       if (this.input != null) {
-        manageFeesSelect(this.input).then(response => {
+        manageFeesSelect(this.input, this.pagesize, this.pagenum).then(response => {
           this.tableData = response.data.records
+          this.total = response.data.total
         })
       }
     },
     getExamPlanTable () {
       getuserid().then(response => {
         const userId = response.data.userId
-        console.log('userId:', userId)
-        // Call approvalTable with the retrieved userId
-        examPlan(userId).then(response => {
+        examPlan(userId, this.pagesize, this.pagenum).then(response => {
           this.tableData = response.data.records
+          this.total = response.data.total
         }).catch(error => {
           console.error('Error fetching approval table:', error)
-          // Handle errors as needed
         })
       }).catch(error => {
         console.error('Error fetching userId:', error)
-        // Handle errors from getuserid() if necessary
       })
     },
     handleSign () {
@@ -333,7 +347,7 @@ export default {
     handleEdit (row) {
       this.$router.push({
         name: 'ViewList',
-        query: {name: row.name}
+        params: {batchname: row.batchName}
       })
     },
     handl1111111111111111111 (row) {

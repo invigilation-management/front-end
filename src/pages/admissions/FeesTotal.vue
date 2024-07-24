@@ -163,7 +163,7 @@
                             </template>
                         </el-table-column>
                         <el-table-column
-                            prop="batch"
+                            prop="name"
                             label="监考名称" width="180">
                             <template v-slot="scope">
                                 <el-button type="text" size="small" @click="handleEdit333333333333(scope.row)">{{
@@ -224,8 +224,13 @@
                     </el-table>
                     <el-pagination
                             background
-                            layout="total, prev, pager, next"
-                            :total="1000">
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page="pagenum"
+                            :page-sizes="[5, 10, 20, 50]"
+                            :page-size='pagesize'
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total='total'>
                     </el-pagination>
                 </el-row>
             </el-card>
@@ -240,6 +245,9 @@ export default {
   name: 'FeesTotal',
   data () {
     return {
+      pagenum: 1,
+      pagesize: 10,
+      total: 0,
       nowTime: moment().format('YYYY-MM-DD HH:mm:ss'),
       options: [{
         value: '选项1',
@@ -288,10 +296,19 @@ export default {
     }
   },
   methods: {
+    handleSizeChange (value) {
+      this.pagesize = value
+      this.select()
+    },
+    handleCurrentChange (value) {
+      this.pagenum = value
+      this.select()
+    },
     select () {
       if (this.input != null) {
-        manageFeesSelect(this.input).then(response => {
+        manageFeesSelect(this.input, this.pagesize, this.pagenum).then(response => {
           this.tableData = response.data.records
+          this.total = response.data.total
         })
       }
     },
@@ -302,17 +319,14 @@ export default {
     getExamPlanTable () {
       getuserid().then(response => {
         const userId = response.data.userId
-        console.log('userId:', userId)
-        // Call approvalTable with the retrieved userId
-        examPlan(userId).then(response => {
+        examPlan(userId, this.pagesize, this.pagenum).then(response => {
           this.tableData = response.data.records
+          this.total = response.data.total
         }).catch(error => {
           console.error('Error fetching approval table:', error)
-          // Handle errors as needed
         })
       }).catch(error => {
         console.error('Error fetching userId:', error)
-        // Handle errors from getuserid() if necessary
       })
     },
     handleSign () {
@@ -329,7 +343,7 @@ export default {
     handleEdit (row) {
       this.$router.push({
         name: 'ExamFees',
-        query: {name: row.name}
+        params: {batchname: row.batchName}
       })
     },
     handl1111111111111111111 (row) {
