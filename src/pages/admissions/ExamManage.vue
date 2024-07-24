@@ -337,7 +337,8 @@ export default {
     },
     handleVice (row) {
       this.$router.push({
-        name: 'ManageVice123'
+        name: 'ManageVice123',
+        params: {batchname: row.batchName}
       })
     },
     writeExamManageTable () {

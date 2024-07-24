@@ -318,7 +318,7 @@ export default {
     handleMembers (row) {
       this.$router.push({
         name: 'waiting',
-        query: {name: row.name}
+        params: {collegeid: row.collegeId}
       })
     },
     handleSelectionChange (val) {

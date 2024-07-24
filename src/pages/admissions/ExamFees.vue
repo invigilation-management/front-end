@@ -148,7 +148,7 @@
                     prop="time"
                     width="200">
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.regStartTime}}</span>
+                        <span class="teamName">{{scope.row.batch.batchStartTime}}~~{{scope.row.batch.batchEndTime}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -156,7 +156,7 @@
                     prop="count"
                     width="200">
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.regStartTime}}</span>
+                        <span class="teamName">{{scope.row.batch.batchDuration}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column

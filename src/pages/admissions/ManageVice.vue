@@ -3,7 +3,7 @@
         <h1>
             <i class="el-icon-back"></i>|
             <span class="title_1">监考管理/</span>
-            <span class="title_2">查看名单</span>
+            <span class="title_2">详细名单</span>
         </h1>
         <el-card class="card">
             <el-row :gutter="10">
@@ -100,7 +100,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="name"
+                        prop="trueFacultyName"
                         label="姓名"
                         width="129">
                     <template slot-scope="scope">
@@ -108,7 +108,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="status"
+                        prop="gender"
                         label="性别"
                         width="90"
                         show-overflow-tooltip>
@@ -117,7 +117,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="num"
+                        prop="trueFacultyId"
                         label="工号"
                         width="150">
                     <template slot-scope="scope">
@@ -125,7 +125,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="partment"
+                        prop="college"
                         label="所在单位"
                         width="177">
                     <template slot-scope="scope">
@@ -133,19 +133,19 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="tele"
+                        prop="approvalDate"
                         label="审批结束时间"
                         width="150">
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.tele}}</span>
+                        <span class="teamName">{{scope.row.approval ?scope.row.approval.approvalDate :'' }}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="confirmOrNot"
+                        prop="passOrNot"
                         label="审批状态"
                         width="150">
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.confirmOrNot}}</span>
+                        <span class="teamName">{{scope.row.passOrNot}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -176,7 +176,7 @@
 </template>
 
 <script>
-import {toDetailConfirm} from '../../api/user'
+import {toDetailManage} from '../../api/user'
 
 export default {
   name: 'ManageVice123',
@@ -228,7 +228,7 @@ export default {
       })
     },
     show () {
-      toDetailConfirm(this.batchname1, this.pagesize, this.pagenum).then(response => {
+      toDetailManage(this.batchname1, this.pagesize, this.pagenum).then(response => {
         this.tableData = response.data.records
         this.total = response.data.total
       })
