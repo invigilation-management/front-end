@@ -62,7 +62,7 @@ export default {
     paragraph-spacing: 0;
     text-align: right;
 }
-.avatar-uploader .el-upload {
+.avatar-er .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
     cursor: pointer;

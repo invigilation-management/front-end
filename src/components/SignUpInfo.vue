@@ -36,11 +36,11 @@
             <el-form-item label="上传电子照片" prop="picture">
                 <el-upload
                         class="avatar-uploader"
-                        action="https://jsonplaceholder.typicode.com/posts/"
+                        action="/api/file/upload"
                         :show-file-list="false"
                         :on-success="handleAvatarSuccess"
                         :before-upload="beforeAvatarUpload">
-                    <img v-if="ruleForm.imageUrl" :src="ruleForm.imageUrl" class="avatar">
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
             </el-form-item>
@@ -81,7 +81,8 @@ export default {
         imageUrl: '',
         school: [],
         promise: true
-      }
+      },
+      imageUrl: ''
     }
   },
   rules: {
@@ -91,6 +92,8 @@ export default {
   },
   methods: {
     handleAvatarSuccess (res, file) {
+      this.ruleForm.imageUrl = res.url
+      console.log(res.url)
       this.imageUrl = URL.createObjectURL(file.raw)
     },
     beforeAvatarUpload (file) {
