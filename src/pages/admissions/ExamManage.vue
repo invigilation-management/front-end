@@ -120,7 +120,7 @@
                                 label="操作"
                                 width="200">
                                 <template slot-scope="scope">
-                                    <el-button type="text" size="small">查看名单</el-button>
+                                    <el-button type="text" size="small" @click="handleVice(scope.row)">查看名单</el-button>
                                     <el-button type="text" size="small">更多</el-button>
                                 </template>
                             </el-table-column>
@@ -210,7 +210,7 @@
                     label="操作"
                     width="200">
                     <template slot-scope="scope">
-                        <el-button type="text" size="small">查看名单</el-button>
+                        <el-button type="text" size="small" @click="handleVice(scope.row)">查看名单</el-button>
                         <el-button type="text" size="small">更多</el-button>
                     </template>
                 </el-table-column>
@@ -333,6 +333,11 @@ export default {
         name: 'batchDetails',
         query: {name: row.name},
         params: {batchname: row.batchName}
+      })
+    },
+    handleVice (row) {
+      this.$router.push({
+        name: 'ManageVice123'
       })
     },
     writeExamManageTable () {

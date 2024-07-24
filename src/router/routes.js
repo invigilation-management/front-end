@@ -54,6 +54,12 @@ const admissionsHeadPage = [
         component: () => import(/* webpackChunkName: "BatchDetails" */ '../pages/admissions/BatchDetails.vue')
       },
       {
+        path: 'manageVice123',
+        name: 'ManageVice123',
+        props: true,
+        component: () => import(/* webpackChunkName: "BatchDetails" */ '../pages/admissions/ManageVice.vue')
+      },
+      {
         path: 'exam-approval',
         name: 'examApproval',
         component: () => import(/* webpackChunkName: "BatchDetails" */ '../pages/admissions/Approval.vue'),
