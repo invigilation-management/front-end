@@ -7,17 +7,16 @@
         </h1>
         <el-card class="card">
             <el-row :gutter="10">
-                <el-col :span="4"><el-button class="blue" type="primary" @click="goToSignUp">监考报名</el-button></el-col>
-                <el-col :span="6" :offset="10" ><el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
+                <el-col :span="6" :offset="14" ><el-input v-model="searchQuery" placeholder="请输入监考名称关键词查询"></el-input></el-col>
                 <el-col :span="4">
-                    <el-button type="primary" class="blue">查询</el-button>
-                    <el-button type="primary" plain class="white">重置</el-button>
+                    <el-button type="primary" class="blue" @click="handleSearch">查询</el-button>
+                    <el-button type="primary" plain class="white" @click="handleReset">重置</el-button>
                 </el-col>
             </el-row>
             <el-table
                 :header-row-style="{ backgroundColor: '#F3F3F3' }"
                 ref="multipleTable"
-                :data="tableData"
+                :data="FillFormData"
                 tooltip-effect="dark"
                 style="width: 100%;margin-top: 10px;margin-right:3px"
                 @selection-change="handleSelectionChange">
@@ -29,7 +28,7 @@
                     label="序号"
                     width="130">
                     <template slot-scope="scope">
-                        0{{scope.$index+1}}
+                        {{scope.$index+1}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -37,49 +36,70 @@
                     label="报名批次"
                     width="330">
                     <template v-slot="scope">
-                        <el-button type="text" size="small" @click="handleEdit(scope.row)">
-                            {{scope.row.name}}
-                        </el-button>
+                        <el-button
+                            size="mini"
+                            type="text"
+                            @click="handleBatchDetail(scope.row)">{{scope.row.batchName}}</el-button>
                     </template>
                 </el-table-column>
                 <el-table-column
                     prop="startTime"
                     label="报名开始时间"
                     width="285">
+                    <template slot-scope="scope">
+                        <span class="normal">{{ scope.row.batchStartTime }}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     prop="endTime"
                     label="报名结束时间"
                     width="285">
+                    <template slot-scope="scope">
+                        <span class="normal">{{ scope.row.batchEndTime }}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     prop="createTime"
                     label="创建时间"
                     width="285">
+                    <template slot-scope="scope">
+                        <span class="normal">{{ scope.row.batchCreatedTime }}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     prop="status"
                     label="批次状态"
                     width="165">
+                    <template slot-scope="scope">
+                        <span class="normal">{{ scope.row.alreadyPassedNum }}/{{ scope.row.expectNum }}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="操作"
                     width="210">
                     <template slot-scope="scope">
-                        <el-button type="text" size="small">查看名单</el-button>
+                        <el-button type="text" size="small" @click="goToSignUp(scope.row)">监考报名</el-button>
                     </template>
                 </el-table-column>
             </el-table>
             <el-pagination
+                style="margin-top: 20px"
                 background
-                layout="prev, pager, next"
-                :total="1000">
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="pageNo"
+                :page-sizes="[5, 10, 20, 40]"
+                :page-size="pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total">
             </el-pagination>
         </el-card>
     </div>
 </template>
 
 <script>
+
+import {getuserid, FillFormTable, selectFillFormTable} from '../../api/teacher'
 export default {
   name: 'SignUp',
   data () {
@@ -170,7 +190,12 @@ export default {
         }
 
         // Add more data objects as required
-      ]
+      ],
+      searchQuery: '',
+      FillFormData: '',
+      pageSize: 5,
+      pageNo: 1,
+      total: 0
     }
   },
   methods: {
@@ -183,9 +208,51 @@ export default {
         query: {name: row.name}
       })
     },
-    goToSignUp () {
-      this.$router.push({name: 'SignUp'})
+    goToSignUp (row) {
+      this.$router.push({name: 'SignUp',
+        params: {batchname: row.batchName}})
+    },
+    getFillFormTable () {
+      getuserid().then(res => {
+        const userId = res.data.userId
+        console.log('userId:', userId)
+        FillFormTable(userId, this.pageSize, this.pageNo).then(res => {
+          this.FillFormData = res.data.records
+          this.total = res.data.total
+          console.info('开始')
+          console.info(this.FillFormData)
+          console.info('结束')
+        })
+      })
+    },
+    handleSizeChange (value) {
+      this.pageSize = value
+      this.getFillFormTable()
+    },
+    handleCurrentChange (value) {
+      this.pageNo = value
+      this.getFillFormTable()
+    },
+    handleSearch () {
+      if (this.searchQuery != null) {
+        selectFillFormTable(this.searchQuery, this.pageSize, this.pageNo).then(res => {
+          this.FillFormData = res.data.records
+        })
+      }
+    },
+    handleReset () {
+      this.searchQuery = ''
+      this.getFillFormTable()
+    },
+    handleBatchDetail (row) {
+      this.$router.push({
+        name: 'BatchDetails',
+        params: {batchname: row.batchName}
+      })
     }
+  },
+  created () {
+    this.getFillFormTable()
   }
 }
 </script>

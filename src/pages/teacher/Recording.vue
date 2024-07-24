@@ -7,16 +7,16 @@
         </h1>
         <el-card class="card">
             <el-row gutter="10">
-                <el-col span="6" offset="14" ><el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
+                <el-col span="6" offset="14" ><el-input v-model="searchQuery" placeholder="请输入监考名称关键词查询"></el-input></el-col>
                 <el-col span="4">
-                    <el-button type="primary" class="blue">查询</el-button>
-                    <el-button type="primary" plain class="white">重置</el-button>
+                    <el-button type="primary" class="blue" @click="handleSearch">查询</el-button>
+                    <el-button type="primary" plain class="white" @click="handleReset">重置</el-button>
                 </el-col>
             </el-row>
             <el-table
                     :header-row-style="{ backgroundColor: '#F3F3F3' }"
                     ref="multipleTable"
-                    :data="tableData"
+                    :data="RecordingData"
                     tooltip-effect="dark"
                     style="width: 100%;margin-top: 10px;margin-right:3px"
                     @selection-change="handleSelectionChange">
@@ -28,7 +28,7 @@
                         label="序号"
                         width="155">
                     <template slot-scope="scope">
-                        0{{scope.$index+1}}
+                        {{scope.$index+1}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -36,21 +36,27 @@
                         label="报名批次"
                         width="360">
                     <template v-slot="scope">
-                        <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
-                                scope.row.name
-                            }}
-                        </el-button>
+                        <el-button
+                            size="mini"
+                            type="text"
+                            @click="handleBatchDetail(scope.row)">{{scope.row.batch.batchName}}</el-button>
                     </template>
                 </el-table-column>
                 <el-table-column
                         prop="startTime"
                         label="报名开始时间"
                         width="315">
+                    <template slot-scope="scope">
+                        <span class="normal">{{ scope.row.batch.regStartTime }}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="endTime"
                         label="报名结束时间"
                         width="315">
+                    <template slot-scope="scope">
+                        <span class="normal">{{ scope.row.batch.regEndTime }}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="createTime"
@@ -66,15 +72,22 @@
                 </el-table-column>
             </el-table>
             <el-pagination
-                    background
-                    layout="prev, pager, next"
-                    :total="1000">
+                style="margin-top: 20px"
+                background
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="pageNo"
+                :page-sizes="[5, 10, 20, 40]"
+                :page-size="pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total">
             </el-pagination>
         </el-card>
     </div>
 </template>
 
 <script>
+import {getuserid, RecordingTable, selectFillFormTable, selectRecordingTable} from '../../api/teacher'
 export default {
   name: 'ExamFees',
   data () {
@@ -165,7 +178,12 @@ export default {
         }
 
         // Add more data objects as required
-      ]
+      ],
+      RecordingData: [],
+      searchQuery: '',
+      total: 0,
+      pageNo: 1,
+      pageSize: 5
     }
   },
   methods: {
@@ -177,7 +195,48 @@ export default {
         name: 'BatchDetails',
         query: {name: row.name}
       })
+    },
+    getRecordingData () {
+      getuserid().then(res => {
+        const userId = res.data.userId
+        RecordingTable(userId, this.pageSize, this.pageNo).then(res => {
+          this.RecordingData = res.data.records
+          this.total = res.data.total
+          console.info(this.RecordingData)
+        })
+      })
+    },
+    handleBatchDetail (row) {
+      this.$router.push({
+        name: 'BatchDetails',
+        params: {batchname: row.batch.batchName}
+      })
+    },
+    handleSizeChange (value) {
+      this.pageSize = value
+      this.getRecordingData()
+    },
+    handleCurrentChange (value) {
+      this.pageNo = value
+      this.getRecordingData()
+    },
+    handleSearch () {
+      if (this.searchQuery != null) {
+        getuserid().then(res => {
+          const userId = res.data.userId
+          selectRecordingTable(userId, this.searchQuery, this.pageSize, this.pageNo).then(res => {
+            this.RecordingData = res.data.records
+          })
+        })
+      }
+    },
+    handleReset () {
+      this.searchQuery = ''
+      this.getRecordingData()
     }
+  },
+  created () {
+    this.getRecordingData()
   }
 }
 </script>

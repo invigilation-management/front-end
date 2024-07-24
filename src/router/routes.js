@@ -227,10 +227,12 @@ const teacherPage = [
       }, {
         path: 'sign-up',
         name: 'SignUp',
+        props: true,
         component: () => import(/* webpackChunkName: "BatchDetailsTeacher" */ '../pages/teacher/SignUp.vue')
       }, {
         path: 'batch-details',
         name: 'BatchDetails',
+        props: true,
         component: () => import(/* webpackChunkName: "BatchDetailsTeacher" */ '../pages/teacher/BatchDetails.vue')
       }, {
         path: 'recording',
