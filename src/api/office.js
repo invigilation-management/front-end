@@ -80,3 +80,31 @@ export const ExamListDetailsTable = (userId, batchName, pageSize, pageNo) => {
     pageNo: pageNo
   })
 }
+
+// 查看同意信息
+export const Agreeinfo = (userId, trueFacultyId, batchName) => {
+  return http.GET('/api/faculty/seeDetailsOfOffice', {
+    userId: userId,
+    trueFacultyId: trueFacultyId,
+    batchName: batchName
+  })
+}
+
+// 审批同意
+export const submitAgree = (userId, trueFacultyId, batchName, targetCampus) => {
+  return http.GET('/api/registration/afterApprovalOffice', {
+    userId: userId,
+    trueFacultyId: trueFacultyId,
+    batchName: batchName,
+    targetCampus: targetCampus
+  })
+}
+
+// 审批不同意
+export const submitDisagree = (userId, trueFacultyId, batchName) => {
+  return http.GET('/api/registration/afterDisapprovalOffice', {
+    userId: userId,
+    trueFacultyId: trueFacultyId,
+    batchName: batchName
+  })
+}

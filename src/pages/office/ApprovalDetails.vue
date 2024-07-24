@@ -7,7 +7,7 @@
         <el-row :gutter="30">
             <el-col :span="14">
                 <el-card class="detail">
-                    <SignUpInfo></SignUpInfo>
+                    <SignUpInfo :parentValue="valueFromParent"></SignUpInfo>
                 </el-card>
             </el-col>
             <el-col :span="10">
@@ -25,7 +25,14 @@ import HistoryCard from '../../components/HistoryCard.vue'
 
 export default {
   name: 'ApprovalDetails',
+  props: ['batchName', 'trueFacultyId'],
+  data () {
+    return {
+      valueFromParent: this.$props
+    }
+  },
   components: {HistoryCard, SignUpInfo}
+
 }
 </script>
 

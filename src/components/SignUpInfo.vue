@@ -9,18 +9,18 @@
                 <el-input v-model="ruleForm.unit"></el-input>
             </el-form-item>
             <el-form-item label="性别" prop="gender">
-                <el-radio-group v-model="ruleForm.gender">
-                    <el-radio label="男"></el-radio>
-                    <el-radio label="女"></el-radio>
-                </el-radio-group>
+                    <el-radio v-model="ruleForm.gender" label="男"></el-radio>
+                    <el-radio v-model="ruleForm.gender" label="女"></el-radio>
             </el-form-item>
             <el-form-item label="工号" prop="ID">
                 <el-input v-model="ruleForm.ID"></el-input>
             </el-form-item>
             <el-form-item label="学历" prop="education">
                 <el-select v-model="ruleForm.education" placeholder="请选择学历">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                    <el-option label="小学" value="小学"></el-option>
+                    <el-option label="本科" value="本科"></el-option>
+                    <el-option label="研究生" value="研究生"></el-option>
+                    <el-option label="博士" value="博士"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="联系电话" prop="tele">
@@ -44,11 +44,10 @@
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
             </el-form-item>
-            <el-form-item label="校区" prop="school">
+            <el-form-item label="意向校区" prop="school">
                 <el-checkbox-group v-model="ruleForm.school" :max="1">
-                    <el-checkbox label="清水河校区" name="school"></el-checkbox>
-                    <el-checkbox label="长菱校区" name="school"></el-checkbox>
-                    <el-checkbox label="服从调剂" name="school"></el-checkbox>
+                    <el-checkbox  label="兴庆校区" name="school"></el-checkbox>
+                    <el-checkbox  label="创新港" name="school"></el-checkbox>
                 </el-checkbox-group>
             </el-form-item>
             <el-form-item label="申请人承诺" prop="promise">
@@ -62,8 +61,12 @@
 </template>
 
 <script>
+import {getuserid, Agreeinfo} from '../api/office'
 export default {
   name: 'SignUpInfo.vue',
+  props: {
+    parentValue: []
+  },
   data () {
     return {
       ruleForm: {
@@ -77,7 +80,7 @@ export default {
         birth: '',
         imageUrl: '',
         school: [],
-        promise: ''
+        promise: true
       }
     }
   },
@@ -101,7 +104,38 @@ export default {
         this.$message.error('上传头像图片大小不能超过 2MB!')
       }
       return isJPG && isLt2M
+    },
+    show () {
+      console.info(this.$props.parentValue)
+      getuserid().then(res => {
+        const userId = res.data.userId
+        Agreeinfo(userId, this.$props.parentValue.trueFacultyId, this.$props.parentValue.batchName).then(res => {
+          console.log(res.data.records)
+          this.ruleForm.name = res.data.records[0].trueFacultyName
+          this.ruleForm.unit = res.data.records[0].college
+          if (res.data.records[0].gender === 0) {
+            this.ruleForm.gender = '女'
+          } else {
+            this.ruleForm.gender = '男'
+          }
+          this.ruleForm.ID = res.data.records[0].trueFacultyId
+          this.ruleForm.education = res.data.records[0].eduQualification
+          this.ruleForm.tele = res.data.records[0].tele
+          this.ruleForm.tele2 = res.data.records[0].teleBackup
+          this.ruleForm.birth = res.data.records[0].birthday
+          // this.ruleForm.imageUrl = res.data.records[0].avatar
+          if (res.data.records[0].targetCampus === '兴庆校区') {
+            this.ruleForm.school = ['兴庆校区']
+          } else {
+            this.ruleForm.school = ['创新港']
+          }
+          console.info(this.ruleForm.school[0])
+        })
+      })
     }
+  },
+  created () {
+    this.show()
   }
 }
 </script>

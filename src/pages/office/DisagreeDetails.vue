@@ -67,26 +67,57 @@
 <script>
 import SignUpInfo from '../../components/SignUpInfo.vue'
 import HistoryCard from '../../components/HistoryCard.vue'
-
+import {getuserid, Agreeinfo} from '../../api/office'
 export default {
   name: 'DisagreeDetails',
+  props: ['batchName', 'trueFacultyId'],
   data () {
     return {
       Form: {
-        name: '张晓冬',
-        result: '不同意',
-        unit: '学工部',
+        name: '',
+        result: '',
+        unit: '',
         gender: '男',
-        ID: '209991',
-        education: '研究生',
-        tele: '15578999088',
-        tele2: '无',
-        birth: '1992-09-12',
+        ID: '',
+        education: '',
+        tele: '',
+        tele2: '',
+        birth: '',
         imageUrl: '',
-        school: '南湖校区',
-        promise: '本人自愿参加'
+        school: '',
+        promise: ''
       }
     }
+  },
+  methods: {
+    show () {
+      getuserid().then(res => {
+        const userId = res.data.userId
+        console.log('userId:', userId)
+        console.log(this.$props.trueFacultyId)
+        console.log(this.$props.batchName)
+        Agreeinfo(userId, this.$props.trueFacultyId, this.$props.batchName).then(res => {
+          console.log('kaishi')
+          console.log(res.data.records)
+          console.log('jieshu')
+          this.Form.name = res.data.records[0].trueFacultyName
+          this.Form.result = '不同意'
+          this.Form.unit = res.data.records[0].college
+          if (res.data.records[0].gender === 0) {
+            this.Form.gender = '女'
+          }
+          this.Form.ID = res.data.records[0].trueFacultyId
+          this.Form.education = res.data.records[0].eduQualification
+          this.Form.tele = res.data.records[0].tele
+          this.Form.tele2 = res.data.records[0].teleBackup
+          this.Form.imageUrl = res.data.records[0].avatar
+          this.Form.school = res.data.records[0].targetCampus
+        })
+      })
+    }
+  },
+  created () {
+    this.show()
   },
   components: {HistoryCard, SignUpInfo}}
 </script>

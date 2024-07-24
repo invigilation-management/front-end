@@ -160,16 +160,19 @@ const officeDirectorPage = [
       {
         path: 'ApprovalDetails',
         name: 'ApprovalDetails',
+        props: true,
         component: () => import(/* webpackChunkName: "BatchDetailsOffice" */ '../pages/office/ApprovalDetails.vue')
       },
       {
         path: 'AgreeDetails',
         name: 'AgreeDetails',
+        props: true,
         component: () => import(/* webpackChunkName: "AgreeDetailsOffice" */ '../pages/office/AgreeDetails.vue')
       },
       {
         path: 'DisagreeDetails',
         name: 'DisagreeDetails',
+        props: true,
         component: () => import(/* webpackChunkName: "AgreeDetailsOffice" */ '../pages/office/DisagreeDetails.vue')
       },
       {

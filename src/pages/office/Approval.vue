@@ -209,8 +209,8 @@
                                             <hr class="card-divider">
                                             <div style="height: 70px; display: flex;">
                                                 <div style="margin: 20px">是否同意报名</div>
-                                                <el-radio v-model="agreeordis" label="agree" style="margin: 20px">同意</el-radio>
-                                                <el-radio v-model="agreeordis" label="disagree" style="margin: 20px">不同意</el-radio>
+                                                <el-radio v-model="dialogData.approval" label="agree" style="margin: 20px">同意</el-radio>
+                                                <el-radio v-model="dialogData.approval" label="disagree" style="margin: 20px">不同意</el-radio>
                                             </div>
                                             <!--                                                    以下是同意时的显示-->
                                             <div v-if="agreeordis === 'agree'" style="color: #FF2F2F;text-align: left">
@@ -224,7 +224,7 @@
                                             <!--                                                    以下是公共部分-->
                                             <hr class="card-divider">
                                             <div style="text-align: center">
-                                                <el-button type="primary" @click="dialog_Regist_approval= false">提交</el-button>
+                                                <el-button type="primary" @click="submitApproval">提交</el-button>
                                                 <el-button type="info" @click="dialog_Regist_approval= false">取消</el-button>
                                             </div>
                                         </el-dialog>
@@ -405,7 +405,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                           @click="handleAgreed(scope.$index, scope.row)">查看</el-button>
+                                           @click="handleAgreed(scope.row)">查看</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -582,7 +582,7 @@
                                         <el-button
                                             size="mini"
                                             type="text"
-                                            @click="handleDisagreed(scope.$index, scope.row)">查看</el-button>
+                                            @click="handleDisagreed(scope.row)">查看</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -606,8 +606,17 @@
 </template>
 
 <script>
-import {approvalTable, getuserid, agreeApprovalTable, disagreeApprovalTable, selectWaitingByName, selectAgreeByName, selectDisagreeByName}
-  from '../../api/office'
+import {
+  agreeApprovalTable,
+  approvalTable,
+  disagreeApprovalTable,
+  getuserid,
+  selectAgreeByName,
+  selectDisagreeByName,
+  selectWaitingByName,
+  submitAgree,
+  submitDisagree
+} from '../../api/office'
 
 export default {
   name: 'Approval',
@@ -692,19 +701,19 @@ export default {
     handleEdit (row) {
       this.$router.push({
         name: 'ApprovalDetails',
-        query: {name: row.name}
+        params: {batchName: row.batch.batchName, trueFacultyId: row.trueFacultyId}
       })
     },
     handleAgreed (row) {
       this.$router.push({
         name: 'AgreeDetails',
-        query: {name: row.name}
+        params: {batchName: row.batch.batchName, trueFacultyId: row.trueFacultyId}
       })
     },
     handleDisagreed (row) {
       this.$router.push({
         name: 'DisagreeDetails',
-        query: {name: row.name}
+        params: {batchName: row.batch.batchName, trueFacultyId: row.trueFacultyId}
       })
     },
     handleBatchDetail (row) {
@@ -718,6 +727,47 @@ export default {
       // this.dialogData = this.filteredDataForUndetermined[index]
       this.dialogData = this.approval_infos[index]
       this.dialog_Regist_approval = true
+      console.info(this.dialogData)
+    },
+    submitApproval () {
+      this.dialog_Regist_approval = false
+      console.info(this.dialogData)
+      console.log(this.dialogData.approval)
+      if (this.dialogData.approval === 'agree') {
+        getuserid().then(res => {
+          const userId = res.data.userId
+          submitAgree(userId, this.dialogData.trueFacultyId, this.dialogData.batch.batchName, this.dialogData.targetCampus).then(res => {
+            if (res.data === true) {
+              this.$message({
+                message: '通过成功',
+                type: 'success'
+              })
+            } else if (res.data === false) {
+              this.$message({
+                message: '通过失败，请稍后重试',
+                type: 'warning'
+              })
+            }
+          })
+        })
+      } else {
+        getuserid().then(res => {
+          const userId = res.data.userId
+          submitDisagree(userId, this.dialogData.trueFacultyId, this.dialogData.batch.batchName).then(res => {
+            if (res.data === true) {
+              this.$message({
+                message: '拒绝成功',
+                type: 'success'
+              })
+            } else if (res.data === false) {
+              this.$message({
+                message: '拒绝失败，请稍后重试',
+                type: 'warning'
+              })
+            }
+          })
+        })
+      }
     },
     fetchItemsForUndetermined () {
       this.itemsForUndetermined = this.$data.approval_infos
