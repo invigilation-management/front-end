@@ -9,7 +9,6 @@
                 :background-color="sidebarBackgroundColor"
                 :text-color="sidebarTextColor"
                 :active-text-color="sidebarActiveTextColor"
-                :background-image="sidebarBackgroundImage"
         />
         <div class="main-container">
             <s-header
@@ -34,7 +33,7 @@
 import Header from './Header'
 import Sidebar from './Sidebar/Sidebar'
 import {mapGetters} from 'vuex'
-import logo from '@/assets/images/logo.png'
+// import logo from '@/assets/images/logo.png'
 
 export default {
   name: 'suncaper-layout',

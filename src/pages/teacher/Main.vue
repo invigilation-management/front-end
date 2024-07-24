@@ -1,6 +1,6 @@
 <template>
   <suncaper-layout
-    theme="dark"
+    theme="light"
     :logo="logo"
     :sidebar-list="sidebarList"
     :logout="logout"
@@ -10,7 +10,7 @@
 <script>
 import {mapGetters} from 'vuex'
 import Layout from '@/layouts/Layout'
-import logo from '@/assets/images/logo.png'
+import logo from '@/assets/images/xjtu.png'
 
 export default {
   name: 'Main',

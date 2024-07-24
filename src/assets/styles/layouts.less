@@ -20,7 +20,8 @@
     bottom: 0;
     left: 0;
     z-index: 1001;
-    background-color: @sidebarBackgroundColor;
+    background: @sidebarBackgroundColor url('~@/assets/images/siderbar-bg.png') no-repeat center bottom;
+    //background-color: @sidebarBackgroundColor;
     @media (max-width: 1400px) {
       width: @sidebarWidth-md !important;
     }
@@ -213,10 +214,10 @@
   }
   .white {
     .sidebar-container {
-      background-color: @sidebarWhiteThemeBackgroundColor;
+      //background-color: @sidebarWhiteThemeBackgroundColor;
       border-right: 1px solid #e6e6e6;
       .sidebar-logo-title {
-        color: #000000;
+        color: #FFFFFF;
       }
       .sidebarItem-groupTitle {
         color: #000000;

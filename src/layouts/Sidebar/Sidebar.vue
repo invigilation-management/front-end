@@ -79,7 +79,7 @@ export default {
     },
     sidebarLogoStyles () {
       return {
-        backgroundColor: this.theme === 'light' ? '#ffffff' : '#1f2c35',
+        // backgroundColor: this.theme === 'light' ? '#ffffff' : '#1f2c35',
         backgroundImage: `url(${this.backgroundImage})`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat'

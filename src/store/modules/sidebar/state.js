@@ -13,7 +13,7 @@ export default {
       main: [
         {
           path: '/office/approval',
-          icon: 'suncaper-menu-unfold',
+          icon: '报名审批',
           title: '报名审批'
           // children: [
           //   {
@@ -37,7 +37,7 @@ export default {
 
         {
           path: '/office/examlist',
-          icon: 'suncaper-menu-unfold',
+          icon: '监考记录',
           title: '监考名单'
           // children: [
           //   {
@@ -74,7 +74,7 @@ export default {
       main: [
         {
           path: '/admissions/exam-approval',
-          icon: 'suncaper-menu-unfold',
+          icon: '报名审批',
           title: '报名审批'
           // children: [
           //   {
@@ -148,12 +148,12 @@ export default {
       main: [
         {
           path: '/teacher/fill-form',
-          icon: 'suncaper-menu-unfold',
+          icon: '监考记录',
           title: '监考报名'
         },
         {
           path: '/teacher/recording',
-          icon: 'suncaper-menu-unfold',
+          icon: '监考记录',
           title: '监考记录'
         }
       ]
@@ -162,7 +162,7 @@ export default {
       main: [
         {
           path: '/office/approval',
-          icon: 'suncaper-menu-unfold',
+          icon: '报名审批',
           title: '报名审批'
           // children: [
           //   {
@@ -223,7 +223,7 @@ export default {
       main: [
         {
           path: '/office/approval',
-          icon: 'suncaper-menu-unfold',
+          icon: '报名审批',
           title: '报名审批'
           // children: [
           //   {
@@ -247,7 +247,7 @@ export default {
 
         {
           path: '/office/examlist',
-          icon: 'suncaper-menu-unfold',
+          icon: '监考记录',
           title: '监考名单'
           // children: [
           //   {
@@ -288,10 +288,9 @@ export default {
       activeText: '#ffffff'
     },
     light: {
-      background: '#ffffff',
-      text: '#000000',
-      activeText: '#1890ff',
-      backgroundImage: 'src/assets/images/xjtu.png' // 更新背景图片路径
+      background: '#3376FF',
+      text: '#FFFFFF',
+      activeText: '#FFFFFF'
     }
   }
 }
