@@ -182,7 +182,6 @@ export default {
     line-height: 100px;
 }
 
-
 .form-wrapper .input-wrapper input {
     background-color: rgba(255, 255, 255, 0.15); /* 设置输入框背景为半透明 */
     border: 2px solid rgba(255, 255, 255, 0.5); /* 半透明白色边框 */

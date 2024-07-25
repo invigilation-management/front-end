@@ -50,10 +50,6 @@
                             <el-form-item label="需求人数" :label-width="formLabelWidth">
                                 <el-input v-model="form.expectNum" autocomplete="off" placeholder="请输入需求人数"></el-input>
                             </el-form-item>
-                            <el-form-item label="上传附件" :label-width="formLabelWidth" :label-height="bigformLabelHeight">
-                                <el-button type="primary" icon="el-icon-upload2">上传文件</el-button>
-                            </el-form-item>
-                            <div class="form_text">限制上传文件10个以下，单个大小不超过100M</div>
                         </el-form>
                         <div slot="footer" class="dialog-footer">
                             <el-button type="primary" @click='batchCreateSubmit' style="background-color: #166AFF"> 提 交 </el-button>
