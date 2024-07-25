@@ -176,7 +176,7 @@
                                 <el-button
                                         size="mini"
                                         type="text"
-                                        @click="handleEdit(scope.$index, scope.row)">移除监考</el-button>
+                                        @click="handleEdit( scope.row)">移除监考</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -198,7 +198,7 @@
 </template>
 
 <script>
-import {getuserid, ExamListDetailsTable, selectExamListDetailsByName} from '../../api/office'
+import {getuserid, ExamListDetailsTable, selectExamListDetailsByName, submitDisagree} from '../../api/office'
 
 export default {
   name: 'DetailList',
@@ -303,6 +303,36 @@ export default {
           this.total = res.data.total
           console.info('121221314134134134134')
           console.info(this.DetailListTable)
+        })
+      })
+    },
+    handleEdit (row) {
+      this.$confirm('此操作将在该批次移除该用户, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        getuserid().then(res => {
+          const userId = res.data.userId
+          submitDisagree(userId, row.trueFacultyId, this.$props.batchname).then(res => {
+            if (res.data === true) {
+              this.$message({
+                message: '移除成功',
+                type: 'success'
+              })
+            } else if (res.data === false) {
+              this.$message({
+                message: '移除失败，请稍后重试',
+                type: 'warning'
+              })
+            }
+          })
+          console.info(row)
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消移除'
         })
       })
     }
