@@ -9,7 +9,7 @@
                             <el-row :gutter="10">
                                 <el-col :span="12">
                                     <el-button size="small" type="primary" icon="el-icon-s-custom" @click="invitation = true">邀约</el-button>
-                                    <el-button size="small" type="inform" plain class="white" @click="dialogTableVisibleForUndetermined = true">数据导出</el-button>
+                                    <el-button size="small" type="inform" plain class="white" @click="exportData1()">数据导出</el-button>
                                     <!--                    以下是对话弹窗部分-->
                                     <!--                    以下是对话弹窗部分-->
                                     <el-dialog title="邀约" :visible.sync="invitation">
@@ -51,7 +51,7 @@
                                     <!--                    以下是对话弹窗部分-->
                                     <!--                    以下是对话弹窗部分-->
                                     <el-dialog title="导出数据" :visible.sync="dialogTableVisibleForUndetermined">
-                                        <el-table :data="selectedIdsForUndetermined.map(index => filteredDataForUndetermined[index])">
+                                        <el-table :data="selectedIdsForUndetermined">
                                             <el-table-column
                                                 label="序号">
                                                 <template slot-scope="scope">
@@ -61,10 +61,16 @@
                                             <el-table-column
                                                 label="报名人"
                                                 prop="name">
+                                                <template slot-scope="scope">
+                                                    <span class="normal">{{ scope.row.trueFacultyName }}</span>
+                                                </template>
                                             </el-table-column>
                                             <el-table-column
                                                 prop="num"
                                                 label="工号">
+                                                <template slot-scope="scope">
+                                                    <span class="normal">{{ scope.row.trueFacultyId }}</span>
+                                                </template>
                                             </el-table-column>
                                             <el-table-column
                                                 prop="batch"
@@ -73,13 +79,16 @@
                                                     <el-button
                                                         type="text"
                                                         size="small"
-                                                        @click="handleBatchDetail(scope.row)">{{scope.row.batch}}
+                                                        @click="handleBatchDetail(scope.row)">{{scope.row.batch.batchName}}
                                                     </el-button>
                                                 </template>
                                             </el-table-column>
                                             <el-table-column
                                                 prop="address"
                                                 label="意向监考校区" width="180">
+                                                <template slot-scope="scope">
+                                                    <span class="normal">{{ scope.row.targetCampus }}</span>
+                                                </template>
                                             </el-table-column>
                                             <el-table-column
                                                 prop="detail_uploaded"
@@ -95,13 +104,47 @@
                                                 prop="operation"
                                                 label="操作" width="180">
                                                 <template slot-scope="scope">
-                                                    <el-button
-                                                        size="mini"
-                                                        type="text"
-                                                        @click="handleEdit(scope.$index, scope.row)">审批</el-button>
-                                         <el-button size="mini" type="text">
-                                                        查看
-                                                    </el-button>
+                                                    <el-button size="mini" type="text" @click="agreeOrNot(scope.$index)">审批</el-button>
+                                                    <!--                                            以下是对话框-->
+                                                    <!--                                            以下是对话框-->
+                                                    <el-dialog style="text-align: left" title="报名审批" :visible.sync="dialog_Regist_approval">
+                                                        <hr class="card-divider">
+                                                        <div style="height: 56px;margin: 20px;background-color: #F3F3F3;display: flex;text-align: center">
+                                                            <div style="width: 300px;margin-top: 20px">姓名</div>
+                                                            <div style="width: 300px;margin-top: 20px">工号</div>
+                                                            <div style="width: 300px;margin-top: 20px">操作</div>
+                                                        </div>
+                                                        <div style="height: 80px;margin: 20px;display: flex;text-align: center">
+                                                            <div style="width: 300px;margin-top: 20px">{{dialogData.trueFacultyName}}</div>
+                                                            <div style="width: 300px;margin-top: 20px">{{dialogData.trueFacultyId}}</div>
+                                                            <div style="width: 300px;margin-top: 20px">
+                                                                <el-button type="text" @click="dialog_Regist_approval= false">移除</el-button>
+                                                            </div>
+                                                        </div>
+                                                        <hr class="card-divider">
+                                                        <div style="height: 70px; display: flex;">
+                                                            <div style="margin: 20px">是否同意报名</div>
+                                                            <el-radio v-model="dialogData.approval" label="agree" style="margin: 20px">同意</el-radio>
+                                                            <el-radio v-model="dialogData.approval" label="disagree" style="margin: 20px">不同意</el-radio>
+                                                        </div>
+                                                        <!--                                                    以下是同意时的显示-->
+                                                        <div v-if="agreeordis === 'agree'" style="color: #FF2F2F;text-align: left">
+                                                            <br><br><div style="margin-top: 20px;text-align: center">提交后不可撤回，请谨慎操作！</div>
+                                                        </div>
+                                                        <!--                                                    以下是不同意的显示-->
+                                                        <div v-if="agreeordis === 'disagree'" style="display: flex">
+                                                            <br><br>不同意理由：
+                                                            <el-input v-model="disagree_reason" placeholder="请输入不同意理由…" :rows="5" type="textarea"></el-input>
+                                                        </div>
+                                                        <!--                                                    以下是公共部分-->
+                                                        <hr class="card-divider">
+                                                        <div style="text-align: center">
+                                                            <el-button type="primary" @click="submitApproval">提交</el-button>
+                                                            <el-button type="info" @click="dialog_Regist_approval= false">取消</el-button>
+                                                        </div>
+                                                    </el-dialog>
+                                                    <!--                                            以上是对话框-->
+                                                    <!--                                            以上是对话框-->
                                                 </template>
                                             </el-table-column>
                                         </el-table>
@@ -250,7 +293,7 @@
                             <el-row :gutter="10">
                                 <el-col :span="12">
                                     <el-button size="small" type="primary" icon="el-icon-s-custom" @click="invitation = true">邀约</el-button>
-                                    <el-button size="small" type="inform" plain class="white" @click="dialogTableVisibleForAgreed = true">数据导出</el-button>
+                                    <el-button size="small" type="inform" plain class="white" @click="exportData2()">数据导出</el-button>
                                     <!--                    以下是对话弹窗部分-->
                                     <!--                    以下是对话弹窗部分-->
                                     <el-dialog title="邀约" :visible.sync="invitation">
@@ -290,7 +333,7 @@
                                     <!--                    以上是对话弹窗部分-->
                                     <!--                    以上是对话弹窗部分-->
                                     <el-dialog title="导出数据" :visible.sync="dialogTableVisibleForAgreed">
-                                        <el-table :data="selectedIdsForAgreed.map(index => tableData[index])">
+                                        <el-table :data="selectedIdsForAgreed">
                                             <el-table-column
                                                 label="序号">
                                                 <template slot-scope="scope">
@@ -300,10 +343,16 @@
                                             <el-table-column
                                                 label="报名人"
                                                 prop="name">
+                                                <template slot-scope="scope">
+                                                    <span class="normal">{{scope.row.trueFacultyName}}</span>
+                                                </template>
                                             </el-table-column>
                                             <el-table-column
                                                 prop="num"
                                                 label="工号">
+                                                <template slot-scope="scope">
+                                                    <span class="normal">{{scope.row.trueFacultyId}}</span>
+                                                </template>
                                             </el-table-column>
                                             <el-table-column
                                                 prop="batch"
@@ -312,7 +361,7 @@
                                                     <el-button
                                                         type="text"
                                                         size="small"
-                                                        @click="handleBatchDetail(scope.row)">{{scope.row.batch}}
+                                                        @click="handleBatchDetail(scope.row)">{{scope.row.batch.batchName}}
                                                     </el-button>
                                                 </template>
                                             </el-table-column>
@@ -324,6 +373,16 @@
                                                         size="mini"
                                                         type="text"
                                                         @click="handleEdit(scope.row)">预览</el-button>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column
+                                                prop="address"
+                                                label="操作" width="180">
+                                                <template v-slot="scope">
+                                                    <el-button
+                                                        size="mini"
+                                                        type="text"
+                                                        @click="handleAgreed(scope.row)">查看</el-button>
                                                 </template>
                                             </el-table-column>
                                         </el-table>
@@ -426,7 +485,7 @@
                             <el-row :gutter="10">
                                 <el-col :span="12">
                                     <el-button size="small" type="primary" icon="el-icon-s-custom" @click="invitation = true">邀约</el-button>
-                                    <el-button size="small" type="inform" plain class="white" @click="dialogTableVisibleForDisagreed = true">数据导出</el-button>
+                                    <el-button size="small" type="inform" plain class="white" @click="exportData3()">数据导出</el-button>
                                     <!--                    以下是对话弹窗部分-->
                                     <!--                    以下是对话弹窗部分-->
                                     <el-dialog title="邀约" :visible.sync="invitation">
@@ -467,7 +526,7 @@
                                     <!--                    以上是对话弹窗部分-->
                                     <el-dialog title="导出数据" :visible.sync="dialogTableVisibleForDisagreed">
                                         <el-table
-                                            :data="selectedIdsForDisagreed.map(index => tableData[index])">
+                                            :data="selectedIdsForDisagreed">
                                             <el-table-column
                                                 label="序号">
                                                 <template slot-scope="scope">
@@ -477,10 +536,16 @@
                                             <el-table-column
                                                 label="报名人"
                                                 prop="name">
+                                                <template slot-scope="scope">
+                                                    <span class="normal">{{scope.row.trueFacultyName}}</span>
+                                                </template>
                                             </el-table-column>
                                             <el-table-column
                                                 prop="num"
                                                 label="工号">
+                                                <template slot-scope="scope">
+                                                    <span class="normal">{{scope.row.trueFacultyId}}</span>
+                                                </template>
                                             </el-table-column>
                                             <el-table-column
                                                 prop="batch"
@@ -489,7 +554,7 @@
                                                     <el-button
                                                         type="text"
                                                         size="small"
-                                                        @click="handleBatchDetail(scope.row)">{{scope.row.batch}}
+                                                        @click="handleBatchDetail(scope.row)">{{scope.row.batch.batchName}}
                                                     </el-button>
                                                 </template>
                                             </el-table-column>
@@ -501,6 +566,16 @@
                                                         size="mini"
                                                         type="text"
                                                         @click="handleEdit(scope.row)">预览</el-button>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column
+                                                prop="address"
+                                                label="操作" width="180">
+                                                <template v-slot="scope">
+                                                    <el-button
+                                                        size="mini"
+                                                        type="text"
+                                                        @click="handleDisagreed(scope.row)">查看</el-button>
                                                 </template>
                                             </el-table-column>
                                         </el-table>
@@ -617,6 +692,7 @@ import {
   submitAgree,
   submitDisagree
 } from '../../api/office'
+import * as XLSX from 'xlsx'
 
 export default {
   name: 'Approval',
@@ -675,19 +751,46 @@ export default {
     }
   },
   methods: {
+    exportData1 () {
+      // const data = this.selectedIds.map(index => this.tableData[index])
+      const data = this.selectedIdsForUndetermined
+      const worksheet = XLSX.utils.json_to_sheet(data)
+      const workbook = XLSX.utils.book_new()
+      this.dialogTableVisibleForUndetermined = true
+      XLSX.utils.book_append_sheet(workbook, worksheet, '报名审批之待我审批')
+      XLSX.writeFile(workbook, '报名审批之待我审批.xlsx')
+    },
+    exportData2 () {
+      // const data = this.selectedIds.map(index => this.tableData[index])
+      const data = this.selectedIdsForAgreed
+      const worksheet = XLSX.utils.json_to_sheet(data)
+      const workbook = XLSX.utils.book_new()
+      this.dialogTableVisibleForAgreed = true
+      XLSX.utils.book_append_sheet(workbook, worksheet, '报名审批之已审批')
+      XLSX.writeFile(workbook, '报名审批之已审批.xlsx')
+    },
+    exportData3 () {
+      // const data = this.selectedIds.map(index => this.tableData[index])
+      const data = this.selectedIdsForDisagreed
+      const worksheet = XLSX.utils.json_to_sheet(data)
+      const workbook = XLSX.utils.book_new()
+      this.dialogTableVisibleForDisagreed = true
+      XLSX.utils.book_append_sheet(workbook, worksheet, '报名审批之未审批')
+      XLSX.writeFile(workbook, '报名审批之未审批.xlsx')
+    },
     handleSign () {
       this.$router.push({
         name: 'ApprovalDetails'
       })
     },
     handleSelectionChangeForUndetermined (val) {
-      this.selectedIdsForUndetermined = val.map(item => this.filteredDataForUndetermined.indexOf(item))
+      this.selectedIdsForUndetermined = val
     },
     handleSelectionChangeForAgreed (val) {
-      this.selectedIdsForAgreed = val.map(item => this.filteredDataForAgreed.indexOf(item))
+      this.selectedIdsForAgreed = val
     },
     handleSelectionChangeForDisagreed (val) {
-      this.selectedIdsForDisagreed = val.map(item => this.filteredDataForDisagreed.indexOf(item))
+      this.selectedIdsForDisagreed = val
     },
     handleClickTab (tab, event) {
       if (tab.name === 'Batch') {

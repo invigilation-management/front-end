@@ -7,13 +7,9 @@
                             <el-row :gutter="10">
                                 <el-col :span="17">
                                     <el-button size="small" type="primary" icon="el-icon-search">快速找人</el-button>
-                                    <el-button size="small" type="inform" plain class="white" icon="el-icon-upload" @click="dialogTableVisible = true">数据导出</el-button>
+                                    <el-button size="small" type="inform" plain class="white" icon="el-icon-upload" @click="exportData()">数据导出</el-button>
                                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
-                                            <el-table :data="selectedIds.map(index => filteredData[index])">
-                                                <el-table-column
-                                                    type="selection"
-                                                    width="55">
-                                                </el-table-column>
+                                            <el-table :data="selectedIds">
                                                 <el-table-column
                                                     label="序号">
                                                     <template slot-scope="scope">
@@ -26,28 +22,47 @@
                                                         <el-button
                                                             size="mini"
                                                             type="text"
-                                                            @click="handleEdit(scope.row)">查看</el-button>
+                                                            @click="handleBatchDetail(scope.row)">{{scope.row.batchName}}</el-button>
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column
                                                     prop="name"
                                                     label="监考人数">
+                                                    <template slot-scope="scope">
+                                                        <span class="normal">{{ scope.row.alreadyPassedNum }}</span>
+                                                    </template>
                                                 </el-table-column>
                                                 <el-table-column
                                                     prop="address"
                                                     label="报名开始时间" width="180">
+                                                    <template slot-scope="scope">
+                                                        <span class="normal">{{ scope.row.batchStartTime }}</span>
+                                                    </template>
                                                 </el-table-column>
                                                 <el-table-column
                                                     prop="address"
                                                     label="报名结束时间">
+                                                    <template slot-scope="scope">
+                                                        <span class="normal">{{ scope.row.batchEndTime }}</span>
+                                                    </template>
                                                 </el-table-column>
                                                 <el-table-column
                                                     prop="address"
                                                     label="创建时间">
+                                                    <template slot-scope="scope">
+                                                        <span class="normal">{{ scope.row.batchCreatedTime }}</span>
+                                                    </template>
                                                 </el-table-column>
                                                 <el-table-column
-                                                    prop="address"
+                                                    prop="status"
                                                     label="批次状态">
+                                                    <template slot-scope="scope">
+                                        <span class="teamName">
+                                            <div style="color: black" v-if="scope.row.batchStartTime>nowTime">未开始</div>
+                                            <div style="color: red" v-else-if="scope.row.batchEndTime<nowTime">已结束</div>
+                                            <div style="color: green" v-else>进行中</div>
+                                        </span>
+                                                    </template>
                                                 </el-table-column>
                                                 <el-table-column
                                                     prop="address"
@@ -166,6 +181,7 @@
 
 import {ExamListTable, getuserid, selectExamListByName} from '../../api/office'
 import moment from 'moment'
+import * as XLSX from 'xlsx'
 export default {
   name: 'ExamList',
   data () {
@@ -217,58 +233,67 @@ export default {
       pageSize: 5
     }
   },
-  methods: {
-    fetchItems () {
-      this.items = this.$data.tableData
-      this.filteredData = this.items
-    },
-    handleSearch () {
-      if (this.searchQuery != null) {
-        selectExamListByName(this.searchQuery).then(res => {
-          this.examListData = res.data.records
-        })
-      }
-    },
-    handleReset () {
-      this.searchQuery = ''
-      this.getExamListTable()
-    },
-    handleSelectionChange (val) {
-      this.selectedIds = val.map(item => this.filteredData.indexOf(item))
-    },
-    handleEdit (row) {
-      this.$router.push({
-        name: 'DetailList',
-        params: {batchname: row.batchName}
+  methods: { exportData () {
+    // const data = this.selectedIds.map(index => this.tableData[index])
+    const data = this.selectedIds
+    const worksheet = XLSX.utils.json_to_sheet(data)
+    const workbook = XLSX.utils.book_new()
+    this.dialogTableVisible = true
+    XLSX.utils.book_append_sheet(workbook, worksheet, '监考名单')
+    XLSX.writeFile(workbook, '监考名单.xlsx')
+  },
+  handleSelectionChange (val) {
+    // this.selectedIds = val.map(item => this.tableData.indexOf(item))
+    this.selectedIds = val
+  },
+  fetchItems () {
+    this.items = this.$data.tableData
+    this.filteredData = this.items
+  },
+  handleSearch () {
+    if (this.searchQuery != null) {
+      selectExamListByName(this.searchQuery).then(res => {
+        this.examListData = res.data.records
       })
-    },
-    getExamListTable () {
-      getuserid().then(res => {
-        const userId = res.data.userId
-        console.log('userId:', userId)
-        ExamListTable(userId, this.pageSize, this.pageNo).then(res => {
-          this.examListData = res.data.records
-          this.total = res.data.total
-          console.info('开始')
-          console.info(this.examListData)
-          console.info('结束')
-        })
-      })
-    },
-    handleBatchDetail (row) {
-      this.$router.push({
-        name: 'BatchDetail',
-        params: {batchname: row.batchName}
-      })
-    },
-    handleSizeChange (value) {
-      this.pageSize = value
-      this.getExamListTable()
-    },
-    handleCurrentChange (value) {
-      this.pageNo = value
-      this.getExamListTable()
     }
+  },
+  handleReset () {
+    this.searchQuery = ''
+    this.getExamListTable()
+  },
+  handleEdit (row) {
+    this.$router.push({
+      name: 'DetailList',
+      params: {batchname: row.batchName}
+    })
+  },
+  getExamListTable () {
+    getuserid().then(res => {
+      const userId = res.data.userId
+      console.log('userId:', userId)
+      ExamListTable(userId, this.pageSize, this.pageNo).then(res => {
+        this.examListData = res.data.records
+        this.total = res.data.total
+        console.info('开始')
+        console.info(this.examListData)
+        console.info('结束')
+      })
+    })
+  },
+  handleBatchDetail (row) {
+    this.$router.push({
+      name: 'BatchDetail',
+      params: {batchname: row.batchName}
+    })
+  },
+  handleSizeChange (value) {
+    this.pageSize = value
+    this.getExamListTable()
+  },
+  handleCurrentChange (value) {
+    this.pageNo = value
+    this.getExamListTable()
+  }
   },
   mounted () {
     this.fetchItems()
