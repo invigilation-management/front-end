@@ -10,7 +10,7 @@
         <div class="smalltitle">批次开始时间：{{batch_start_time}}</div>
         <div class="smalltitle">批次结束时间：{{batch_end_time}}</div>
         <div class="smalltitle">批次时长：{{batch_duration}}天</div>
-        <div class="smalltitle">监考说明：{{batch_info}}</div>
+        <div class="smalltitle">监考说明：监考人员要分别站位在教室前后,在不影响考生情况下,适当走动。</div>
         <div class="smalltitle">需求人数：{{batch_expectnum}}</div>
         <div class="smalltitle">通过人数：{{batch_alreadypassednum}}</div>
         <div class="smalltitle">确认人数：{{batch_alreadyconfirmnum}}</div>
@@ -82,7 +82,7 @@ export default {
 }
 .smalltitle{
     margin-top: 20px;
-    height: 55px;
+    height: 35px;
     font-size: 16px;
     font-weight: bold
 }

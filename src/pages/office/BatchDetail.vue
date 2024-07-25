@@ -16,8 +16,9 @@
                     <div class="smalltitle">批次结束时间：{{batch_end_time}}</div>
                     <div class="smalltitle">批次时长：{{batch_duration}}天</div>
                     <div class="smalltitle">监考说明：监考人员要分别站位在教室前后,在不影响考生情况下,适当走动。</div>
-                    <div class="smalltitle">上传附件：</div>
-                    <el-button type="text">附件.docx</el-button>
+                    <div class="smalltitle">需求人数：{{batch_expectnum}}</div>
+                    <div class="smalltitle">通过人数：{{batch_alreadypassednum}}</div>
+                    <div class="smalltitle">确认人数：{{batch_alreadyconfirmnum}}</div>
                 </div>
                 <div id="chart" class="chart"></div>
             </div>
@@ -37,7 +38,10 @@ export default {
       batch_start_time: '',
       batch_end_time: '',
       batch_duration: '',
-      batch_info: ''
+      batch_info: '',
+      batch_expectnum: '',
+      batch_alreadypassednum: '',
+      batch_alreadyconfirmnum: ''
     }
   },
   methods: {
@@ -52,6 +56,9 @@ export default {
         this.batch_end_time = response.data.records[0].batchEndTime
         this.batch_duration = response.data.records[0].batchDuration
         this.batch_info = response.data.records[0].batchInfo
+        this.batch_expectnum = response.data.records[0].expectNum
+        this.batch_alreadypassednum = response.data.records[0].alreadyPassedNum
+        this.batch_alreadyconfirmnum = response.data.records[0].alreadyConfirmNum
         this.$nextTick(() => { // 确保 DOM 更新后再初始化图表
           this.initChart()
         })
@@ -159,5 +166,8 @@ export default {
 
 .smalltitle {
     margin-top: 20px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: bold
 }
 </style>
