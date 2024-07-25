@@ -6,18 +6,12 @@
         </h1>
         <el-card class="card">
             <el-row :gutter="10">
-                <el-col :span="4">
-                    <el-input v-model="inputRole" placeholder="请选择系统角色"></el-input>
-                </el-col>
                 <el-col :span="6" >
                     <el-input v-model="input" placeholder="请输入姓名/工号关键词查询"></el-input>
                 </el-col>
                 <el-col :span="4" >
-                    <el-button type="primary">查询</el-button>
-                    <el-button type="primary" plain>重置</el-button>
-                </el-col>
-                <el-col :span="2" :offset="6">
-                    <el-button type="success" round>添加成员</el-button>
+                    <el-button type="primary" style="margin-left: 30px" @click="select">查询</el-button>
+                    <el-button type="info" style="margin-left: 30px" @click=reset>重置</el-button>
                 </el-col>
             </el-row>
             <el-table
@@ -25,7 +19,7 @@
                 ref="multipleTable"
                 :data="tableData"
             tooltip-effect="dark"
-            style="width: 100%; margin: 10px">
+            style="width: 100%; margin: 10px; margin-top: 40px">
                 <el-table-column
                     type="selection"
                     width="55">
@@ -40,25 +34,29 @@
                 <el-table-column
                     prop="trueFacultyName"
                     label="姓名"
-                    width="120">
+                    width="200">
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.facultyName}}</span>
+                        <span>{{scope.row.facultyName}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
                     prop="gender"
                     label="工号"
-                    width="137">
+                    width="207">
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.facultyId}}</span>
+                        <span>{{scope.row.facultyId}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
                     prop="trueFacultyId"
                     label="系统角色"
-                    width="180">
+                    width="220">
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.level}}</span>
+                        <div  v-if="scope.row.level===1">学院研工办主任</div>
+                        <div  v-else-if="scope.row.level===2">考务科科长</div>
+                        <div  v-else-if="scope.row.level===3">普通教职工</div>
+                        <div  v-else-if="scope.row.level===4">综合办主任</div>
+                        <div  v-else-if="scope.row.level===5">副院长</div>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -66,23 +64,15 @@
                     label="角色代码"
                     width="220">
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.level}}</span>
+                        <span>{{scope.row.level}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
                     prop="tele"
                     label="添加时间"
-                    width="155">
+                    width="255">
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.createdTime}}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    label="操作"
-                    prop="time"
-                    width="200">
-                    <template slot-scope="scope">
-                        <span>变更</span>
+                        <span>{{scope.row.createdTime}}</span>
                     </template>
                 </el-table-column>
             </el-table>
@@ -101,7 +91,7 @@
 </template>
 
 <script>
-import {toDetailRoles} from '../../api/user'
+import {toDetailRoles, collegeIdFind1} from '../../api/user'
 
 export default {
   name: 'Waiting',
@@ -118,13 +108,25 @@ export default {
     }
   },
   methods: {
+    select () {
+      if (this.input != null) {
+        collegeIdFind1(this.batchname1, this.input, this.pagesize, this.pagenum).then(response => {
+          this.tableData = response.data.records
+          this.total = response.data.total
+        })
+      }
+    },
+    reset () {
+      this.show()
+      this.input = null
+    },
     handleSizeChange (value) {
       this.pagesize = value
-      this.show()
+      this.select()
     },
     handleCurrentChange (value) {
       this.pagenum = value
-      this.show()
+      this.select()
     },
     handleEdit () {
       this.$router.push({

@@ -140,10 +140,10 @@ const admissionsHeadPage = [
         component: () => import(/* webpackChunkName: "RoleManagement" */ '../pages/admissions/ExamFees.vue')
       },
       {
-        path: 'ApprovalDetails',
-        name: 'ApprovalDetails',
+        path: 'ApprovalDetail',
+        name: 'ApprovalDetail',
         props: true,
-        component: () => import(/* webpackChunkName: "RoleManagement" */ '../pages/admissions/ApprovalDetails.vue')
+        component: () => import(/* webpackChunkName: "RoleManagement" */ '../pages/admissions/ApprovalDetail.vue')
       },
       {
         path: 'AgreeDetail',

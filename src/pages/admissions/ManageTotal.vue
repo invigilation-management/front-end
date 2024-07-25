@@ -14,81 +14,7 @@
                                 </el-col>
                                 <el-col :span="14">
                                     <div class="buttonright">
-                                    <el-button type="primary" icon="el-icon-search">快速找人</el-button>
-                                    <el-button type="primary" icon="el-icon-plus" @click="dialogVisible_manage=true">创建批次</el-button>
-                                        <!--                    以下是对话弹窗部分-->
-                                        <!--                    以下是对话弹窗部分-->
-                                        <el-dialog title="创建监考安排批次" :visible.sync="dialogVisible_manage">
-                                            <el-form :model="form">
-                                                <el-form-item label="监考名称" :label-width="formLabelWidth">
-                                                    <el-input v-model="form.name" autocomplete="off" placeholder="请输入监考名称"></el-input>
-                                                </el-form-item>
-                                                <el-form-item label="监考人数" :label-width="formLabelWidth">
-                                                    <el-input v-model="form.members_num" autocomplete="off" placeholder="请输入监考人数"></el-input>
-                                                </el-form-item>
-                                                <el-form-item label="报名开始时间" :label-width="formLabelWidth">
-                                                    <el-input v-model="form.begin_time" autocomplete="off" placeholder="请输入报名开始时间"></el-input>
-                                                </el-form-item>
-                                                <el-form-item label="报名结束时间" :label-width="formLabelWidth">
-                                                    <el-input v-model="form.end_time" autocomplete="off" placeholder="请输入报名结束时间"></el-input>
-                                                </el-form-item>
-                                                <el-form-item label="创建时间" :label-width="formLabelWidth" :label-height="bigformLabelHeight">
-                                                    <el-input v-model="form.create_time" autocomplete="off" placeholder="请输入创建时间" style="height: 158px;height: auto">
-                                                    </el-input>
-                                                </el-form-item>
-                                                <el-form-item label="批次状态" :label-width="formLabelWidth">
-                                                    <el-select v-model="form.this_status" placeholder="请选择批次状态" >
-                                                        <el-option label="已结束" value="已结束"></el-option>
-                                                        <el-option label="进行中" value="进行中"></el-option>
-                                                    </el-select>
-                                                </el-form-item>
-                                            </el-form>
-                                            <div slot="footer" class="dialog-footer" style="text-align: center">
-                                                <el-button type="primary" @click="dialogVisible_manage = false" style="background-color: #166AFF"> 提 交 </el-button>
-                                                <el-button @click="dialogVisible_manage = false">取 消</el-button>
-                                            </div>
-                                        </el-dialog>
-                                        <!--                    以上是对话弹窗部分-->
-                                        <!--                    以上是对话弹窗部分-->
                                     <el-button type="inform" plain class="white" icon="el-icon-upload" @click="exportData()">数据导出</el-button>
-                                    <!--                    以下是对话弹窗部分-->
-                                    <!--                    以下是对话弹窗部分-->
-                                    <el-dialog title="邀约" :visible.sync="invitation">
-                                        <hr class="card-divider">
-                                        <div style="background-color: #E4EEFF;margin: 20px;height: 50px;text-align: center">
-                                            <i class="el-icon-warning-outline"></i>
-                                            通过邀约渠道，不受监考批次时间限制!
-                                        </div>
-                                        <div style="display: flex">
-                                            <div style="margin-top: 15px;margin-right: 50px">监考批次</div>
-                                            <el-input v-model="input_exam_num" placeholder="请选择监考批次"></el-input>
-                                        </div>
-                                        <div style="display: flex;margin-top: 20px">
-                                            <div style="text-align: left;margin-right: 50px">选择方式</div>
-                                            <el-radio v-model="invite_way" label="self">自走流程</el-radio>
-                                            <el-radio v-model="invite_way" label="help">帮助报名</el-radio>
-                                        </div>
-                                        <div>
-                                            <el-input placeholder="请输入姓名/工号/学号模糊查询" style="margin: 10px"></el-input>
-                                        </div>
-                                        <div style="margin: 20px;background-color: #F3F3F3 ;height: 160px;text-align: left">
-                                            <br><br>&nbsp;&nbsp; &nbsp;姓名：<br><br>
-                                            &nbsp; &nbsp; 工号：<br><br>
-                                            &nbsp; &nbsp; 学院：<br><br>
-                                        </div>
-                                        <hr class="card-divider">
-                                        <div style="display: flex;margin-top: 30px">
-                                            <div v-if="invite_way === 'self'">
-                                                <el-button type="primary" @click="invitation= false" style="width: 125px;margin-left: 230px">提交</el-button>
-                                            </div>
-                                            <div v-if="invite_way === 'help'">
-                                                <el-button type="primary" @click="invitation= false" style="width: 125px;margin-left: 230px">前往补充信息</el-button>
-                                            </div>
-                                            <el-button type="info" @click="invitation= false" style="width: 125px;margin-left: 70px">取消</el-button>
-                                        </div>
-                                    </el-dialog>
-                                    <!--                    以上是对话弹窗部分-->
-                                    <!--                    以上是对话弹窗部分-->
                                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                                         <el-table :data="selectedIds">
                                             <el-table-column
@@ -154,9 +80,6 @@
                                                         size="mini"
                                                         type="text"
                                                         @click="handleEdit(scope.row)">查看名单</el-button>
-                                                    <el-button
-                                                        size="mini"
-                                                        type="text">下载监考表</el-button>
                                                 </template>
                                             </el-table-column>
                                         </el-table>
@@ -170,17 +93,18 @@
                                     @selection-change="handleSelectionChange">
                                 <el-table-column
                                         type="selection"
-                                        width="55">
+                                        width="30">
                                 </el-table-column>
                                 <el-table-column
-                                        label="序号">
+                                        label="序号"
+                                        width="70">
                                     <template slot-scope="scope">
                                         {{scope.$index+1}}
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                         prop="batch"
-                                        label="监考名称" width="180">
+                                        label="监考名称" width="100">
                                     <template v-slot="scope">
                                         <el-button type="text" size="small" @click="handleEdit333333333333(scope.row)">{{
                                             scope.row.batchName
@@ -190,7 +114,8 @@
                                 </el-table-column>
                                 <el-table-column
                                         prop="num"
-                                        label="监考人数">
+                                        label="监考人数"
+                                        width="90">
                                     <template slot-scope="scope">
                                         <span class="teamName">{{scope.row.expectNum}}</span>
                                     </template>
@@ -235,9 +160,6 @@
                                                 size="mini"
                                                 type="text"
                                                 @click="handleEdit(scope.row)">查看名单</el-button>
-                                        <el-button
-                                                size="mini"
-                                                type="text">下载监考表</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -269,22 +191,6 @@ export default {
       pagesize: 10,
       total: 0,
       nowTime: moment().format('YYYY-MM-DD HH:mm:ss'),
-      options: [{
-        value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
-      }],
       form: {
         name: '',
         members_num: '',

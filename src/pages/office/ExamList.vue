@@ -5,8 +5,7 @@
             <el-card>
                 <el-row :gutter="10">
                             <el-row :gutter="10">
-                                <el-col :span="17">
-                                    <el-button size="small" type="primary" icon="el-icon-search">快速找人</el-button>
+                                <el-col :span="15">
                                     <el-button size="small" type="inform" plain class="white" icon="el-icon-upload" @click="exportData()">数据导出</el-button>
                                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                                             <el-table :data="selectedIds">
@@ -77,10 +76,10 @@
                                         </el-table>
                                     </el-dialog>
                                 </el-col>
-                                <el-col :span="4">
+                                <el-col :span="5">
                                     <el-input size="small" v-model="searchQuery" placeholder="请输入监考名称关键词查询"></el-input>
                                 </el-col>
-                                <el-col :span="3">
+                                <el-col :span="4">
                                     <div class="buttonright">
                                         <el-button size="small" type="primary" icon="el-icon-search" @click="handleSearch">查询</el-button>
                                         <el-button size="small" icon="el-icon-refresh-left" @click="handleReset">重置</el-button>
@@ -102,7 +101,7 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    label="监考名称">
+                                    label="监考名称" width="120">
                                     <template v-slot="scope">
                                         <el-button
                                             size="mini"
@@ -121,19 +120,19 @@
                                     prop="address"
                                     label="报名开始时间" width="180">
                                     <template slot-scope="scope">
-                                        <span class="normal">{{ scope.row.batchStartTime }}</span>
+                                        <span class="normal">{{ scope.row.regStartTime }}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
-                                    label="报名结束时间">
+                                    label="报名结束时间" width="180">
                                     <template slot-scope="scope">
-                                        <span class="normal">{{ scope.row.batchEndTime }}</span>
+                                        <span class="normal">{{ scope.row.regEndTime }}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="address"
-                                    label="创建时间">
+                                    label="创建时间" width="180">
                                     <template slot-scope="scope">
                                         <span class="normal">{{ scope.row.batchCreatedTime }}</span>
                                     </template>

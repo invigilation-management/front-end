@@ -24,7 +24,7 @@ import SignUpInfo from '../../components/SignUpInfo.vue'
 import HistoryCard from '../../components/HistoryCard.vue'
 
 export default {
-  name: 'ApprovalDetails',
+  name: 'ApprovalDetail',
   props: ['batchName', 'trueFacultyId'],
   data () {
     return {

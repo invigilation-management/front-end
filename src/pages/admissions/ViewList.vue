@@ -7,120 +7,9 @@
         </h1>
         <el-card class="card">
             <el-row :gutter="10">
-                <el-col :span="6">
-                    <el-button class="blue" type="primary" @click="insert_exam_info = true">导入监考信息</el-button>
-                    <!--                    以下是对话弹窗部分-->
-                    <!--                    以下是对话弹窗部分-->
-                    <el-dialog title="导入监考信息" :visible.sync="insert_exam_info">
-                        <el-form :model="form">
-                            <el-form-item label="姓名" :label-width="formLabelWidth">
-                                <el-input v-model="form.name" autocomplete="off" placeholder="请输入姓名"></el-input>
-                            </el-form-item>
-                            <el-form-item label="性别" :label-width="formLabelWidth">
-                                <el-input v-model="form.gender" autocomplete="off" placeholder="请输入性别"></el-input>
-                            </el-form-item>
-                            <el-form-item label="工号" :label-width="formLabelWidth">
-                                <el-input v-model="form.num" autocomplete="off" placeholder="请输入工号"></el-input>
-                            </el-form-item>
-                            <el-form-item label="所在单位" :label-width="formLabelWidth">
-                                <el-input v-model="form.region" autocomplete="off" placeholder="请输入所在单位"></el-input>
-                            </el-form-item>
-                            <el-form-item label="身份证号" :label-width="formLabelWidth" :label-height="bigformLabelHeight">
-                                <el-input v-model="form.idcard" autocomplete="off" placeholder="身份证号"></el-input>
-                            </el-form-item>
-                            <el-form-item label="移动电话" :label-width="formLabelWidth" :label-height="bigformLabelHeight">
-                                <el-input v-model="form.phone" autocomplete="off" placeholder="请输入移动电话"></el-input>
-                            </el-form-item>
-                            <el-form-item label="监考职责" :label-width="formLabelWidth">
-                                <el-input v-model="form.job" autocomplete="off" placeholder="请输入监考职责"></el-input>
-                            </el-form-item>
-                            <el-form-item label="监考场次" :label-width="formLabelWidth">
-                                <el-input v-model="form.exam_num" autocomplete="off" placeholder="请输入监考场次"></el-input>
-                            </el-form-item>
-                            <el-form-item label="考场名称" :label-width="formLabelWidth">
-                                <el-input v-model="form.room" autocomplete="off" placeholder="请输入考场名称"></el-input>
-                            </el-form-item>
-                            <el-form-item label="监考时间" :label-width="formLabelWidth">
-                                <el-input v-model="form.time" autocomplete="off" placeholder="请输入监考时间"></el-input>
-                            </el-form-item>
-                        </el-form>
-                        <div slot="footer" class="dialog-footer" style="text-align: center">
-                            <el-button type="primary" @click="insert_exam_info = false" style="background-color: #166AFF"> 导 入 </el-button>
-                            <el-button @click="insert_exam_info = false">取 消</el-button>
-                        </div>
-                    </el-dialog>
-                    <!--                    以上是对话弹窗部分-->
-                    <!--                    以上是对话弹窗部分-->
-                    <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
-                    <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
-                        <el-table :data="selectedIds.map(index => tableData[index])"><el-table-column
-                            type="selection"
-                            width="56">
-                        </el-table-column>
-                            <el-table-column
-                                label="序号"
-                                width="110">
-                                <template slot-scope="scope">
-                                    0{{scope.$index+1}}
-                                </template>
-                            </el-table-column>
-                            <el-table-column
-                                prop="name"
-                                label="姓名"
-                                width="129">
-                            </el-table-column>
-                            <el-table-column
-                                prop="status"
-                                label="性别"
-                                width="90"
-                                show-overflow-tooltip>
-                            </el-table-column>
-                            <el-table-column
-                                prop="num"
-                                label="工号"
-                                width="150">
-                            </el-table-column>
-                            <el-table-column
-                                prop="partment"
-                                label="所在单位"
-                                width="177">
-                            </el-table-column>
-                            <el-table-column
-                                prop="Id"
-                                label="身份证号"
-                                width="217">
-                            </el-table-column>
-                            <el-table-column
-                                prop="tele"
-                                label="移动电话"
-                                width="150">
-                            </el-table-column>
-                            <el-table-column
-                                prop="name"
-                                label="监考职责"
-                                width="105">
-                            </el-table-column>
-                            <el-table-column
-                                prop="count"
-                                label="监考场次"
-                                width="108">
-                            </el-table-column>
-                            <el-table-column
-                                prop="room"
-                                label="考场名称"
-                                width="148">
-                            </el-table-column>
-                            <el-table-column
-                                prop="time"
-                                label="监考时间"
-                                width="310">
-                            </el-table-column>
-                        </el-table>
-                    </el-dialog>
-                </el-col>
-                <el-col :span="6" :offset="8"><el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
-                <el-col :span="4">
-                    <el-button class="blue" type="primary" @click="select">查询</el-button>
+                <el-col :span="6"><el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
+                <el-col :span="4" :offset="1">
+                    <el-button class="blue" type="primary" @click="select" style="margin-left: 30px">查询</el-button>
                     <el-button type="primary" plain class="white" @click=reset>重置</el-button>
                 </el-col>
             </el-row>
@@ -129,7 +18,7 @@
                 ref="multipleTable"
                 :data="tableData"
                 tooltip-effect="dark"
-                style="width: 100%;margin-top: 10px"
+                style="width: 100%;margin-top: 20px"
                 @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
@@ -156,7 +45,8 @@
                     width="90"
                     show-overflow-tooltip>
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.gender}}</span>
+                        <div  v-if="scope.row.gender===1">男</div>
+                        <div  v-else>女</div>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -227,10 +117,6 @@
                 :total='total'>
             </el-pagination>
         </el-card>
-<!--        <router-link to="details">details</router-link>-->
-<!--        <router-view></router-view>-->
-<!--        &lt;!&ndash; 添加你的查看名单内容 &ndash;&gt;-->
-<!--        上面是加的页面内跳转的内容，我在写vue组件是注释掉，后续调试时可以直接回复，目测没有冲突————侯世岭-->
     </div>
 </template>
 

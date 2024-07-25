@@ -14,29 +14,12 @@
                         <el-button type="primary" class="blue" icon="el-icon-search" @click="select">查询</el-button>
                         <el-button type="primary" plain class="white" icon="el-icon-refresh-left" @click="reset">重置</el-button>
                     </el-col>
-                    <el-col :span="12" :offset="2">
-                        <el-button type="primary" class="blue" icon="el-icon-search" @click="dialogVisibleFind= true">快速找人</el-button>
-                        <!--                    以下是对话弹窗部分-->
-                        <!--                    以下是对话弹窗部分-->
-                        <el-dialog title="快速找人" :visible.sync="dialogVisibleFind">
-                            <hr class="card-divider">
-                            <el-input placeholder="请输入姓名/工号关键词查询"></el-input>
-                            <div class="grey">
-                                <br>&nbsp; 姓名: <br><br>&nbsp; 工号: <br><br>&nbsp; 所在部门: <br><br>&nbsp; 担任角色:<br> <br>
-                            </div>
-                        </el-dialog>
-                        <!--                    以上是对话弹窗部分-->
-                        <!--                    以上是对话弹窗部分-->
+                    <el-col :span="8" :offset="6">
                         <el-button type="primary" class="blue" icon="el-icon-plus" @click="dialogVisibleSelect = true">添加成员</el-button>
-                        <!--                    以下是对话弹窗部分-->
-                        <!--                    以下是对话弹窗部分-->
                         <!--                    以下是对话弹窗部分-->
                         <!--                    以下是对话弹窗部分-->
                         <el-dialog title="添加成员" :visible.sync="dialogVisibleSelect">
                             <hr class="card-divider">
-                            <el-radio v-model="selectedContent" label="alone">单一添加</el-radio>
-                            <el-radio v-model="selectedContent" label="alot">批量导入</el-radio>
-<!--                            以下是添加一个成员时的对话框-->
                             <div v-if="selectedContent === 'alone'">
                                 <el-input autocomplete="off"  style="width: 500px" class="input1" placeholder="请输入姓名/工号模糊查询" v-model="innerSelectItem"></el-input>
                                 <el-button type="primary" style="margin-left: 30px;width: 100px" icon="el-icon-search" @click='innerSelect'>查询</el-button>
@@ -53,23 +36,10 @@
                                     <el-button type="primary" @click='finalChange' style="background-color:#166AFF;width: 200px">提交</el-button>
                                 </div>
                             </div>
-<!--                            以下是操作一堆成导入教职工名单：员时的对话框-->
-                            <div v-else-if="selectedContent === 'alot'">
-                                <div style="margin-top: 20px">
-                                    导入教职工名单：&nbsp;&nbsp;&nbsp;<el-link type="primary">下载导入模板</el-link>
-                                    <br><br>*能通过统一身份认证进入学校系统都可以导入
-                                </div>
-                                <el-button type="primary" style="background-color:#166AFF;margin-top: 20px">上传名单</el-button>
-                                <div style="display: flex; flex-direction: column; align-items: center;">
-                                    <el-button type="primary" style="background-color:#166AFF;margin-top: 80px;width: 200px">提交</el-button>
-                                </div>
-                            </div>
                         </el-dialog>
                         <!--                    以上是对话弹窗部分-->
                         <!--                    以上是对话弹窗部分-->
-                        <!--                    以上是对话弹窗部分-->
-                        <!--                    以上是对话弹窗部分-->
-                        <el-button type="primary" class="blue" icon="el-icon-plus" @click="dialogVisible_Add_Department= true">添加部门</el-button>
+                        <el-button type="primary" class="blue" icon="el-icon-plus" @click="dialogVisible_Add_Department= true" style="margin-left: 30px">添加部门</el-button>
                         <!--                    以下是对话弹窗部分-->
                         <!--                    以下是对话弹窗部分-->
                         <el-dialog title="添加部门" :visible.sync="dialogVisible_Add_Department">
@@ -85,7 +55,7 @@
                         </el-dialog>
                         <!--                    以上是对话弹窗部分-->
                         <!--                    以上是对话弹窗部分-->
-                        <el-button  type="primary" class="blue" icon="el-icon-upload" @click="exportData()">数据导出</el-button>
+                        <el-button  type="primary" class="blue" icon="el-icon-upload" @click="exportData()" style="margin-left: 30px">数据导出</el-button>
                         <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                             <el-table :data="selectedIds">
                                 <el-table-column
@@ -170,7 +140,7 @@
                     <el-table-column
                         label="部门名称"
                         prop="name"
-                        width="400">
+                        width="300">
                         <template slot-scope="scope">
                             <el-button type="text">{{scope.row.collegeName}}</el-button>
                         </template>
@@ -202,7 +172,7 @@
                     <el-table-column
                         prop="date"
                         label="添加时间"
-                        width="140">
+                        width="250">
                         <template slot-scope="scope">
                             <span class="teamName">{{scope.row.createTime}}</span>
                         </template>
@@ -211,7 +181,6 @@
                         label="操作">
                         <template slot-scope="scope">
                             <el-button @click="handleMembers(scope.row)" type="text" size="small">查看成员</el-button>
-                            <el-button type="text" size="small">更多</el-button>
                         </template>
                     </el-table-column>
                 </el-table>

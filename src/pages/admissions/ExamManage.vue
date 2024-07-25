@@ -7,7 +7,6 @@
         <el-card class="card">
             <el-row :gutter="10">
                 <el-col :span="9">
-                    <el-button type="primary" class="blue" icon="el-icon-search" @click="dialogVisibleFind= true">快速找人</el-button>
                     <!--                    以下是对话弹窗部分-->
                     <!--                    以下是对话弹窗部分-->
                     <el-dialog title="快速找人" :visible.sync="dialogVisibleFind">
@@ -65,7 +64,7 @@
                     <!--                    以上是对话弹窗部分-->
                     <!--                    以上是对话弹窗部分-->
                     <!--                    以上是对话弹窗部分-->
-                    <el-button type="primary" plain class="white" icon="el-icon-upload" @click="exportData()">数据导出</el-button>
+                    <el-button type="primary" plain class="white" icon="el-icon-upload" @click="exportData()" style="margin-left: 20px">数据导出</el-button>
 
                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                         <el-table :data="selectedIds">
@@ -226,7 +225,6 @@
                     width="200">
                     <template slot-scope="scope">
                         <el-button type="text" size="small" @click="handleVice(scope.row)">查看名单</el-button>
-                        <el-button type="text" size="small">更多</el-button>
                     </template>
                 </el-table-column>
             </el-table>
