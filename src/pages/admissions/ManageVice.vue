@@ -9,8 +9,8 @@
             <el-row :gutter="10">
                 <el-col :span="6"><el-input v-model="input" placeholder="请输入监考人名姓名/工号关键词查询"></el-input></el-col>
                 <el-col :span="4">
-                    <el-button class="blue" type="primary">查询</el-button>
-                    <el-button type="primary" plain class="white">重置</el-button>
+                    <el-button class="blue" type="primary" @click="select">查询</el-button>
+                    <el-button type="primary" plain class="white" @click=reset>重置</el-button>
                 </el-col>
                 <el-col :span="14">
                     <el-button style="float: right" type="primary" plain class="white" @click="exportData">数据导出</el-button>
@@ -179,7 +179,7 @@
 </template>
 
 <script>
-import {toDetailManage} from '../../api/user'
+import {toDetailManage, examManageViceSelect} from '../../api/user'
 import * as XLSX from 'xlsx'
 
 export default {
@@ -214,6 +214,18 @@ export default {
     }
   },
   methods: {
+    select () {
+      if (this.input != null) {
+        examManageViceSelect(this.batchname1, this.input, this.pagesize, this.pagenum).then(response => {
+          this.tableData = response.data.records
+          this.total = response.data.total
+        })
+      }
+    },
+    reset () {
+      this.show()
+      this.input = null
+    },
     exportData () {
       // const data = this.selectedIds.map(index => this.tableData[index])
       const data = this.selectedIds
@@ -225,11 +237,11 @@ export default {
     },
     handleSizeChange (value) {
       this.pagesize = value
-      this.show()
+      this.select()
     },
     handleCurrentChange (value) {
       this.pagenum = value
-      this.show()
+      this.select()
     },
     handleSelectionChange (val) {
       this.selectedIds = val

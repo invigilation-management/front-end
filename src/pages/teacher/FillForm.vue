@@ -6,9 +6,14 @@
             </div>
         </h1>
         <el-card class="card">
-            <el-row :gutter="10">
-                <el-col :span="6" :offset="14" ><el-input v-model="searchQuery" placeholder="请输入监考名称关键词查询"></el-input></el-col>
-                <el-col :span="4">
+            <el-row>
+                <el-col :span="13">
+                    <el-button type="success" round @click="toBeConfim">我的消息</el-button>
+                </el-col>
+                <el-col :span="5">
+                    <el-input v-model="searchQuery" placeholder="请输入监考名称关键词查询"></el-input>
+                </el-col>
+                <el-col :span="4" style="margin-left: 50px">
                     <el-button type="primary" class="blue" @click="handleSearch">查询</el-button>
                     <el-button type="primary" plain class="white" @click="handleReset">重置</el-button>
                 </el-col>
@@ -94,111 +99,109 @@
                 :total="total">
             </el-pagination>
         </el-card>
+        <el-dialog title="待我确认" :visible.sync="waitingToBeConfirm">
+            <el-table style="width: 100%;margin-left: 20px" :data="confirmData">
+                <el-table-column property="batchName" label="批次名称" width="270">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.batch.batchName}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column property="passOrNot" label="通过状态" width="270">
+                    <template slot-scope="scope">
+                        <span class="teamName">{{scope.row.passOrNot}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column label="操作" width="250">
+                    <template slot-scope="scope">
+                        <el-button type="danger" plain @click="confirmMessage(scope.row)">确认消息</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <el-pagination
+                style="margin-top: 20px"
+                background
+                @size-change="handleSizeChangein"
+                @current-change="handleCurrentChangein"
+                :current-page="pageNoin"
+                :page-sizes="[5, 10, 20, 40]"
+                :page-size="pageSizein"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="totalin">
+            </el-pagination>
+            <el-button type="danger" round @click="close1" style="margin-left: 350px;margin-top: 30px">关闭</el-button>
+        </el-dialog>
     </div>
 </template>
 
 <script>
 
-import {getuserid, FillFormTable, selectFillFormTable} from '../../api/teacher'
+import {getuserid, FillFormTable, selectFillFormTable, dialogTable, confirm} from '../../api/teacher'
 export default {
   name: 'SignUp',
   data () {
     return {
+      waitingToBeConfirm: false,
+      confirmData: [],
       input: '',
-      tableData: [
-        {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        },
-        {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        },
-        {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        },
-        {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }, {
-          name: '2023年A卷2023监考报名',
-          status: '2/20',
-          startTime: '2023-09-12 10:30:00',
-          endTime: '2023-09-12 10:30:00',
-          createTime: '2023-09-12 10:30:00'
-        }
-
-        // Add more data objects as required
-      ],
       searchQuery: '',
       FillFormData: '',
       pageSize: 5,
       pageNo: 1,
-      total: 0
+      total: 0,
+      pageSizein: 5,
+      pageNoin: 1,
+      totalin: 0
     }
   },
   methods: {
+    confirmMessage (row) {
+      getuserid().then(response => {
+        this.waitingToBeConfirm = false
+        const userId1 = response.data.userId
+        confirm(userId1, row.batch.batchName).then(response => {
+          if (response.data === true) {
+            this.$message({
+              message: '已确认',
+              type: 'success'
+            })
+          } else if (response.data === false) {
+            this.$message({
+              message: '失败，请稍后再试',
+              type: 'warning'
+            })
+          }
+        }).catch(error => {
+          console.error('Error fetching approval table:', error)
+        })
+      }).catch(error => {
+        console.error('Error fetching userId:', error)
+      })
+    },
+    handleSizeChangein (value) {
+      this.pageSizein = value
+      this.toBeConfim()
+    },
+    handleCurrentChangein (value) {
+      this.pageNoin = value
+      this.toBeConfim()
+    },
+    close1 () {
+      this.waitingToBeConfirm = false
+    },
+    toBeConfim () {
+      this.waitingToBeConfirm = true
+      getuserid().then(response => {
+        const userId = response.data.userId
+        dialogTable(userId, this.pageSizein, this.pageNoin).then(response => {
+          this.confirmData = response.data.records
+          this.totalin = response.data.total
+        }).catch(error => {
+          console.error('Error fetching approval table:', error)
+        })
+      }).catch(error => {
+        console.error('Error fetching userId:', error)
+      })
+    },
     handleSelectionChange (val) {
       console.log(val)
     },
