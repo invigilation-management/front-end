@@ -676,13 +676,13 @@ export default {
     },
     handleSubmit (row) {
       this.$router.push({
-        name: 'ApprovalDetails',
+        name: 'ApprovalDetail',
         params: {batchName: row.batch.batchName, trueFacultyId: row.trueFacultyId}
       })
     },
     handlePreview (row) {
       this.$router.push({
-        name: 'ApprovalDetails',
+        name: 'ApprovalDetail',
         params: {batchName: row.batch.batchName, trueFacultyId: row.trueFacultyId}
       })
     },
