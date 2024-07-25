@@ -108,3 +108,10 @@ export const submitDisagree = (userId, trueFacultyId, batchName) => {
     batchName: batchName
   })
 }
+// 流水图
+export const historyCard = (trueFacultyId, batchName) => {
+  return http.GET('/api/approval/historyCard',{
+    trueFacultyId: trueFacultyId,
+    batchName: batchName
+  })
+}
