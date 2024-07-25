@@ -57,7 +57,7 @@
             </el-col>
             <el-col :span="10">
                 <el-card class="timeline" style="height: 940px; width: 566px">
-                    <HistoryCard></HistoryCard>
+                    <HistoryCard :parentValue="valueFromParent"></HistoryCard>
                 </el-card>
             </el-col>
         </el-row>
@@ -73,6 +73,7 @@ export default {
   props: ['batchName', 'trueFacultyId'],
   data () {
     return {
+      props: ['batchName', 'trueFacultyId'],
       Form: {
         name: '',
         result: '',
