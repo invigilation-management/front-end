@@ -4,6 +4,8 @@
         <i class="el-icon-back"></i><div class="title_2"><div class="ahead1">报名审批/</div>详情</div>
     </div>
     <el-card class="card">
+        <div class="content-wrapper">
+            <div class="info">
         <div class="title">监考批次情况</div>
         <hr class="card-divider">
         <div class="smalltitle">批次名称：{{batch_name}}</div>
@@ -14,12 +16,16 @@
         <div class="smalltitle">需求人数：{{batch_expectnum}}</div>
         <div class="smalltitle">通过人数：{{batch_alreadypassednum}}</div>
         <div class="smalltitle">确认人数：{{batch_alreadyconfirmnum}}</div>
+            </div>
+        <div id="chart" class="chart"></div>
+        </div>
     </el-card>
 </div>
 </template>
 
 <script>
 import {todetails} from '../../api/user'
+import * as echarts from 'echarts'
 export default {
   name: 'BatchDetails',
   props: ['batchname'],
@@ -46,7 +52,59 @@ export default {
         this.batch_expectnum = response.data.records[0].expectNum
         this.batch_alreadypassednum = response.data.records[0].alreadyPassedNum
         this.batch_alreadyconfirmnum = response.data.records[0].alreadyConfirmNum
+        this.$nextTick(() => { // 确保 DOM 更新后再初始化图表
+          this.initChart()
+        })
       })
+    },
+    initChart () {
+      const chartDom = document.getElementById('chart')
+      const myChart = echarts.init(chartDom)
+      const option = {
+        title: {
+          text: '批次情况统计',
+          left: 'center',
+          top: '20px',
+          textStyle: {
+            color: '#000'
+          }
+        },
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          orient: 'vertical',
+          left: 'left'
+        },
+        series: [
+          {
+            name: '批次情况',
+            type: 'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+              show: false,
+              position: 'center'
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: '30',
+                fontWeight: 'bold'
+              }
+            },
+            labelLine: {
+              show: false
+            },
+            data: [
+              { value: 3, name: '未通过' },
+              { value: 12, name: '已通过' },
+              { value: 10, name: '审批中' }
+            ]
+          }
+        ]
+      }
+      myChart.setOption(option)
     }
   },
   created () {
@@ -62,27 +120,47 @@ export default {
     margin-top: 20px;
     margin-left: 20px;
     font-size: 25px;
-
 }
-.title_2{
+
+.title_2 {
     margin-left: 10px;
     display: flex;
     align-items: center; /* 垂直居中对齐 */
 }
-.card{
+
+.card {
     margin: 10px;
     margin-top: 30px;
 }
-.title{
+
+.content-wrapper {
+    display: flex;
+    justify-content: space-around; /* 改为 space-around 以减少中间的空白 */
+    align-items: flex-start; /* 顶部对齐 */
+}
+
+.info {
+    flex: 1; /* 占据剩余空间 */
+    max-width: 60%; /* 限制最大宽度 */
+}
+
+.chart {
+    width: 300px; /* 减小图表的宽度 */
+    height: 300px; /* 减小图表的高度 */
+    margin-left: 20px; /* 与信息部分之间的空隙 */
+}
+
+.title {
     margin-left: 10px;
     font-weight: 500;
     font-size: 20px;
     color: #000000e6;
     line-height: 28px;
 }
-.smalltitle{
+
+.smalltitle {
     margin-top: 20px;
-    height: 55px;
+    height: 35px;
     font-size: 16px;
     font-weight: bold
 }

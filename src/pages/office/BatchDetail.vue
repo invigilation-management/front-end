@@ -104,9 +104,9 @@ export default {
               show: false
             },
             data: [
-              { value: 1048, name: '监考人员' },
-              { value: 735, name: '考生' },
-              { value: 580, name: '其他' }
+              { value: 3, name: '未通过' },
+              { value: 12, name: '已通过' },
+              { value: 10, name: '审批中' }
             ]
           }
         ]
