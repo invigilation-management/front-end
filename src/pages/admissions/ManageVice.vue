@@ -13,7 +13,7 @@
                     <el-button type="primary" plain class="white" @click=reset>重置</el-button>
                 </el-col>
                 <el-col :span="14">
-                    <el-button style="float: right" type="primary" plain class="white" @click="exportData">数据导出</el-button>
+                    <el-button style="float: right;margin-right: 50px" type="primary" plain class="white" @click="exportData">数据导出</el-button>
                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                         <el-table :data="selectedIds" style="width: 100%">
                             <el-table-column
@@ -105,7 +105,7 @@
                 <el-table-column
                         prop="trueFacultyName"
                         label="姓名"
-                        width="129">
+                        width="150">
                     <template slot-scope="scope">
                         <span class="teamName">{{scope.row.trueFacultyName}}</span>
                     </template>
@@ -116,13 +116,16 @@
                         width="90"
                         show-overflow-tooltip>
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.gender}}</span>
+                        <span class="teamName">
+                            <div  v-if="scope.row.gender===1">男</div>
+                            <div  v-else>女</div>
+                        </span>
                     </template>
                 </el-table-column>
                 <el-table-column
                         prop="trueFacultyId"
                         label="工号"
-                        width="150">
+                        width="170">
                     <template slot-scope="scope">
                         <span class="teamName">{{scope.row.trueFacultyId}}</span>
                     </template>
@@ -130,7 +133,7 @@
                 <el-table-column
                         prop="college"
                         label="所在单位"
-                        width="177">
+                        width="210">
                     <template slot-scope="scope">
                         <span class="teamName">{{scope.row.college}}</span>
                     </template>
@@ -138,9 +141,9 @@
                 <el-table-column
                         prop="approvalDate"
                         label="审批结束时间"
-                        width="150">
+                        width="220">
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.approval ?scope.row.approval.approvalDate :'' }}</span>
+                        <span class="teamName">{{scope.row.approval ?scope.row.approval.approvalDate :'正在审批' }}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -148,15 +151,18 @@
                         label="审批状态"
                         width="150">
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.passOrNot}}</span>
+                        <span class="teamName">
+                            <div style="color: green" v-if="scope.row.passOrNot===1">已通过</div>
+                            <div style="color: red;" v-else-if="scope.row.passOrNot===0">已拒绝</div>
+                            <div style="color: black;" v-else>审批中</div>
+                        </span>
                     </template>
                 </el-table-column>
                 <el-table-column
                         label="操作"
                         width="150">
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" @click="handleVice(scope.row)">查看名单</el-button>
-                        <el-button type="text" size="small">更多</el-button>
+                        <el-button type="text" size="small" @click="handleVice(scope.row)">查看审批</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -171,10 +177,6 @@
                     :total='total'>
             </el-pagination>
         </el-card>
-        <!--        <router-link to="details">details</router-link>-->
-        <!--        <router-view></router-view>-->
-        <!--        &lt;!&ndash; 添加你的查看名单内容 &ndash;&gt;-->
-        <!--        上面是加的页面内跳转的内容，我在写vue组件是注释掉，后续调试时可以直接回复，目测没有冲突————侯世岭-->
     </div>
 </template>
 
