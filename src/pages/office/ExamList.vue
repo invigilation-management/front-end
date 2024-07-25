@@ -82,8 +82,8 @@
                                 </el-col>
                                 <el-col :span="3">
                                     <div class="buttonright">
-                                        <el-button size="small" type="primary" @click="handleSearch">查询</el-button>
-                                        <el-button size="small" @click="handleReset">重置</el-button>
+                                        <el-button size="small" type="primary" icon="el-icon-search" @click="handleSearch">查询</el-button>
+                                        <el-button size="small" icon="el-icon-refresh-left" @click="handleReset">重置</el-button>
                                     </div>
                                 </el-col>
                             </el-row>

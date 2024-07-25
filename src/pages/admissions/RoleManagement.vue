@@ -40,7 +40,7 @@
                             <div v-if="selectedContent === 'alone'">
                                 <el-input autocomplete="off"  style="width: 500px" class="input1" placeholder="请输入姓名/工号模糊查询" v-model="innerSelectItem"></el-input>
                                 <el-button type="primary" style="margin-left: 30px;width: 100px" icon="el-icon-search" @click='innerSelect'>查询</el-button>
-                                <el-button type="primary" plain @click="innerReset" style="width: 100px">重置</el-button>
+                                <el-button type="primary" plain icon="el-icon-refresh-left" @click="innerReset" style="width: 100px">重置</el-button>
                                 <div class="grey">
                                     <br>&nbsp; 姓名: {{this.selectName}}<br>
                                     <br>&nbsp; 工号:{{this.selectId}}<br>
