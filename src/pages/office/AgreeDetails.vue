@@ -42,7 +42,7 @@
                     </div>
                     <div class="formtable" style="height: 130px">
                         <span class="word1">电子照片: </span>
-                         <img src="../../assets/images/avatar.png" class="thisimg" style="vertical-align: top">
+                         <img :src=Form.imageUrl class="thisimg" style="vertical-align: top">
                     </div>
                     <div class="formtable">
                         <span class="word1">监考校区: </span>

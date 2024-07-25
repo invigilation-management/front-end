@@ -40,7 +40,7 @@
                         :show-file-list="false"
                         :on-success="handleAvatarSuccess"
                         :before-upload="beforeAvatarUpload">
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                    <img v-if="ruleForm.imageUrl" :src="ruleForm.imageUrl" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
             </el-form-item>
@@ -126,7 +126,7 @@ export default {
           this.ruleForm.tele = res.data.records[0].tele
           this.ruleForm.tele2 = res.data.records[0].teleBackup
           this.ruleForm.birth = res.data.records[0].birthday
-          // this.ruleForm.imageUrl = res.data.records[0].avatar
+          this.ruleForm.imageUrl = res.data.records[0].avatar
           if (res.data.records[0].targetCampus === '兴庆校区') {
             this.ruleForm.school = ['兴庆校区']
           } else {
