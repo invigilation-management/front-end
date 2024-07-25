@@ -198,7 +198,7 @@
 </template>
 
 <script>
-import {getuserid, ExamListDetailsTable} from '../../api/office'
+import {getuserid, ExamListDetailsTable, selectExamListDetailsByName} from '../../api/office'
 
 export default {
   name: 'DetailList',
@@ -276,17 +276,19 @@ export default {
       this.filteredData = this.items
     },
     handleSearch () {
-      if (this.searchQuery.trim()) {
-        this.filteredData = this.items.filter(item =>
-          item.name.includes(this.searchQuery) || (item.num.includes(this.searchQuery))
-        )
-      } else {
-        this.filteredData = this.items
+      if (this.searchQuery != null) {
+        getuserid().then(res => {
+          const userId = res.data.userId
+          selectExamListDetailsByName(userId, this.$props.batchname, this.searchQuery, this.pageSize, this.pageNo).then(res => {
+            this.DetailListTable = res.data.records
+            this.total = res.data.total
+          })
+        })
       }
     },
     handleReset () {
       this.searchQuery = ''
-      this.filteredData = this.items
+      this.getDetailListTable()
     },
     handleSelectionChange (val) {
       this.selectedIds = val.map(item => this.filteredData.indexOf(item))
