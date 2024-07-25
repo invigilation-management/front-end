@@ -85,9 +85,9 @@
                         </el-dialog>
                         <!--                    以上是对话弹窗部分-->
                         <!--                    以上是对话弹窗部分-->
-                        <el-button  type="primary" class="blue" icon="el-icon-upload" @click="dialogTableVisible = true">数据导出</el-button>
+                        <el-button  type="primary" class="blue" icon="el-icon-upload" @click="exportData()">数据导出</el-button>
                         <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
-                            <el-table :data="selectedIds.map(index => tableData[index])">
+                            <el-table :data="selectedIds">
                                 <el-table-column
                                     type="selection"
                                     width="55">
@@ -104,28 +104,40 @@
                                     prop="name"
                                     width="400">
                                     <template slot-scope="scope">
-                                        <el-button type="text">{{scope.row.name}}</el-button>
+                                        <el-button type="text">{{scope.row.collegeName}}</el-button>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="code"
                                     label="部门代码"
                                     width="140">
+                                    <template slot-scope="scope">
+                                        <span class="teamName">{{scope.row.collegeId}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="type"
                                     label="部门类型"
                                     width="140">
+                                    <template slot-scope="scope">
+                                        <span class="teamName">{{scope.row.type}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="num"
                                     label="成员人数"
                                     width="140">
+                                    <template slot-scope="scope">
+                                        <span class="teamName">{{scope.row.numPeople}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     prop="date"
                                     label="添加时间"
                                     width="140">
+                                    <template slot-scope="scope">
+                                        <span class="teamName">{{scope.row.createTime}}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                     label="操作">
@@ -142,6 +154,7 @@
                     :data="tableData"
                     :header-row-style="{ backgroundColor: '#F3F3F3' }"
                     style="width: 100%"
+                    @selection-change="handleSelectionChange"
                     class="blue-header">
                     <el-table-column
                         type="selection"
@@ -220,9 +233,23 @@
 
 <script>
 import {getuserid, collegeRoleTable, collegeRoleSelect, addCollege, findBeforePost, addfaculty} from '../../api/user'
+import * as XLSX from 'xlsx'
 export default {
   name: 'RoleManagement',
   methods: {
+    exportData () {
+      // const data = this.selectedIds.map(index => this.tableData[index])
+      const data = this.selectedIds
+      const worksheet = XLSX.utils.json_to_sheet(data)
+      const workbook = XLSX.utils.book_new()
+      this.dialogTableVisible = true
+      XLSX.utils.book_append_sheet(workbook, worksheet, '部门数据')
+      XLSX.writeFile(workbook, '部门数据.xlsx')
+    },
+    handleSelectionChange (val) {
+      // this.selectedIds = val.map(item => this.tableData.indexOf(item))
+      this.selectedIds = val
+    },
     handleSizeChange (value) {
       this.pagesize = value
       this.select()
@@ -320,9 +347,6 @@ export default {
         name: 'waiting',
         params: {collegeid: row.collegeId}
       })
-    },
-    handleSelectionChange (val) {
-      this.selectedIds = val.map(item => this.tableData.indexOf(item))
     }
   },
   created () {

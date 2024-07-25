@@ -55,9 +55,9 @@
                     </el-dialog>
                     <!--                    以上是对话弹窗部分-->
                     <!--                    以上是对话弹窗部分-->
-                    <el-button type="primary" plain class="white" icon="el-icon-upload" @click="dialogTableVisible = true">数据导出</el-button>
+                    <el-button type="primary" plain class="white" icon="el-icon-upload" @click="exportData()">数据导出</el-button>
                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
-                        <el-table :data="selectedIds.map(index => tableData[index])"><el-table-column
+                        <el-table :data="selectedIds"><el-table-column
                             label="序号"
                             width="120">
                             <template slot-scope="scope">
@@ -70,41 +70,60 @@
                                 width="300">
                                 <template v-slot="scope">
                                     <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
-                                            scope.row.name
+                                            scope.row.batchName
                                         }}
                                     </el-button>
                                 </template>
                             </el-table-column>
                             <el-table-column
                                 prop="status"
-                                label="报名情况"
+                                label="确认情况"
                                 width="137">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.alreadyConfirmNum}}/{{scope.row.expectNum}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
                                 prop="startTime"
-                                label="时间"
+                                label="报名开始时间"
                                 width="255">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.regStartTime}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
                                 prop="endTime"
                                 label="报名结束时间"
                                 width="255">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.regEndTime}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
                                 prop="createTime"
                                 label="创建时间"
                                 width="255">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.batchCreatedTime}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
                                 prop="status"
                                 label="批次状态"
                                 width="155">
+                                <template slot-scope="scope">
+                        <span class="teamName">
+                            <div style="color: black" v-if="scope.row.regStartTime>nowTime">未开始</div>
+                            <div style="color: red" v-else-if="scope.row.regEndTime<nowTime">已结束</div>
+                            <div style="color: green" v-else>进行中</div>
+                        </span>
+                                </template>
                             </el-table-column>
                             <el-table-column
                                 label="操作"
                                 width="200">
-                                <template v-slot="scope">
-                                    <el-button type="text" @click="handleGoToVice" size="small">查看名单</el-button>
+                                <template slot-scope="scope">
+                                    <el-button type="text" @click='handleGoToVice(scope.row)' size="small">查看名单</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -214,6 +233,7 @@
 <script>
 import {noticeConfirmTable, getuserid, noticeConfirmSelect} from '../../api/user'
 import moment from 'moment'
+import * as XLSX from 'xlsx'
 export default {
   name: 'ViewList',
   data () {
@@ -241,6 +261,15 @@ export default {
     }
   },
   methods: {
+    exportData () {
+      // const data = this.selectedIds.map(index => this.tableData[index])
+      const data = this.selectedIds
+      const worksheet = XLSX.utils.json_to_sheet(data)
+      const workbook = XLSX.utils.book_new()
+      this.dialogTableVisible = true
+      XLSX.utils.book_append_sheet(workbook, worksheet, '通知单')
+      XLSX.writeFile(workbook, '通知单.xlsx')
+    },
     handleSizeChange (value) {
       this.pagesize = value
       this.select()
@@ -275,7 +304,7 @@ export default {
       })
     },
     handleSelectionChange (val) {
-      this.selectedIds = val.map(item => this.tableData.indexOf(item))
+      this.selectedIds = val
     },
     handleEdit (row) {
       this.$router.push({
