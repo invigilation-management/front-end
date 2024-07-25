@@ -13,69 +13,72 @@
                     <el-button type="primary" plain class="white">重置</el-button>
                 </el-col>
                 <el-col :span="14">
-                    <el-button style="float: right" type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+                    <el-button style="float: right" type="primary" plain class="white" @click="exportData">数据导出</el-button>
                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
-                        <el-table :data="selectedIds.map(index => tableData[index])" style="width: 100%"><el-table-column
-                                type="selection"
-                                width="56">
-                        </el-table-column>
+                        <el-table :data="selectedIds" style="width: 100%">
                             <el-table-column
-                                    label="序号"
-                                    width="110">
+                                label="序号"
+                                width="110">
                                 <template slot-scope="scope">
                                     0{{scope.$index+1}}
                                 </template>
                             </el-table-column>
                             <el-table-column
-                                    prop="name"
-                                    label="姓名"
-                                    width="129">
+                                prop="trueFacultyName"
+                                label="姓名"
+                                width="129">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.trueFacultyName}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
-                                    prop="status"
-                                    label="性别"
-                                    width="90"
-                                    show-overflow-tooltip>
+                                prop="gender"
+                                label="性别"
+                                width="90"
+                                show-overflow-tooltip>
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.gender}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
-                                    prop="num"
-                                    label="工号"
-                                    width="150">
+                                prop="trueFacultyId"
+                                label="工号"
+                                width="150">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.trueFacultyId}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
-                                    prop="partment"
-                                    label="所在单位"
-                                    width="177">
+                                prop="college"
+                                label="所在单位"
+                                width="177">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.college}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
-                                    prop="Id"
-                                    label="身份证号"
-                                    width="217">
+                                prop="approvalDate"
+                                label="审批结束时间"
+                                width="150">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.approval ?scope.row.approval.approvalDate :'' }}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
-                                    prop="tele"
-                                    label="移动电话"
-                                    width="150">
+                                prop="passOrNot"
+                                label="审批状态"
+                                width="150">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.passOrNot}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
-                                    prop="name"
-                                    label="监考职责"
-                                    width="105">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="count"
-                                    label="监考场次"
-                                    width="108">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="room"
-                                    label="考场名称"
-                                    width="148">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="time"
-                                    label="监考时间"
-                                    width="310">
+                                label="操作"
+                                width="150">
+                                <template slot-scope="scope">
+                                    <el-button type="text" size="small" @click="handleVice(scope.row)">查看名单</el-button>
+                                    <el-button type="text" size="small">更多</el-button>
+                                </template>
                             </el-table-column>
                         </el-table>
                     </el-dialog>
@@ -177,6 +180,7 @@
 
 <script>
 import {toDetailManage} from '../../api/user'
+import * as XLSX from 'xlsx'
 
 export default {
   name: 'ManageVice123',
@@ -210,6 +214,15 @@ export default {
     }
   },
   methods: {
+    exportData () {
+      // const data = this.selectedIds.map(index => this.tableData[index])
+      const data = this.selectedIds
+      const worksheet = XLSX.utils.json_to_sheet(data)
+      const workbook = XLSX.utils.book_new()
+      this.dialogTableVisible = true
+      XLSX.utils.book_append_sheet(workbook, worksheet, '部门数据')
+      XLSX.writeFile(workbook, '部门数据.xlsx')
+    },
     handleSizeChange (value) {
       this.pagesize = value
       this.show()
@@ -219,7 +232,7 @@ export default {
       this.show()
     },
     handleSelectionChange (val) {
-      this.selectedIds = val.map(item => this.tableData.indexOf(item))
+      this.selectedIds = val
     },
     handleEdit (row) {
       this.$router.push({

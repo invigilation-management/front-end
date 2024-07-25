@@ -10,71 +10,80 @@
 <!--                    <el-button class="blue" type="primary"></el-button>-->
 <!--                    <el-button type="primary" plain class="white">创建批次</el-button>-->
                     <!-- Table -->
-                    <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+                    <el-button type="primary" plain class="white" @click="exportData">数据导出</el-button>
 
                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
-                        <el-table :data="selectedIds.map(index => tableData[index])">
+                        <el-table :data="selectedIds">
                             <el-table-column
-                                type="selection"
-                                width="75">
-                            </el-table-column>
-                            <el-table-column
-                                label="序号"
-                                width="120">
+                                    label="序号"
+                                    width="120">
                                 <template slot-scope="scope">
                                     0{{scope.$index+1}}
                                 </template>
                             </el-table-column>
                             <el-table-column
-                                prop="name"
-                                label="姓名"
-                                width="120">
-<!--                                <template v-slot="scope">-->
-<!--                                <el-button type="text" size="small" @click="handleEdit(scope.row)">{{-->
-<!--                                        scope.row.name-->
-<!--                                    }}-->
-<!--                                </el-button>-->
-<!--                            </template>-->
+                                    prop="trueFacultyName"
+                                    label="姓名"
+                                    width="120">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.trueFacultyName}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
-                                prop="status"
-                                label="性别"
-                                width="137">
+                                    prop="gender"
+                                    label="性别"
+                                    width="137">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.gender}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
-                                prop="num"
-                                label="工号"
-                                width="180">
+                                    prop="trueFacultyId"
+                                    label="工号"
+                                    width="180">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.trueFacultyId}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
-                                prop="partment"
-                                label="所在单位"
-                                width="220">
+                                    prop="college"
+                                    label="所在单位"
+                                    width="220">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.college}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
-                                prop="Id"
-                                label="身份证号"
-                                width="210">
+                                    prop="tele"
+                                    label="移动电话"
+                                    width="155">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.tele}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
-                                prop="tele"
-                                label="移动电话"
-                                width="155">
+                                    label="监考时间"
+                                    prop="time"
+                                    width="200">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.batch.batchStartTime}}~~{{scope.row.batch.batchEndTime}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
-                                label="监考时间"
-                                prop="time"
-                                width="200">
+                                    label="监考场次(200/场)"
+                                    prop="count"
+                                    width="200">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.batch.batchDuration}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column
-                                label="监考场次(200/场)"
-                                prop="count"
-                                width="200">
-                            </el-table-column>
-                            <el-table-column
-                                label="总金额"
-                                prop="money"
-                                width="150">
+                                    label="总金额"
+                                    prop="amount"
+                                    width="150">
+                                <template slot-scope="scope">
+                                    <span class="teamName">{{scope.row.amount}}</span>
+                                </template>
                             </el-table-column>
                         </el-table>
                     </el-dialog>
@@ -184,6 +193,7 @@
 
 <script>
 import {toDetailFees} from '../../api/user'
+import * as XLSX from 'xlsx'
 export default {
   name: 'ExamFees',
   props: ['batchname'],
@@ -200,6 +210,15 @@ export default {
     }
   },
   methods: {
+    exportData () {
+      // const data = this.selectedIds.map(index => this.tableData[index])
+      const data = this.selectedIds
+      const worksheet = XLSX.utils.json_to_sheet(data)
+      const workbook = XLSX.utils.book_new()
+      this.dialogTableVisible = true
+      XLSX.utils.book_append_sheet(workbook, worksheet, '监考费用明细')
+      XLSX.writeFile(workbook, '监考费用明细.xlsx')
+    },
     handleSizeChange (value) {
       this.pagesize = value
       this.show()
@@ -209,7 +228,7 @@ export default {
       this.show()
     },
     handleSelectionChange (val) {
-      this.selectedIds = val.map(item => this.tableData.indexOf(item))
+      this.selectedIds = val
     },
     handleEdit (row) {
       this.$router.push({
