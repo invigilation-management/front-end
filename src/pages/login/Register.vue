@@ -33,15 +33,15 @@
                         </template>
                     </el-input>
                     <input type="password" placeholder="验证码" v-model="signInData.password" />
-                    <button>登录</button>
+                    <button>找回密码</button>
                 </form>
             </div>
             <div class="overlay-container">
                 <div class="overlay">
                     <div class="overlay-panel overlay-left">
                         <h1>欢迎回来！</h1>
-                        <p>为了与我们保持联系，请使用您的个人信息登录</p>
-                        <button class="ghost" @click="togglePanel('signIn')">登录</button>
+                        <p>为了与我们保持联系，请使用您的个人信息找回您得密码</p>
+                        <button class="ghost" @click="togglePanel('signIn')">找回密码</button>
                     </div>
                     <div class="overlay-panel overlay-right">
                         <h1>你好，朋友！</h1>
