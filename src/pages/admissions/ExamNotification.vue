@@ -8,53 +8,6 @@
         <el-card class="card">
             <el-row :gutter="10">
                 <el-col :span="9">
-                    <el-button type="primary" class="blue" icon="el-icon-search" @click="dialogVisibleFind= true">快速找人</el-button>
-                    <!--                    以下是对话弹窗部分-->
-                    <!--                    以下是对话弹窗部分-->
-                    <el-dialog title="快速找人" :visible.sync="dialogVisibleFind">
-                        <hr class="card-divider">
-                        <el-input placeholder="请输入姓名/工号关键词查询"></el-input>
-                        <div class="grey">
-                            <br>&nbsp; 姓名: <br><br>&nbsp; 工号: <br><br>&nbsp; 所在部门: <br><br>&nbsp; 担任角色:<br> <br>
-                        </div>
-                    </el-dialog>
-                    <!--                    以上是对话弹窗部分-->
-                    <!--                    以上是对话弹窗部分-->
-                    <el-button type="primary" plain class="white" icon="el-icon-plus" @click="dialogVisible_ack=true">创建批次</el-button>
-                    <!--                    以下是对话弹窗部分-->
-                    <!--                    以下是对话弹窗部分-->
-                    <el-dialog title="创建通知确认批次" :visible.sync="dialogVisible_ack">
-                        <el-form :model="form">
-                            <el-form-item label="监考名称" :label-width="formLabelWidth">
-                                <el-input v-model="form.name" autocomplete="off" placeholder="请输入监考名称"></el-input>
-                            </el-form-item>
-                            <el-form-item label="确认情况" :label-width="formLabelWidth">
-                                <el-input v-model="form.detail" autocomplete="off" placeholder="请输入确认情况"></el-input>
-                            </el-form-item>
-                            <el-form-item label="报名开始时间" :label-width="formLabelWidth">
-                                <el-input v-model="form.begin_time" autocomplete="off" placeholder="请输入报名开始时间"></el-input>
-                            </el-form-item>
-                            <el-form-item label="报名结束时间" :label-width="formLabelWidth">
-                                <el-input v-model="form.end_time" autocomplete="off" placeholder="请输入报名结束时间"></el-input>
-                            </el-form-item>
-                            <el-form-item label="创建时间" :label-width="formLabelWidth" :label-height="bigformLabelHeight">
-                                <el-input v-model="form.create_time" autocomplete="off" placeholder="请输入创建时间" style="height: 158px;height: auto">
-                                </el-input>
-                            </el-form-item>
-                            <el-form-item label="批次状态" :label-width="formLabelWidth">
-                                <el-select v-model="form.thisstatus" placeholder="请选择批次状态" >
-                                    <el-option label="已结束" value="已结束"></el-option>
-                                    <el-option label="进行中" value="进行中"></el-option>
-                                </el-select>
-                            </el-form-item>
-                        </el-form>
-                        <div slot="footer" class="dialog-footer" style="text-align: center">
-                            <el-button type="primary" @click="dialogVisible_ack = false" style="background-color: #166AFF"> 提 交 </el-button>
-                            <el-button @click="dialogVisible_ack = false">取 消</el-button>
-                        </div>
-                    </el-dialog>
-                    <!--                    以上是对话弹窗部分-->
-                    <!--                    以上是对话弹窗部分-->
                     <el-button type="primary" plain class="white" icon="el-icon-upload" @click="exportData()">数据导出</el-button>
                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                         <el-table :data="selectedIds"><el-table-column
@@ -148,7 +101,7 @@
                 </el-table-column>
                 <el-table-column
                     label="序号"
-                    width="120">
+                    width="80">
                     <template slot-scope="scope">
                         0{{scope.$index+1}}
                     </template>
@@ -156,7 +109,7 @@
                 <el-table-column
                     prop="name"
                     label="监考名称"
-                    width="300">
+                    width="170">
                     <template v-slot="scope">
                         <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
                                 scope.row.batchName

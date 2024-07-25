@@ -13,7 +13,7 @@
                     <el-button type="primary" plain class="white" @click=reset>重置</el-button>
                 </el-col>
                 <el-col :span="14">
-                <el-button style="float: right" type="primary" plain class="white" @click="exportData">数据导出</el-button>
+                <el-button style="float: right;margin-right: 70px" type="primary" plain class="white" @click="exportData">数据导出</el-button>
                 <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                     <el-table :data="selectedIds" style="width: 100%">
                         <el-table-column
@@ -97,7 +97,7 @@
                 <el-table-column
                         prop="name"
                         label="姓名"
-                        width="129">
+                        width="180">
                     <template slot-scope="scope">
                         <span class="teamName">{{scope.row.trueFacultyName}}</span>
                     </template>
@@ -105,16 +105,17 @@
                 <el-table-column
                         prop="status"
                         label="性别"
-                        width="90"
+                        width="110"
                         show-overflow-tooltip>
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.gender}}</span>
+                        <div  v-if="scope.row.gender===1">男</div>
+                        <div  v-else>女</div>
                     </template>
                 </el-table-column>
                 <el-table-column
                         prop="num"
                         label="工号"
-                        width="150">
+                        width="170">
                     <template slot-scope="scope">
                         <span class="teamName">{{scope.row.trueFacultyId}}</span>
                     </template>
@@ -122,7 +123,7 @@
                 <el-table-column
                         prop="partment"
                         label="所在单位"
-                        width="177">
+                        width="237">
                     <template slot-scope="scope">
                         <span class="teamName">{{scope.row.college}}</span>
                     </template>
@@ -130,7 +131,7 @@
                 <el-table-column
                         prop="tele"
                         label="移动电话"
-                        width="150">
+                        width="300">
                     <template slot-scope="scope">
                         <span class="teamName">{{scope.row.tele}}</span>
                     </template>
@@ -138,9 +139,10 @@
                 <el-table-column
                         prop="confirmOrNot"
                         label="是否确认"
-                        width="150">
+                        width="100">
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.confirmOrNot ? scope.row.confirmOrNot : 'null'}}</span>
+                        <div style="color: green" v-if="scope.row.confirmOrNot===1">已确认</div>
+                        <div style="color: red;" v-else>未确认</div>
                     </template>
                 </el-table-column>
             </el-table>
