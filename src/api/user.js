@@ -249,3 +249,12 @@ export const NotationViceSearch = (batchName, facultyName, pageSize, pageNo) => 
     pageNo: pageNo
   })
 }
+// 部门与角色子页面的查询接口第一弹
+export const collegeIdFind1 = (collegeId, facultyName, pageSize, pageNo) => {
+  return http.GET('/api/faculty/collegeIdFind1', {
+    collegeId: collegeId,
+    facultyName: facultyName,
+    pageSize: pageSize,
+    pageNo: pageNo
+  })
+}

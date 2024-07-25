@@ -10,8 +10,8 @@
                     <el-input v-model="input" placeholder="请输入姓名/工号关键词查询"></el-input>
                 </el-col>
                 <el-col :span="4" >
-                    <el-button type="primary" style="margin-left: 30px">查询</el-button>
-                    <el-button type="info" style="margin-left: 30px">重置</el-button>
+                    <el-button type="primary" style="margin-left: 30px" @click="select">查询</el-button>
+                    <el-button type="info" style="margin-left: 30px" @click=reset>重置</el-button>
                 </el-col>
             </el-row>
             <el-table
@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import {toDetailRoles} from '../../api/user'
+import {toDetailRoles, collegeIdFind1} from '../../api/user'
 
 export default {
   name: 'Waiting',
@@ -108,13 +108,25 @@ export default {
     }
   },
   methods: {
+    select () {
+      if (this.input != null) {
+        collegeIdFind1(this.batchname1, this.input, this.pagesize, this.pagenum).then(response => {
+          this.tableData = response.data.records
+          this.total = response.data.total
+        })
+      }
+    },
+    reset () {
+      this.show()
+      this.input = null
+    },
     handleSizeChange (value) {
       this.pagesize = value
-      this.show()
+      this.select()
     },
     handleCurrentChange (value) {
       this.pagenum = value
-      this.show()
+      this.select()
     },
     handleEdit () {
       this.$router.push({
