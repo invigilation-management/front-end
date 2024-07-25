@@ -19,8 +19,8 @@
                 <div class="btn" @click="handleLogin">登录</div>
             </div>
             <div class="additional-actions">
-                <router-link to="/register" class="register-link">注册</router-link>
-                <router-link to="/forgot-password" class="forgot-password-link">忘记密码？</router-link>
+                <el-button @click="toregister" type="text">注册</el-button>
+                <el-button @click="tofoeget" type="text">忘记密码？</el-button>
             </div>
         </div>
         <el-dialog title="请输入验证码" :visible.sync="dialogVisible" @open="generateCaptcha">
@@ -54,6 +54,16 @@ export default {
     }
   },
   methods: {
+    toregister () {
+      this.$router.push({
+        name: 'register'
+      })
+    },
+    tofoeget () {
+      this.$router.push({
+        name: 'register'
+      })
+    },
     handleLogin () {
       if (this.captcha.toLowerCase() !== this.captchaInput.toLowerCase()) {
         this.$message({
@@ -153,13 +163,13 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url('../../assets/images/img.png') no-repeat center center fixed;
+    background: url('../../assets/images/bbbggg.png') no-repeat center center fixed;
     background-size: cover;
 }
 
 .form-wrapper {
     width: 300px;
-    background-color: rgba(41, 45, 62, 0.8);
+    background-color: rgba(194, 207, 213, 0.55); /* 增加不透明度 */
     color: #fff;
     border-radius: 2px;
     padding: 50px;
@@ -172,22 +182,26 @@ export default {
     line-height: 100px;
 }
 
+
 .form-wrapper .input-wrapper input {
-    background-color: rgb(41, 45, 62);
-    border: 0;
+    background-color: rgba(255, 255, 255, 0.15); /* 设置输入框背景为半透明 */
+    border: 2px solid rgba(255, 255, 255, 0.5); /* 半透明白色边框 */
     width: 100%;
     text-align: center;
-    font-size: 15px;
+    font-size: 14px;
     color: #fff;
     outline: none;
+    border-radius: 15px; /* 增加圆角 */
+    padding: 5px;
+    margin-bottom: 20px; /* 增加输入框之间的间距 */
 }
 
 .form-wrapper .input-wrapper input::placeholder {
     text-transform: uppercase;
+    color: #fffffffa; /* 调整placeholder颜色 */
 }
 
 .form-wrapper .input-wrapper .border-wrapper {
-    background-image: linear-gradient(to right, #e8198b, #0eb4dd);
     width: 100%;
     height: 50px;
     margin-bottom: 20px;
@@ -217,19 +231,18 @@ export default {
     display: flex;
     justify-content: center;
 }
-
 .form-wrapper .action .btn {
     width: 60%;
     text-transform: uppercase;
-    border: 2px solid #0e92b3;
+    border: 2px solid #ffffffcc; /* 调整边框颜色 */
     text-align: center;
     line-height: 50px;
-    border-radius: 30px;
+    border-radius: 25px; /* 增加圆角 */
     cursor: pointer;
     color: #fff;
     font-size: 16px;
     transition: background-color 0.3s;
-    background-color: transparent; /* 确保背景透明 */
+    background-color: rgba(41, 45, 62, 0.7); /* 确保背景透明 */
 }
 
 .form-wrapper .action .btn:hover {

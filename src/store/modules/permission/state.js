@@ -1,5 +1,5 @@
 export default {
-  whiteList: ['/', 'notFound', 'login', 'forbidden', 'badGateway', 'screen', 'admissions', 'teacher', 'office'],
+  whiteList: ['/', 'notFound', 'login', 'forbidden', 'badGateway', 'screen', 'admissions', 'teacher', 'office', 'register', 'ForgotPassword'],
   permissionMap: {
     1: { // officeDirector
       main1: ['*']
