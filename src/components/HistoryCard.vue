@@ -17,7 +17,7 @@
                 <el-card>
                     <h4>{{record.type}}</h4>
                     <p>{{record.name}} {{record.id}}</p>
-                    <img src="../assets/images/avatar.png" class="avatar">
+                    <img src="../assets/images/11111.png" class="avatar">
                 </el-card>
             </el-timeline-item>
         </el-timeline>

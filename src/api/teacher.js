@@ -36,3 +36,8 @@ export const selectRecordingTable = (userId, batchName, pageSize, pageNo) => {
     pageNo: pageNo
   })
 }
+
+// 老师填写个人信息报名
+export const addSignUp = (obj) => {
+  return http.POST('/api/registration/newRegister', obj)
+}
