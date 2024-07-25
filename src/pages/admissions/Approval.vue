@@ -7,43 +7,7 @@
                     <el-tabs v-model="activeName" @tab-click="handleClick">
                         <el-tab-pane label="待我审批" name="Batch">
                             <el-row :gutter="10">
-                                <el-col :span="10">
-                                    <el-button type="primary" icon="el-icon-s-custom" @click="invitation = true">邀约</el-button>
-                                    <el-dialog title="邀约" :visible.sync="invitation">
-                                        <hr class="card-divider">
-                                        <div style="background-color: #E4EEFF;margin: 20px;height: 50px;text-align: center">
-                                            <i class="el-icon-warning-outline"></i>
-                                            通过邀约渠道，不受监考批次时间限制!
-                                        </div>
-                                        <div style="display: flex">
-                                            <div style="margin-top: 15px;margin-right: 50px">监考批次</div>
-                                            <el-input v-model="input_exam_num" placeholder="请选择监考批次"></el-input>
-                                        </div>
-                                        <div style="display: flex;margin-top: 20px">
-                                            <div style="text-align: left;margin-right: 50px">选择方式</div>
-                                            <el-radio v-model="invite_way" label="self">自走流程</el-radio>
-                                            <el-radio v-model="invite_way" label="help">帮助报名</el-radio>
-                                        </div>
-                                        <div>
-                                            <el-input placeholder="请输入姓名/工号/学号模糊查询" style="margin: 10px"></el-input>
-                                        </div>
-                                        <div style="margin: 20px;background-color: #F3F3F3 ;height: 160px;text-align: left">
-                                            <br><br>&nbsp;&nbsp; &nbsp;姓名：<br><br>
-                                            &nbsp; &nbsp; 工号：<br><br>
-                                            &nbsp; &nbsp; 学院：<br><br>
-                                        </div>
-                                        <hr class="card-divider">
-                                        <div style="display: flex;margin-top: 30px">
-                                            <div v-if="invite_way === 'self'">
-                                                <el-button type="primary" @click="invitation= false" style="width: 125px;margin-left: 230px">提交</el-button>
-                                            </div>
-                                            <div v-if="invite_way === 'help'">
-                                                <el-button type="primary" @click="invitation= false" style="width: 125px;margin-left: 230px">前往补充信息</el-button>
-                                            </div>
-                                            <el-button type="info" @click="invitation= false" style="width: 125px;margin-left: 70px">取消</el-button>
-                                        </div>
-                                    </el-dialog>
-<!--                                    <el-button size="small" type="inform" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>-->
+                                <el-col :span="14">
                                     <el-button type="inform" icon="el-icon-upload" @click="exportData1()">数据导出</el-button>
                                         <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                                             <el-table :data="selectedIds">
@@ -192,8 +156,7 @@
                         </el-tab-pane>
                         <el-tab-pane label="同意报名" name="Agree">
                             <el-row :gutter="10">
-                                <el-col :span="10">
-                                    <el-button type="primary" icon="el-icon-s-custom">邀约</el-button>
+                                <el-col :span="14">
                                     <el-button type="inform" icon="el-icon-upload" @click="exportData2">数据导出</el-button>
                                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible1">
                                         <el-table :data="selectedIds">
@@ -322,8 +285,7 @@
                         </el-tab-pane>
                         <el-tab-pane label="不同意报名" name="Disagree">
                             <el-row :gutter="10">
-                                <el-col :span="10">
-                                    <el-button type="primary" icon="el-icon-s-custom">邀约</el-button>
+                                <el-col :span="14">
                                     <el-button type="inform" icon="el-icon-upload" @click="exportData3">数据导出</el-button>
                                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible2">
                                         <el-table :data="selectedIds">
@@ -539,7 +501,6 @@ export default {
       dialogTableVisible1: false,
       dialogTableVisible2: false,
       isApprovalDialogVisible: false,
-      invitation: false,
       invite_way: 'self',
       input_exam_num: '',
       disagree_reason: '',
