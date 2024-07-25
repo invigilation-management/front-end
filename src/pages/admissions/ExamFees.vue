@@ -2,21 +2,18 @@
     <div>
         <h1>
             <i class="el-icon-back"></i>|
-            <span class="title_2">监考费用明细</span>
+            <span class="title_2">监考费用明细 / 详细名单</span>
         </h1>
         <el-card class="card">
             <el-row :gutter="10">
                 <el-col :span="9">
-<!--                    <el-button class="blue" type="primary"></el-button>-->
-<!--                    <el-button type="primary" plain class="white">创建批次</el-button>-->
                     <!-- Table -->
                     <el-button type="primary" plain class="white" @click="exportData">数据导出</el-button>
-
                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                         <el-table :data="selectedIds">
                             <el-table-column
                                     label="序号"
-                                    width="120">
+                                    width="80">
                                 <template slot-scope="scope">
                                     0{{scope.$index+1}}
                                 </template>
@@ -32,15 +29,16 @@
                             <el-table-column
                                     prop="gender"
                                     label="性别"
-                                    width="137">
+                                    width="87">
                                 <template slot-scope="scope">
-                                    <span class="teamName">{{scope.row.gender}}</span>
+                                    <div  v-if="scope.row.gender===1">男</div>
+                                    <div  v-else>女</div>
                                 </template>
                             </el-table-column>
                             <el-table-column
                                     prop="trueFacultyId"
                                     label="工号"
-                                    width="180">
+                                    width="150">
                                 <template slot-scope="scope">
                                     <span class="teamName">{{scope.row.trueFacultyId}}</span>
                                 </template>
@@ -48,7 +46,7 @@
                             <el-table-column
                                     prop="college"
                                     label="所在单位"
-                                    width="220">
+                                    width="150">
                                 <template slot-scope="scope">
                                     <span class="teamName">{{scope.row.college}}</span>
                                 </template>
@@ -56,7 +54,7 @@
                             <el-table-column
                                     prop="tele"
                                     label="移动电话"
-                                    width="155">
+                                    width="255">
                                 <template slot-scope="scope">
                                     <span class="teamName">{{scope.row.tele}}</span>
                                 </template>
@@ -64,7 +62,7 @@
                             <el-table-column
                                     label="监考时间"
                                     prop="time"
-                                    width="200">
+                                    width="500">
                                 <template slot-scope="scope">
                                     <span class="teamName">{{scope.row.batch.batchStartTime}}~~{{scope.row.batch.batchEndTime}}</span>
                                 </template>
@@ -72,7 +70,7 @@
                             <el-table-column
                                     label="监考场次(200/场)"
                                     prop="count"
-                                    width="200">
+                                    width="100">
                                 <template slot-scope="scope">
                                     <span class="teamName">{{scope.row.batch.batchDuration}}</span>
                                 </template>
@@ -80,7 +78,7 @@
                             <el-table-column
                                     label="总金额"
                                     prop="amount"
-                                    width="150">
+                                    width="100">
                                 <template slot-scope="scope">
                                     <span class="teamName">{{scope.row.amount}}</span>
                                 </template>
@@ -103,11 +101,11 @@
                 @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
-                    width="75">
+                    width="65">
                 </el-table-column>
                 <el-table-column
                     label="序号"
-                    width="120">
+                    width="80">
                     <template slot-scope="scope">
                         0{{scope.$index+1}}
                     </template>
@@ -123,15 +121,16 @@
                 <el-table-column
                     prop="gender"
                     label="性别"
-                    width="137">
+                    width="87">
                     <template slot-scope="scope">
-                        <span class="teamName">{{scope.row.gender}}</span>
+                        <div  v-if="scope.row.gender===1">男</div>
+                        <div  v-else>女</div>
                     </template>
                 </el-table-column>
                 <el-table-column
                     prop="trueFacultyId"
                     label="工号"
-                    width="180">
+                    width="100">
                     <template slot-scope="scope">
                         <span class="teamName">{{scope.row.trueFacultyId}}</span>
                     </template>
@@ -147,7 +146,7 @@
                 <el-table-column
                     prop="tele"
                     label="移动电话"
-                    width="155">
+                    width="255">
                     <template slot-scope="scope">
                         <span class="teamName">{{scope.row.tele}}</span>
                     </template>
@@ -155,7 +154,7 @@
                 <el-table-column
                     label="监考时间"
                     prop="time"
-                    width="200">
+                    width="440">
                     <template slot-scope="scope">
                         <span class="teamName">{{scope.row.batch.batchStartTime}}~~{{scope.row.batch.batchEndTime}}</span>
                     </template>
@@ -163,7 +162,7 @@
                 <el-table-column
                     label="监考场次(200/场)"
                     prop="count"
-                    width="200">
+                    width="130">
                     <template slot-scope="scope">
                         <span class="teamName">{{scope.row.batch.batchDuration}}</span>
                     </template>
@@ -171,7 +170,7 @@
                 <el-table-column
                     label="总金额"
                     prop="amount"
-                    width="150">
+                    width="200">
                     <template slot-scope="scope">
                         <span class="teamName">{{scope.row.amount}}</span>
                     </template>
