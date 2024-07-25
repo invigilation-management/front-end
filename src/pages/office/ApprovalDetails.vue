@@ -12,7 +12,7 @@
             </el-col>
             <el-col :span="10">
                 <el-card class="timeline">
-                    <HistoryCard></HistoryCard>
+                    <HistoryCard :parentValue="valueFromParent"></HistoryCard>
                 </el-card>
             </el-col>
         </el-row>

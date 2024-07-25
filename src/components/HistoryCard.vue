@@ -27,17 +27,22 @@
 <script>
 export default {
   name: 'HistoryCard',
+  props: {
+    parentValue: []
+  },
   data () {
     return {
       historyRecords: {
         reverse: false,
         now_state: 2,
         timeline:
-          [{type: '发起人(在职转校级员工)', time: '2023-09-19 19:02:44', name: '小明', id: '10001'},
-            {type: '审批人(学院研工办主任)', time: '2023-09-19 19:04:44', name: '小明', id: '10001'},
-            {type: '审批人(学院分管研究生工作副院长)', time: '', name: '小明', id: '10001'},
-            {type: '审批人(研究生招生考务科科长)', time: '', name: '小明', id: '10001'}]
-      }
+          [{type: '发起人(在职转校级员工)', time: '2023-09-19 19:02:44', name: '小明', id: '10001', img: ''},
+            {type: '审批人(学院研工办主任)', time: '2023-09-19 19:04:44', name: '小明', id: '10001', img: ''},
+            {type: '审批人(学院分管研究生工作副院长)', time: '', name: '小明', id: '10001', img: ''},
+            {type: '审批人(研究生招生考务科科长)', time: '', name: '小明', id: '10001', img: ''}]
+      },
+      thisId: '',
+      thisbatch: ''
     }
   }
 }

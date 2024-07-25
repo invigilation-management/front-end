@@ -5,9 +5,9 @@
         <span class="title_1">监考报名/</span>
         <span class="title_2">提交报名</span>
     </h1>
-    <el-row :gutter="30">
-        <el-col :span="14">
-            <el-card class="detail">
+    <el-row :gutter="30" >
+        <el-col :span="20" >
+            <el-card class="detail" >
                 <div>
                     <div class="title3">武汉理工大学研究生招生考试监考人员报名表</div>
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="184px" class="demo-ruleForm" label-position="left">
@@ -72,11 +72,6 @@
                         <el-button type="info" plain @click="handleReset">重置</el-button>
                     </el-form>
                 </div>
-            </el-card>
-        </el-col>
-        <el-col :span="10">
-            <el-card class="timeline">
-                <HistoryCard></HistoryCard>
             </el-card>
         </el-col>
     </el-row>
@@ -242,14 +237,14 @@ export default {
     padding-top: 18px
 }
 .title3{
-    width: 371px;
-    height: 22px;
+    width: 450px;
+    height: 50px;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 20px;
     color: #171717;
     text-align: left;
     line-height: 22px;
-    padding-bottom: 24px;
+    margin-bottom: 50px;
 }
 .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
@@ -276,5 +271,8 @@ export default {
 }
 .el-form-item{
     margin-bottom: 16px;
+}
+.el-row{
+    left: 130px;
 }
 </style>

@@ -62,12 +62,11 @@
                         prop="createTime"
                         label="是否确认"
                         width="315">
-                </el-table-column>
-                <el-table-column
-                        label="操作"
-                        width="225">
                     <template slot-scope="scope">
-                        <el-button type="text" size="small">查看名单</el-button>
+                                        <span class="teamName">
+                     <div v-if="scope.row.confirmOrNot === 1"><el-tag type="success">已确认</el-tag></div>
+                    <div v-if="scope.row.confirmOrNot != 1"><el-tag type="warning">未确认</el-tag></div>
+                                                        </span>
                     </template>
                 </el-table-column>
             </el-table>
