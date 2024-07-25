@@ -268,7 +268,8 @@
                                     label="操作" width="180">
                                     <template v-slot="scope">
                                         <el-button
-                                            type="text">审批详情</el-button>
+                                            type="text"
+                                            @click="handleDisagreed(scope.row)">审批详情</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -397,7 +398,8 @@
                                     label="操作" width="180">
                                     <template v-slot="scope">
                                         <el-button
-                                            type="text">审批详情</el-button>
+                                            type="text"
+                                            @click="handleAgreed(scope.row)">审批详情</el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -673,13 +675,28 @@ export default {
       })
     },
     handleSubmit (row) {
-      // this.$router.push({
-      //   name: 'batchDetails',
-      //   query: {name: row.name}
-      // })
+      this.$router.push({
+        name: 'ApprovalDetails',
+        params: {batchName: row.batch.batchName, trueFacultyId: row.trueFacultyId}
+      })
     },
     handlePreview (row) {
-      // 处理预览逻辑
+      this.$router.push({
+        name: 'ApprovalDetails',
+        params: {batchName: row.batch.batchName, trueFacultyId: row.trueFacultyId}
+      })
+    },
+    handleAgreed (row) {
+      this.$router.push({
+        name: 'AgreeDetail',
+        params: {batchName: row.batch.batchName, trueFacultyId: row.trueFacultyId}
+      })
+    },
+    handleDisagreed (row) {
+      this.$router.push({
+        name: 'DisagreeDetail',
+        params: {batchName: row.batch.batchName, trueFacultyId: row.trueFacultyId}
+      })
     },
     showApprovalDialog (index) {
       this.approvalForm = this.approval_infos[index]

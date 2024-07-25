@@ -62,16 +62,19 @@ const admissionsHeadPage = [
       {
         path: 'exam-approval',
         name: 'examApproval',
+        props: true,
         component: () => import(/* webpackChunkName: "BatchDetails" */ '../pages/admissions/Approval.vue'),
         children: [
           {
             path: 'agree',
             name: 'agreeDetails',
+            props: true,
             component: () => import(/* webpackChunkName: "AgreeDetails" */ '../pages/admissions/AgreeDetails.vue')
           },
           {
             path: 'disagree',
             name: 'disagreeDetails',
+            props: true,
             component: () => import(/* webpackChunkName: "DisagreeDetails" */ '../pages/admissions/DisagreeDetails.vue')
           }
         ]
@@ -135,6 +138,24 @@ const admissionsHeadPage = [
         path: 'examFees',
         name: 'ExamFees',
         component: () => import(/* webpackChunkName: "RoleManagement" */ '../pages/admissions/ExamFees.vue')
+      },
+      {
+        path: 'ApprovalDetails',
+        name: 'ApprovalDetails',
+        props: true,
+        component: () => import(/* webpackChunkName: "RoleManagement" */ '../pages/admissions/ApprovalDetails.vue')
+      },
+      {
+        path: 'AgreeDetail',
+        name: 'AgreeDetail',
+        props: true,
+        component: () => import(/* webpackChunkName: "RoleManagement" */ '../pages/admissions/AgreeDetail.vue')
+      },
+      {
+        path: 'DisagreeDetail',
+        name: 'DisagreeDetail',
+        props: true,
+        component: () => import(/* webpackChunkName: "RoleManagement" */ '../pages/admissions/DisagreeDetail.vue')
       }
     ]
   }
