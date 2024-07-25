@@ -7,7 +7,7 @@
                             <el-row :gutter="10">
                                 <el-col :span="17">
                                     <el-button size="small" type="primary" icon="el-icon-search">快速找人</el-button>
-                                    <el-button size="small" type="inform" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+                                    <el-button size="small" type="inform" plain class="white" icon="el-icon-upload" @click="dialogTableVisible = true">数据导出</el-button>
                                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                                             <el-table :data="selectedIds.map(index => filteredData[index])">
                                                 <el-table-column

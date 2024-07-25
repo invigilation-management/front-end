@@ -8,7 +8,7 @@
         <el-card class="card">
             <el-row :gutter="10">
                 <el-col :span="9">
-                    <el-button type="primary" class="blue" @click="dialogVisibleFind= true">快速找人</el-button>
+                    <el-button type="primary" class="blue" icon="el-icon-search" @click="dialogVisibleFind= true">快速找人</el-button>
                     <!--                    以下是对话弹窗部分-->
                     <!--                    以下是对话弹窗部分-->
                     <el-dialog title="快速找人" :visible.sync="dialogVisibleFind">
@@ -20,7 +20,7 @@
                     </el-dialog>
                     <!--                    以上是对话弹窗部分-->
                     <!--                    以上是对话弹窗部分-->
-                    <el-button type="primary" plain class="white" @click="dialogVisible_ack=true">创建批次</el-button>
+                    <el-button type="primary" plain class="white" icon="el-icon-plus" @click="dialogVisible_ack=true">创建批次</el-button>
                     <!--                    以下是对话弹窗部分-->
                     <!--                    以下是对话弹窗部分-->
                     <el-dialog title="创建通知确认批次" :visible.sync="dialogVisible_ack">
@@ -55,7 +55,7 @@
                     </el-dialog>
                     <!--                    以上是对话弹窗部分-->
                     <!--                    以上是对话弹窗部分-->
-                    <el-button type="primary" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+                    <el-button type="primary" plain class="white" icon="el-icon-upload" @click="dialogTableVisible = true">数据导出</el-button>
                     <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                         <el-table :data="selectedIds.map(index => tableData[index])"><el-table-column
                             label="序号"
@@ -112,8 +112,8 @@
                 </el-col>
                 <el-col :span="6" :offset="5" ><el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input></el-col>
                 <el-col :span="4">
-                    <el-button class="blue" type="primary" @click="select">查询</el-button>
-                    <el-button type="primary" plain class="white" @click="reset">重置</el-button>
+                    <el-button class="blue" type="primary" icon="el-icon-search" @click="select">查询</el-button>
+                    <el-button type="primary" plain class="white" icon="el-icon-refresh-left" @click="reset">重置</el-button>
                 </el-col>
             </el-row>
             <el-table

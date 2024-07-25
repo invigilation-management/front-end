@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import {getuserid, RecordingTable, selectFillFormTable, selectRecordingTable} from '../../api/teacher'
+import {getuserid, RecordingTable, selectRecordingTable} from '../../api/teacher'
 export default {
   name: 'ExamFees',
   data () {

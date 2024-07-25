@@ -105,7 +105,7 @@ export default {
         },
         {
           path: '/admissions/exam-management',
-          icon: 'suncaper-menu-unfold',
+          icon: '监考记录',
           title: '监考管理'
           // children: [
           //   {
@@ -117,7 +117,7 @@ export default {
         },
         {
           path: '/admissions/managetotal',
-          icon: 'suncaper-menu-unfold',
+          icon: '表',
           title: '监考安排表'
           // children: [
           //   {
@@ -129,17 +129,17 @@ export default {
         },
         {
           path: '/admissions/exam-notification',
-          icon: 'suncaper-menu-unfold',
+          icon: '通知',
           title: '监考通知确认单'
         },
         {
           path: '/admissions/feestotal',
-          icon: 'suncaper-menu-unfold',
+          icon: '钱',
           title: '监考费用明细'
         },
         {
           path: '/admissions/role-management',
-          icon: 'suncaper-menu-unfold',
+          icon: '角色与部门管理',
           title: '部门与角色管理'
         }
       ]
@@ -153,7 +153,7 @@ export default {
         },
         {
           path: '/teacher/recording',
-          icon: '监考记录',
+          icon: '报名审批',
           title: '监考记录'
         }
       ]

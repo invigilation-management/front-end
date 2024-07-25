@@ -23,6 +23,49 @@
     '  </g>\n' +
     '</symbol>\n' +
 
+    '<symbol id="角色与部门管理" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" className="design-iconfont">\n' +
+      '<g stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" fill="none" fill-rule="evenodd">\n' +
+        '<path d="M9,6 C10.6568571,6 12,4.65685714 12,3 C12,1.34314714 10.6568571,0 9,0 C7.34314286,0 6,1.34314714 6,3 C6,4.65685714 7.34314286,6 9,6 Z" transform="translate(1 1)"/>\n' +
+        '<path d="M14,1 C14.6045,1.55042722 15,2.4648992 15,3.5 C15,4.53506599 14.6045,5.44959454 14,6" transform="translate(1 1)"/>\n' +
+        '<path d="M3,1 C3.6045,1.55042722 4,2.4648992 4,3.5 C4,4.53506599 3.6045,5.44959454 3,6" transform="rotate(180 4 4)"/>\n' +
+        '<path d="M3,15.1428571 L3,16 L14,16 L14,15.1428571 C14,13.5453571 14,12.7465857 13.720875,12.1165 C13.3487542,11.2764143 12.6349458,10.6089571 11.7365208,10.261 C11.0626792,10 10.2084375,10 8.5,10 C6.7915625,10 5.93732083,10 5.26347917,10.261 C4.36505417,10.6089571 3.65124583,11.2764143 3.279125,12.1165 C3,12.7465857 3,13.5453571 3,15.1428571 Z" transform="translate(1 1)"/>\n' +
+        '<path d="M17,16 L17,15.4515539 C17,13.4038391 17,12.3799817 16.6007875,11.5978519 C16.2496051,10.909872 15.6892241,10.3505484 15,10" transform="translate(1 1)"/>\n' +
+        '<path d="M0,16 L0,15.4515539 C0,13.4038391 0,12.3799817 0.399238107,11.5978519 C0.750413798,10.909872 1.3107757,10.3505484 2,10" transform="translate(1 1)"/>\n' +
+      '</g>\n' +
+    '</symbol>\n' +
+
+    '<symbol id="钱" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" className="design-iconfont">\n' +
+      '<g stroke="#FFF" stroke-linejoin="round" fill="none" fill-rule="evenodd">\n' +
+        '<path d="M0,4.08584475 C0,3.60718475 0.4029435,3.21917808 0.9,3.21917808 L17.1,3.21917808 C17.59707,3.21917808 18,3.60718475 18,4.08584475 L18,15.3525114 C18,15.8311714 17.59707,16.2191781 17.1,16.2191781 L0.9,16.2191781 C0.4029435,16.2191781 0,15.8311714 0,15.3525114 L0,4.08584475 Z" transform="translate(1 1.780822)"/>\n' +
+        '<path stroke-linecap="round" d="M7 6.21917808L9 8.21917808 11 6.21917808" transform="translate(1 1.780822)"/>\n' +
+        '<path stroke-linecap="round" d="M6 9.25L12 9.25" transform="translate(1 1.780822)"/>\n' +
+        '<path stroke-linecap="round" d="M6 11.25L12 11.25" transform="translate(1 1.780822)"/>\n' +
+        '<path stroke-linecap="round" d="M9 9.21917808L9 13.2191781" transform="translate(1 1.780822)"/>\n' +
+        '<path stroke-linecap="round" d="M2 0.21917808L16 0.21917808" transform="translate(1 1.780822)"/>\n' +
+      '</g>\n' +
+    '</symbol>\n' +
+
+    '<symbol id="通知" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" className="design-iconfont">\n' +
+    '<g stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" fill="none" fill-rule="evenodd">\n' +
+    '<path d="M9.675 12L7.65 12 3.15 14 3.15 12 0 12 0 0 18 0 18 4.4" transform="translate(1 4)"/>\n' +
+    '<path d="M4 3L5 3 6 3" transform="translate(1 4)"/>\n' +
+    '<path d="M3 5L6 5 9 5" transform="translate(1 4)"/>\n' +
+    '<path d="M11 9.18181818L13.8 11 18 7" transform="translate(1 4)"/>\n' +
+    '</g>\n' +
+    '</symbol>\n' +
+
+    '<symbol id="表" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" className="design-iconfont">\n' +
+    '<g transform="translate(2 1)" fill="none" fill-rule="evenodd">\n' +
+    '<rect stroke="#FFF" stroke-linejoin="round" width="16" height="18" rx="1"/>\n' +
+    '<path stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" d="M7 5L13 5"/>\n' +
+    '<path stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" d="M7 9L13 9"/>\n' +
+    '<path stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" d="M7 14L13 14"/>\n' +
+    '<path d="M4,6 C4.5523,6 5,5.5523 5,5 C5,4.4477 4.5523,4 4,4 C3.4477,4 3,4.4477 3,5 C3,5.5523 3.4477,6 4,6 Z" fill="#FFF"/>\n' +
+  '<path d="M4,10 C4.5523,10 5,9.5523 5,9 C5,8.4477 4.5523,8 4,8 C3.4477,8 3,8.4477 3,9 C3,9.5523 3.4477,10 4,10 Z" fill="#FFF"/>\n' +
+  '<path d="M4,15 C4.5523,15 5,14.5523 5,14 C5,13.4477 4.5523,13 4,13 C3.4477,13 3,13.4477 3,14 C3,14.5523 3.4477,15 4,15 Z" fill="#FFF"/>\n' +
+  '</g>\n' +
+  '</symbol>\n' +
+
   '</svg>'
   var script = (function () {
     var scripts = document.getElementsByTagName('script')

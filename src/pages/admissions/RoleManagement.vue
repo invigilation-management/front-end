@@ -11,11 +11,11 @@
                         <el-input v-model="input" placeholder="请输入部门名称关键词查询"></el-input>
                     </el-col>
                     <el-col :span="4">
-                        <el-button type="primary" class="blue" @click="select">查询</el-button>
-                        <el-button type="primary" plain class="white" @click="reset">重置</el-button>
+                        <el-button type="primary" class="blue" icon="el-icon-search" @click="select">查询</el-button>
+                        <el-button type="primary" plain class="white" icon="el-icon-refresh-left" @click="reset">重置</el-button>
                     </el-col>
                     <el-col :span="12" :offset="2">
-                        <el-button type="primary" class="blue" @click="dialogVisibleFind= true">快速找人</el-button>
+                        <el-button type="primary" class="blue" icon="el-icon-search" @click="dialogVisibleFind= true">快速找人</el-button>
                         <!--                    以下是对话弹窗部分-->
                         <!--                    以下是对话弹窗部分-->
                         <el-dialog title="快速找人" :visible.sync="dialogVisibleFind">
@@ -27,7 +27,7 @@
                         </el-dialog>
                         <!--                    以上是对话弹窗部分-->
                         <!--                    以上是对话弹窗部分-->
-                        <el-button type="primary" class="blue" @click="dialogVisibleSelect = true">添加成员</el-button>
+                        <el-button type="primary" class="blue" icon="el-icon-plus" @click="dialogVisibleSelect = true">添加成员</el-button>
                         <!--                    以下是对话弹窗部分-->
                         <!--                    以下是对话弹窗部分-->
                         <!--                    以下是对话弹窗部分-->
@@ -39,7 +39,7 @@
 <!--                            以下是添加一个成员时的对话框-->
                             <div v-if="selectedContent === 'alone'">
                                 <el-input autocomplete="off"  style="width: 500px" class="input1" placeholder="请输入姓名/工号模糊查询" v-model="innerSelectItem"></el-input>
-                                <el-button type="primary" style="margin-left: 30px;width: 100px" @click='innerSelect'>查询</el-button>
+                                <el-button type="primary" style="margin-left: 30px;width: 100px" icon="el-icon-search" @click='innerSelect'>查询</el-button>
                                 <el-button type="primary" plain @click="innerReset" style="width: 100px">重置</el-button>
                                 <div class="grey">
                                     <br>&nbsp; 姓名: {{this.selectName}}<br>
@@ -69,7 +69,7 @@
                         <!--                    以上是对话弹窗部分-->
                         <!--                    以上是对话弹窗部分-->
                         <!--                    以上是对话弹窗部分-->
-                        <el-button type="primary" class="blue" @click="dialogVisible_Add_Department= true">添加部门</el-button>
+                        <el-button type="primary" class="blue" icon="el-icon-plus" @click="dialogVisible_Add_Department= true">添加部门</el-button>
                         <!--                    以下是对话弹窗部分-->
                         <!--                    以下是对话弹窗部分-->
                         <el-dialog title="添加部门" :visible.sync="dialogVisible_Add_Department">
@@ -85,7 +85,7 @@
                         </el-dialog>
                         <!--                    以上是对话弹窗部分-->
                         <!--                    以上是对话弹窗部分-->
-                        <el-button  type="primary" class="blue" @click="dialogTableVisible = true">数据导出</el-button>
+                        <el-button  type="primary" class="blue" icon="el-icon-upload" @click="dialogTableVisible = true">数据导出</el-button>
                         <el-dialog title="导出数据" :visible.sync="dialogTableVisible">
                             <el-table :data="selectedIds.map(index => tableData[index])">
                                 <el-table-column

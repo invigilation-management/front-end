@@ -9,13 +9,13 @@
                                     <el-input v-model="input" placeholder="请输入监考名称关键词查询"></el-input>
                                 </el-col>
                                 <el-col :span="4">
-                                        <el-button type="primary" @click='select'>查询</el-button>
-                                        <el-button type="inform" @click="reset">重置</el-button>
+                                        <el-button type="primary" icon="el-icon-search" @click='select'>查询</el-button>
+                                        <el-button type="inform" icon="el-icon-refresh-left" @click="reset">重置</el-button>
                                 </el-col>
                                 <el-col :span="14">
                                     <div class="buttonright">
-                                    <el-button type="primary">快速找人</el-button>
-                                    <el-button type="primary" @click="dialogVisible_manage=true">创建批次</el-button>
+                                    <el-button type="primary" icon="el-icon-search">快速找人</el-button>
+                                    <el-button type="primary" icon="el-icon-plus" @click="dialogVisible_manage=true">创建批次</el-button>
                                         <!--                    以下是对话弹窗部分-->
                                         <!--                    以下是对话弹窗部分-->
                                         <el-dialog title="创建监考安排批次" :visible.sync="dialogVisible_manage">
@@ -50,7 +50,7 @@
                                         </el-dialog>
                                         <!--                    以上是对话弹窗部分-->
                                         <!--                    以上是对话弹窗部分-->
-                                    <el-button type="inform" plain class="white" @click="dialogTableVisible = true">数据导出</el-button>
+                                    <el-button type="inform" plain class="white" icon="el-icon-upload" @click="dialogTableVisible = true">数据导出</el-button>
                                     <!--                    以下是对话弹窗部分-->
                                     <!--                    以下是对话弹窗部分-->
                                     <el-dialog title="邀约" :visible.sync="invitation">
