@@ -82,7 +82,7 @@ export default {
 }
 .smalltitle{
     margin-top: 20px;
-    height: 35px;
+    height: 55px;
     font-size: 16px;
     font-weight: bold
 }
