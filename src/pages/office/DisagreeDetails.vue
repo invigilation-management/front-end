@@ -73,7 +73,7 @@ export default {
   props: ['batchName', 'trueFacultyId'],
   data () {
     return {
-      props: ['batchName', 'trueFacultyId'],
+      valueFromParent: this.$props,
       Form: {
         name: '',
         result: '',

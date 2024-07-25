@@ -65,9 +65,11 @@ export const ExamListTable = (userId, pageSize, pageNo) => {
 }
 
 // 监考名单关键词查询
-export const selectExamListByName = (batchName) => {
+export const selectExamListByName = (batchName, pageSize, pageNo) => {
   return http.GET('/api/batch/getManagementPageUnclearFindALL', {
-    batchName: batchName
+    batchName: batchName,
+    pageSize: pageSize,
+    pageNo: pageNo
   })
 }
 
@@ -76,6 +78,16 @@ export const ExamListDetailsTable = (userId, batchName, pageSize, pageNo) => {
   return http.GET('/api/registration/JianKaoXiangXiMingDan', {
     userId: userId,
     batchName: batchName,
+    pageSize: pageSize,
+    pageNo: pageNo
+  })
+}
+// 监考详细名单模糊查询
+export const selectExamListDetailsByName = (userId, batchName, trueFacultyName, pageSize, pageNo) => {
+  return http.GET('/api/registration/findUnclearBatchDetails', {
+    userId: userId,
+    batchName: batchName,
+    trueFacultyName: trueFacultyName,
     pageSize: pageSize,
     pageNo: pageNo
   })
@@ -104,6 +116,13 @@ export const submitAgree = (userId, trueFacultyId, batchName, targetCampus) => {
 export const submitDisagree = (userId, trueFacultyId, batchName) => {
   return http.GET('/api/registration/afterDisapprovalOffice', {
     userId: userId,
+    trueFacultyId: trueFacultyId,
+    batchName: batchName
+  })
+}
+// 流水图
+export const historyCard = (trueFacultyId, batchName) => {
+  return http.GET('/api/approval/historyCard', {
     trueFacultyId: trueFacultyId,
     batchName: batchName
   })

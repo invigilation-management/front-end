@@ -213,3 +213,39 @@ export const toDetailConfirm = (batchName, pageSize, pageNo) => {
     pageNo: pageNo
   })
 }
+// 监考管理子页面的查询接口
+export const examManageViceSelect = (batchName, facultyName, pageSize, pageNo) => {
+  return http.GET('/api/registration/ManageViceSearch', {
+    batchName: batchName,
+    facultyName: facultyName,
+    pageSize: pageSize,
+    pageNo: pageNo
+  })
+}
+// 监考安排表子页面的查询接口
+export const planViceSelect = (batchName, facultyName, pageSize, pageNo) => {
+  return http.GET('/api/registration/PlanViceSearch', {
+    batchName: batchName,
+    facultyName: facultyName,
+    pageSize: pageSize,
+    pageNo: pageNo
+  })
+}
+// 监考费用子页面的查询接口
+export const feesSelect = (batchName, facultyName, pageSize, pageNo) => {
+  return http.GET('/api/registration/FeesViceSearch', {
+    batchName: batchName,
+    facultyName: facultyName,
+    pageSize: pageSize,
+    pageNo: pageNo
+  })
+}
+// 监考通知确认子页面的查询接口
+export const NotationViceSearch = (batchName, facultyName, pageSize, pageNo) => {
+  return http.GET('/api/registration/NotationViceSearch', {
+    batchName: batchName,
+    facultyName: facultyName,
+    pageSize: pageSize,
+    pageNo: pageNo
+  })
+}

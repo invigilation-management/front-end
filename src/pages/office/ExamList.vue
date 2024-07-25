@@ -252,8 +252,9 @@ export default {
   },
   handleSearch () {
     if (this.searchQuery != null) {
-      selectExamListByName(this.searchQuery).then(res => {
+      selectExamListByName(this.searchQuery, this.pageSize, this.pageNo).then(res => {
         this.examListData = res.data.records
+        this.total = res.data.total
       })
     }
   },

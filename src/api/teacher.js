@@ -41,3 +41,18 @@ export const selectRecordingTable = (userId, batchName, pageSize, pageNo) => {
 export const addSignUp = (obj) => {
   return http.POST('/api/registration/newRegister', obj)
 }
+// teacher页面对话框中打印表格的方法
+export const dialogTable = (userId, pageSize, pageNo) => {
+  return http.GET('/api/registration/nothing', {
+    userId: userId,
+    pageSize: pageSize,
+    pageNo: pageNo
+  })
+}
+// teacher的确认消息的接口
+export const confirm = (userId, batchName) => {
+  return http.GET('/api/registration/print', {
+    userId: userId,
+    batchName: batchName
+  })
+}

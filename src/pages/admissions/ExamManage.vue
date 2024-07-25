@@ -288,7 +288,6 @@ export default {
       XLSX.writeFile(workbook, '监考管理.xlsx')
     },
     handleSelectionChange (val) {
-      // this.selectedIds = val.map(item => this.tableData.indexOf(item))
       this.selectedIds = val
     },
     handleSizeChange (value) {
@@ -347,11 +346,9 @@ export default {
           this.total = response.data.total
         }).catch(error => {
           console.error('Error fetching approval table:', error)
-          // Handle errors as needed
         })
       }).catch(error => {
         console.error('Error fetching userId:', error)
-        // Handle errors from getuserid() if necessary
       })
     },
     handleEdit (row) {
