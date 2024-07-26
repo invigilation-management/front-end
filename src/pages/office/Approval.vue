@@ -881,28 +881,28 @@ export default {
     },
     handleSizeChange1 (value) {
       this.pageSize1 = value
-      this.getApprovalTabel()
+      this.handleSearchForUndetermined()
     },
     handleSizeChange2 (value) {
       this.pageSize2 = value
       console.info(this.pageSize2)
-      this.getAgreeApprovalTabel()
+      this.handleSearchForAgreed()
     },
     handleSizeChange3 (value) {
       this.pageSize3 = value
-      this.getApprovalTabel()
+      this.handleSearchForDisagreed()
     },
     handleCurrentChange1 (value) {
       this.pageNo1 = value
-      this.getApprovalTabel()
+      this.handleSearchForUndetermined()
     },
     handleCurrentChange2 (value) {
       this.pageNo2 = value
-      this.getAgreeApprovalTabel()
+      this.handleSearchForAgreed()
     },
     handleCurrentChange3 (value) {
       this.pageNo3 = value
-      this.getDisagreeApprovalTabel()
+      this.handleSearchForDisagreed()
     }
   },
   mounted () {

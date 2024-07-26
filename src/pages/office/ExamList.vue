@@ -288,11 +288,11 @@ export default {
   },
   handleSizeChange (value) {
     this.pageSize = value
-    this.getExamListTable()
+    this.handleSearch()
   },
   handleCurrentChange (value) {
     this.pageNo = value
-    this.getExamListTable()
+    this.handleSearch()
   }
   },
   mounted () {

@@ -52,7 +52,7 @@
                     label="报名开始时间"
                     width="285">
                     <template slot-scope="scope">
-                        <span class="normal">{{ scope.row.batchStartTime }}</span>
+                        <span class="normal">{{ scope.row.regStartTime }}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -60,7 +60,7 @@
                     label="报名结束时间"
                     width="285">
                     <template slot-scope="scope">
-                        <span class="normal">{{ scope.row.batchEndTime }}</span>
+                        <span class="normal">{{ scope.row.regEndTime }}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -230,16 +230,17 @@ export default {
     },
     handleSizeChange (value) {
       this.pageSize = value
-      this.getFillFormTable()
+      this.handleSearch()
     },
     handleCurrentChange (value) {
       this.pageNo = value
-      this.getFillFormTable()
+      this.handleSearch()
     },
     handleSearch () {
       if (this.searchQuery != null) {
         selectFillFormTable(this.searchQuery, this.pageSize, this.pageNo).then(res => {
           this.FillFormData = res.data.records
+          this.total = res.data.total
         })
       }
     },

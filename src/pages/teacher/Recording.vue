@@ -213,11 +213,11 @@ export default {
     },
     handleSizeChange (value) {
       this.pageSize = value
-      this.getRecordingData()
+      this.handleSearch()
     },
     handleCurrentChange (value) {
       this.pageNo = value
-      this.getRecordingData()
+      this.handleSearch()
     },
     handleSearch () {
       if (this.searchQuery != null) {
@@ -225,6 +225,7 @@ export default {
           const userId = res.data.userId
           selectRecordingTable(userId, this.searchQuery, this.pageSize, this.pageNo).then(res => {
             this.RecordingData = res.data.records
+            this.total = res.data.total
           })
         })
       }

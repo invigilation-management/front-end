@@ -14,7 +14,7 @@
                     </div>
                     <div class="formtable">
                         <span class="word1">报名结果: </span>
-                        <span class="word2" style="color: #E33737">{{ Form.result }}</span>
+                        <span class="word2" style="color: #00A870">{{ Form.result }}</span>
                     </div>
                     <div class="formtable">
                         <span class="word1">所在单位: </span>
@@ -102,7 +102,7 @@ export default {
           console.log(res.data.records)
           console.log('jieshu')
           this.Form.name = res.data.records[0].trueFacultyName
-          this.Form.result = '不同意'
+          this.Form.result = '同意'
           this.Form.unit = res.data.records[0].college
           if (res.data.records[0].gender === 0) {
             this.Form.gender = '女'

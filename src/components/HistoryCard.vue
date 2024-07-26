@@ -20,7 +20,7 @@
                         <div v-if="record.faculty.level == 2"><span style="color: #0d94f3"></span>考务科科长</div>
                         <div v-if="record.faculty.level == 3"><span style="color: #0d94f3">{{record.registration.college}}</span> 普通教职工</div>
                         <div v-if="record.faculty.level == 4"><span style="color: #0d94f3">{{record.registration.college}}</span> 综合办主任</div>
-                        <div v-if="record.faculty.level == 5">{{record.registration.college}} 副院长</div>
+                        <div v-if="record.faculty.level == 5"><span style="color: #0d94f3">{{record.registration.college}}</span> 副院长</div>
                     </span></h4>
                     <p>{{record.faculty.facultyName}} {{record.faculty.facultyId}}</p>
                     <el-row>

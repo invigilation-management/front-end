@@ -72,14 +72,14 @@
                                     <span class="teamName">{{scope.row.passOrNot}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column
-                                label="操作"
-                                width="150">
-                                <template slot-scope="scope">
-                                    <el-button type="text" size="small" @click="handleVice(scope.row)">查看名单</el-button>
-                                    <el-button type="text" size="small">更多</el-button>
-                                </template>
-                            </el-table-column>
+<!--                            <el-table-column-->
+<!--                                label="操作"-->
+<!--                                width="150">-->
+<!--                                <template slot-scope="scope">-->
+<!--                                    <el-button type="text" size="small" @click="handleVice(scope.row)">查看名单</el-button>-->
+<!--                                    <el-button type="text" size="small">更多</el-button>-->
+<!--                                </template>-->
+<!--                            </el-table-column>-->
                         </el-table>
                     </el-dialog>
                 </el-col>
@@ -105,7 +105,7 @@
                 <el-table-column
                         prop="trueFacultyName"
                         label="姓名"
-                        width="150">
+                        width="180">
                     <template slot-scope="scope">
                         <span class="teamName">{{scope.row.trueFacultyName}}</span>
                     </template>
@@ -113,7 +113,7 @@
                 <el-table-column
                         prop="gender"
                         label="性别"
-                        width="90"
+                        width="120"
                         show-overflow-tooltip>
                     <template slot-scope="scope">
                         <span class="teamName">
@@ -125,7 +125,7 @@
                 <el-table-column
                         prop="trueFacultyId"
                         label="工号"
-                        width="170">
+                        width="200">
                     <template slot-scope="scope">
                         <span class="teamName">{{scope.row.trueFacultyId}}</span>
                     </template>
@@ -133,7 +133,7 @@
                 <el-table-column
                         prop="college"
                         label="所在单位"
-                        width="210">
+                        width="240">
                     <template slot-scope="scope">
                         <span class="teamName">{{scope.row.college}}</span>
                     </template>
@@ -149,7 +149,7 @@
                 <el-table-column
                         prop="passOrNot"
                         label="审批状态"
-                        width="150">
+                        width="180">
                     <template slot-scope="scope">
                         <span class="teamName">
                             <div style="color: green" v-if="scope.row.passOrNot===1">已通过</div>
@@ -158,13 +158,13 @@
                         </span>
                     </template>
                 </el-table-column>
-                <el-table-column
-                        label="操作"
-                        width="150">
-                    <template slot-scope="scope">
-                        <el-button type="text" size="small" @click="handleVice(scope.row)">查看审批</el-button>
-                    </template>
-                </el-table-column>
+<!--                <el-table-column-->
+<!--                        label="操作"-->
+<!--                        width="150">-->
+<!--                    <template slot-scope="scope">-->
+<!--                        <el-button type="text" size="small" @click="handleVice(scope.row)">查看审批</el-button>-->
+<!--                    </template>-->
+<!--                </el-table-column>-->
             </el-table>
             <el-pagination
                     background
